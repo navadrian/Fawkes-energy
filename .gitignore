@@ -110,3 +110,11 @@ Thumbs.db
 
 # Local development
 .vercel
+
+# Playwright
+playwright-mcp.js
+screenshots/
+*.png
+test-results/
+playwright-report/
+playwright/.cache/
