@@ -57,9 +57,9 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className, 
 // --- MAIN PAGE COMPONENT ---
 export default function Home() {
   return (
-        <div className="bg-light-bg text-text-secondary-dark font-body antialiased overflow-x-hidden">
+    <div className="bg-white text-gray-900 font-body antialiased overflow-x-hidden">
       <Header />
-      <main className="snap-container">
+      <main className="relative">
         <HeroSection />
         <ProblemSection />
         <VisionSection />
@@ -95,19 +95,19 @@ function Header() {
   const navLinks = ['Problem', 'Solution', 'Products', 'About', 'Contact'];
 
   return (
-        <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-light-bg/80 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
-      <div className="container-max flex items-center justify-between py-4">
-        <div className="text-2xl font-bold font-heading text-text-primary-dark">Fawkes <span className="gradient-text">Energy</span></div>
+    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-sm shadow-sm border-b border-gray-100' : 'bg-transparent'}`}>
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between py-4">
+        <div className="text-2xl font-bold font-heading text-gray-900">Fawkes <span className="text-brand-primary">Energy</span></div>
         
         {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-6 text-text-secondary-dark">
-            {navLinks.map(link => (
-              <a key={link} href={`#${link.toLowerCase()}`} className="hover:text-ochre-dark transition-colors duration-300 font-medium">
-                {link}
-              </a>
-            ))}
+        <nav className="hidden md:flex items-center gap-8 text-gray-600">
+          {navLinks.map(link => (
+            <a key={link} href={`#${link.toLowerCase()}`} className="hover:text-brand-primary transition-colors duration-300 font-medium">
+              {link}
+            </a>
+          ))}
         </nav>
-        <a href="#contact" className="btn-primary hidden md:inline-flex">Book a Meeting</a>
+        <a href="#contact" className="bg-brand-primary text-white px-6 py-2 rounded-lg font-semibold hover:bg-brand-primary-dark transition-colors duration-300 hidden md:inline-flex">Book a Meeting</a>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
@@ -151,27 +151,31 @@ function Header() {
 
 function HeroSection() {
   return (
-    <AnimatedSection id="hero" className="snap-section">
-            <div className="content-box relative flex items-end text-text-primary-light">
-            <div className="absolute inset-0 bg-gradient-to-br from-dark-surface via-dark-surface to-dark-surface-alt" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-ochre/10 via-transparent to-transparent" />
-      <div className="absolute top-20 right-10 w-2 h-2 bg-electric-green rounded-full animate-pulse" />
-      <div className="absolute bottom-1/3 right-20 w-3 h-3 bg-neon-cyan rounded-full animate-float" />
-      
-      <motion.div className="container-max pb-16 relative z-10" variants={fadeIn}>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 font-heading leading-tight">
-            The Universal <span className="gradient-text">Operating System</span> for Batteries
+    <section id="hero" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-4xl mx-auto"
+        >
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 font-heading leading-tight text-gray-900">
+            The Universal <span className="text-brand-primary">Operating System</span> for Batteries
           </h1>
-                    <p className="text-lg md:text-xl text-text-muted-light mb-8">
+          <p className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed">
             Unlocking safety, performance, and sustainability across the entire battery lifecycle through a unified intelligence layer.
           </p>
-          <div className="flex gap-4">
-            <a href="#products" className="btn-primary">Explore Platform</a>
-            <a href="#contact" className="btn-secondary">Request Demo</a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#products" className="bg-brand-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-brand-primary-dark transition-colors duration-300 text-lg">
+              Explore Platform
+            </a>
+            <a href="#contact" className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-semibold hover:border-brand-primary hover:text-brand-primary transition-colors duration-300 text-lg">
+              Request Demo
+            </a>
           </div>
-      </motion.div>
+        </motion.div>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }
 
@@ -246,48 +250,59 @@ function ProblemSection() {
   };
 
   return (
-    <AnimatedSection id="problem" className="snap-section">
-            <div className="content-box bg-dark-surface-alt text-text-primary-light">
-      <div className="container-max">
-        <motion.div variants={fadeIn} className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left font-heading">The Problem Landscape</h2>
-                    <p className="text-lg md:text-xl text-text-muted-light max-w-3xl text-left">
+    <section id="problem" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center font-heading text-gray-900">The Problem Landscape</h2>
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto text-center leading-relaxed">
             The battery ecosystem is fragmented and opaque. Different stakeholders operate in silos, leading to massive inefficiencies and risks.
           </p>
         </motion.div>
         
-        <motion.div variants={fadeIn} className="card p-0 md:p-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="bg-gray-50 rounded-2xl p-8"
+        >
           <div 
             ref={scrollContainerRef}
             onMouseDown={handleMouseDown}
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
-            className="border-b border-dark-border flex items-center overflow-x-auto scrollbar-hide cursor-grab"
+            className="border-b border-gray-200 flex items-center overflow-x-auto scrollbar-hide cursor-grab mb-8"
           >
             <div className="relative flex"> 
               {tabs.map((tab, index) => (
                 <button 
                   key={tab.name}
                   onClick={() => setActiveTab(index)}
-                  className={`flex items-center space-x-2 whitespace-nowrap px-4 md:px-6 py-4 text-sm md:text-base font-medium transition-colors duration-300 relative ${activeTab === index ? 'text-ochre' : 'text-text-muted hover:text-text-primary'}`}>
+                  className={`flex items-center space-x-2 whitespace-nowrap px-6 py-4 text-sm md:text-base font-medium transition-colors duration-300 relative ${activeTab === index ? 'text-brand-primary' : 'text-gray-600 hover:text-gray-900'}`}>
                   {tab.icon}
                   <span>{tab.name}</span>
-                  {activeTab === index && <motion.div className="absolute bottom-0 left-0 right-0 h-0.5 bg-ochre" layoutId="underline" />}
+                  {activeTab === index && <motion.div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-primary" layoutId="underline" />}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="relative h-64 md:h-96 p-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="relative h-64 md:h-96 p-4 bg-white rounded-xl shadow-sm">
               {renderChart(chartData[activeTab])}
             </div>
             <div className="p-6 md:p-8">
               {activeTab === 0 && (
                 <div>
-                  <h4 className="font-bold text-lg mb-2 text-text-primary">For EV OEMs</h4>
-                  <ul className="list-disc list-inside space-y-2 text-text-muted">
+                  <h4 className="font-bold text-xl mb-4 text-gray-900">For EV OEMs</h4>
+                  <ul className="list-disc list-inside space-y-3 text-gray-600">
                     <li>High warranty and recall costs due to unpredictable battery failures.</li>
                     <li>Slow R&D cycles from a lack of real-world performance data.</li>
                     <li>Reputational damage from battery-related safety incidents.</li>
@@ -357,11 +372,15 @@ function ProblemSection() {
 
 function VisionSection() {
   return (
-    <AnimatedSection id="vision" className="snap-section">
-      <div className="content-box text-text-primary-light">
-      <div className="container-max">
-        <motion.div variants={fadeIn}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-heading">Vision for a Sustainable Future</h2>
+    <section id="vision" className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center font-heading text-gray-900">Vision for a Sustainable Future</h2>
         </motion.div>
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div className="relative aspect-square max-w-sm mx-auto">
@@ -400,14 +419,13 @@ function VisionSection() {
             </svg>
           </div>
           <div className="text-center md:text-left">
-                        <blockquote className="text-xl md:text-2xl italic text-text-primary-light mt-8">
-              “We envision a world where every battery is safe, efficient, and circular, powering a truly sustainable electric future.”
+            <blockquote className="text-xl md:text-2xl italic text-gray-700 mt-8 leading-relaxed">
+              "We envision a world where every battery is safe, efficient, and circular, powering a truly sustainable electric future."
             </blockquote>
           </div>
         </div>
       </div>
-      </div>
-    </AnimatedSection>
+    </section>
   );
 }
 
@@ -471,12 +489,17 @@ function ProductStackSection() {
   };
 
   return (
-    <AnimatedSection id="products" className="snap-section">
-      <div className="content-box bg-dark-surface">
-      <div className="container-max">
-        <motion.div variants={fadeIn} className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-left font-heading">The Fawkes Product Stack</h2>
-                    <p className="text-lg md:text-xl text-text-muted-light max-w-3xl text-left">
+    <section id="products" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center font-heading text-gray-900">The Fawkes Product Stack</h2>
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto text-center leading-relaxed">
             A suite of interconnected products to monitor, manage, and monetize batteries at scale.
           </p>
         </motion.div>
@@ -485,17 +508,24 @@ function ProductStackSection() {
           {products.map((product, index) => {
             const colors = colorMap[product.color] || { bg: 'bg-gray-500/10', text: 'text-gray-500' };
             return (
-              <motion.div key={index} variants={fadeIn} className="grid md:grid-cols-2 gap-8 items-center">
+              <motion.div 
+                key={index} 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="grid md:grid-cols-2 gap-12 items-center"
+              >
                 <div className={`text-left ${index % 2 !== 0 ? 'md:order-2' : ''}`}>
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="flex items-center gap-4 mb-6">
                     <div className={`w-12 h-12 rounded-full ${colors.bg} flex items-center justify-center`}>
                       {React.cloneElement(product.icon, { className: `w-6 h-6 ${colors.text}` })}
                     </div>
-                    <h4 className="text-2xl font-bold font-heading">{product.name}</h4>
+                    <h4 className="text-2xl font-bold font-heading text-gray-900">{product.name}</h4>
                   </div>
-                                    <p className="text-text-muted-light text-lg">{product.description}</p>
+                  <p className="text-gray-600 text-lg leading-relaxed">{product.description}</p>
                 </div>
-                                <div className="h-48 bg-dark-surface-alt p-4 rounded-lg border border-white/10">
+                <div className="h-48 bg-gray-50 p-6 rounded-xl border border-gray-200">
                   {product.infographic}
                 </div>
               </motion.div>
@@ -503,8 +533,7 @@ function ProductStackSection() {
           })}
         </div>
       </div>
-      </div>
-    </AnimatedSection>
+    </section>
   );
 }
 
@@ -516,29 +545,40 @@ function DifferentiatorsSection() {
   ];
 
   return (
-    <AnimatedSection id="differentiators" className="snap-section">
-      <div className="content-box text-text-primary-light">
-      <div className="container-max">
-        <motion.div variants={fadeIn} className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-heading">Our Competitive Edge</h2>
-          <p className="text-lg md:text-xl text-text-muted max-w-3xl mx-auto">
+    <section id="differentiators" className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 font-heading text-gray-900">Our Competitive Edge</h2>
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             We're not just another analytics platform. Our core differentiators create a defensible moat.
           </p>
         </motion.div>
         <div className="grid md:grid-cols-3 gap-8">
           {items.map((item, index) => (
-            <motion.div key={index} variants={fadeIn} className="card text-center">
-                            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 bg-dark-surface-alt border-2 border-white/10">
-                {React.cloneElement(item.icon, { className: 'w-8 h-8 text-ochre' })}
+            <motion.div 
+              key={index} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center"
+            >
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 bg-brand-primary/10">
+                {React.cloneElement(item.icon, { className: 'w-8 h-8 text-brand-primary' })}
               </div>
-              <h3 className="text-xl font-bold mb-2 font-heading">{item.title}</h3>
-                            <p className="text-text-muted-light">{item.description}</p>
+              <h3 className="text-xl font-bold mb-4 font-heading text-gray-900">{item.title}</h3>
+              <p className="text-gray-600 leading-relaxed">{item.description}</p>
             </motion.div>
           ))}
         </div>
       </div>
-      </div>
-    </AnimatedSection>
+    </section>
   );
 }
 
