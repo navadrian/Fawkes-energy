@@ -1,0 +1,18 @@
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/package.json b/package.json[m
+[1mindex 512ad4c..3d4506d 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -4,10 +4,9 @@[m
+   "private": true,[m
+   "scripts": {[m
+     "dev": "next dev",[m
+[31m-    "build": "next build && next export",[m
+[32m+[m[32m    "build": "next build",[m
+     "start": "next start",[m
+[31m-    "lint": "next lint",[m
+[31m-    "export": "next export"[m
+[32m+[m[32m    "lint": "next lint"[m
+   },[m
+   "dependencies": {[m
+     "chart.js": "^4.5.0",[m

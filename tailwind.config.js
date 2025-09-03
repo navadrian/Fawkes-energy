@@ -10,15 +10,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Brand Colors - Extracted from Fawkes Energy Logo
+        'brand': {
+          'primary': '#FFC300',      // Ochre from logo
+          'primary-dark': '#DAA520', // Dark ochre from logo
+          'primary-light': '#FFD700', // Light ochre variant
+        },
+        // Background Colors
         'light-bg': '#FFFFFF',
         'light-bg-alt': '#F5F5F5',
         'dark-surface': '#202020',
         'dark-surface-alt': '#333333',
         'light-border': '#E5E7EB',
+        // Legacy color names (for backward compatibility)
         'ochre': '#FFC300',
         'ochre-dark': '#DAA520',
+        // Accent Colors
         'electric-green': '#00C853',
         'neon-cyan': '#00B8D4',
+        // Text Colors
         'text-primary-dark': '#111827',
         'text-secondary-dark': '#374151',
         'text-muted-dark': '#6B7280',
