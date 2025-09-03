@@ -15,11 +15,11 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://fawkesenergy.com'),
   title: 'Fawkes Energy - Battery Intelligence for the Electric Revolution',
   description: 'Intelligent systems to monitor and model battery health across life stages. Reducing warranty costs, improving ROI prediction, and enabling circular battery economy.',
   keywords: 'battery intelligence, battery health, electric vehicles, energy storage, battery analytics, SOH, RUL, predictive modeling',
   authors: [{ name: 'Fawkes Energy' }],
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   openGraph: {
     title: 'Fawkes Energy - Battery Intelligence for the Electric Revolution',
@@ -32,6 +32,11 @@ export const metadata: Metadata = {
     title: 'Fawkes Energy - Battery Intelligence',
     description: 'Intelligent systems to monitor and model battery health across life stages.',
   },
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
