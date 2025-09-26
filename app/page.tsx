@@ -76,18 +76,13 @@ function Header() {
   const navLinks = ['Problem', 'Vision', 'Products', 'About', 'Contact'];
 
   const Logo = () => (
-    <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-3">
-      <defs>
-        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="hsl(43 87% 50%)" />
-          <stop offset="100%" stopColor="hsl(43 87% 45%)" />
-        </linearGradient>
-      </defs>
-      <circle cx="20" cy="20" r="18" fill="url(#logoGradient)" />
-      <path d="M12 20 L20 12 L28 20 L20 28 Z" fill="white" opacity="0.9" />
-      <circle cx="20" cy="20" r="6" fill="url(#logoGradient)" />
-      <path d="M16 20 L20 16 L24 20 L20 24 Z" fill="white" />
-    </svg>
+    <img 
+      src="/images/fawkes logo dark.svg" 
+      alt="Fawkes Energy Logo" 
+      width="120" 
+      height="32" 
+      className="mr-3"
+    />
   );
 
   return (
@@ -95,9 +90,6 @@ function Header() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between py-3">
         <div className="flex items-center">
           <Logo />
-          <div className="text-xl font-semibold font-heading text-foreground">
-            Fawkes <span className="text-primary">Energy</span>
-          </div>
         </div>
 
         {/* Desktop Navigation */}
@@ -377,26 +369,26 @@ function VisionSection() {
           <svg viewBox="0 0 400 400" className="w-full h-full">
             <defs>
               <radialGradient id="core-gradient">
-                <stop offset="0%" stopColor="hsl(43 87% 50%)" />
-                <stop offset="100%" stopColor="hsl(43 87% 45%)" />
+                <stop offset="0%" stopColor="hsl(var(--primary))" />
+                <stop offset="100%" stopColor="hsl(var(--primary) / 0.8)" />
               </radialGradient>
             </defs>
             <circle cx="200" cy="200" r="40" fill="url(#core-gradient)" />
             <text x="200" y="205" textAnchor="middle" fill="white" fontSize="18" className="font-heading font-semibold">Vision</text>
-            <ellipse cx="200" cy="200" rx="160" ry="60" stroke="hsl(43 87% 50%)" strokeWidth="1" strokeOpacity="0.3" fill="none" transform="rotate(30 200 200)" />
-            <ellipse cx="200" cy="200" rx="160" ry="60" stroke="hsl(43 87% 50%)" strokeWidth="1" strokeOpacity="0.3" fill="none" transform="rotate(-30 200 200)" />
-            <ellipse cx="200" cy="200" rx="110" ry="140" stroke="hsl(43 87% 50%)" strokeWidth="1" strokeOpacity="0.3" fill="none" />
+            <ellipse cx="200" cy="200" rx="160" ry="60" stroke="hsl(var(--primary))" strokeWidth="1" strokeOpacity="0.3" fill="none" transform="rotate(30 200 200)" />
+            <ellipse cx="200" cy="200" rx="160" ry="60" stroke="hsl(var(--primary))" strokeWidth="1" strokeOpacity="0.3" fill="none" transform="rotate(-30 200 200)" />
+            <ellipse cx="200" cy="200" rx="110" ry="140" stroke="hsl(var(--primary))" strokeWidth="1" strokeOpacity="0.3" fill="none" />
 
             <g>
-              <circle cx="200" cy="60" r="6" fill="hsl(43 87% 50%)"/>
+              <circle cx="200" cy="60" r="6" fill="hsl(var(--primary))"/>
               <text x="200" y="40" textAnchor="middle" fill="hsl(220 9% 46%)" fontSize="12" className="font-medium">Circular</text>
             </g>
             <g transform="rotate(120 200 200)">
-              <circle cx="200" cy="60" r="6" fill="hsl(43 87% 50%)"/>
+              <circle cx="200" cy="60" r="6" fill="hsl(var(--primary))"/>
               <text x="200" y="40" textAnchor="middle" fill="hsl(220 9% 46%)" fontSize="12" className="font-medium">Efficient</text>
             </g>
             <g transform="rotate(240 200 200)">
-              <circle cx="200" cy="60" r="6" fill="hsl(43 87% 50%)"/>
+              <circle cx="200" cy="60" r="6" fill="hsl(var(--primary))"/>
               <text x="200" y="40" textAnchor="middle" fill="hsl(220 9% 46%)" fontSize="12" className="font-medium">Safe</text>
             </g>
           </svg>
