@@ -94,3 +94,15 @@
     }
   }
 }
+
+/* Scroll Snap Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  main {
+    scroll-snap-type: none !important;
+    scroll-behavior: auto !important;
+  }
+  
+  section {
+    scroll-snap-align: none !important;
+  }
+}

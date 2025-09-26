@@ -1,8 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import {
   Battery, Zap, Shield, TrendingUp, Recycle, Brain, BarChart3, Users, Mail,
   ChevronDown, ArrowRight, Cpu, Database, RefreshCw, CheckCircle,
@@ -35,14 +34,13 @@ const fadeIn = {
 
 // --- HELPER COMPONENTS ---
 const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className, id }) => {
-  const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   return (
     <motion.section
       id={id}
-      ref={ref}
       className={className}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
+      style={{ scrollSnapAlign: 'start' }}
+      initial="visible"
+      animate="visible"
       variants={fadeIn}
     >
       {children}
@@ -50,12 +48,37 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className, 
   );
 };
 
+// --- SCROLL PROGRESS INDICATOR ---
+const ScrollProgressIndicator = ({ container }: { container?: React.RefObject<HTMLElement> }) => {
+  const { scrollYProgress } = useScroll({ 
+    container: container?.current ? { current: container.current } : undefined 
+  });
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-1 bg-primary z-50"
+      style={{
+        scaleX,
+        transformOrigin: "0%"
+      }}
+    />
+  );
+};
+
 // --- MAIN PAGE COMPONENT ---
 export default function Home() {
+  const mainRef = useRef<HTMLElement>(null);
+  
   return (
     <div className="min-h-screen bg-background font-body antialiased">
+      <ScrollProgressIndicator container={mainRef} />
       <Header />
-      <main>
+      <main ref={mainRef} className="h-screen overflow-y-auto scroll-smooth" style={{ scrollSnapType: 'y mandatory' }}>
         <HeroSection />
         <ProblemSection />
         <VisionSection />
@@ -171,7 +194,7 @@ function HeroSection() {
         <div className="relative h-full flex items-end justify-start p-8 md:p-12">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading leading-tight text-white">
-              The Universal <span className="text-primary">Operating System</span> for Batteries
+              Deep Tech Battery Intelligence
             </h1>
             <p className="text-lg text-white/90 leading-relaxed">
               Unlocking safety, performance, and sustainability across the entire battery lifecycle through a unified intelligence layer.
@@ -187,6 +210,7 @@ function HeroSection() {
 function ProblemSection() {
   const [activeTab, setActiveTab] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const chartContainerRef = useRef<HTMLDivElement>(null);
 
   const chartData: ChartConfig[] = [
     {
@@ -283,29 +307,112 @@ function ProblemSection() {
     const commonOptions: ChartOptions<any> = {
       responsive: true,
       maintainAspectRatio: false,
+      animation: {
+        duration: 0, // Disable animations to prevent size jumping
+        resize: {
+          duration: 0 // Also disable resize animations
+        }
+      },
+      interaction: {
+        intersect: false // Improve performance
+      },
       plugins: {
-        legend: { labels: { color: 'hsl(220 9% 46%)' } },
+        legend: { 
+          labels: { 
+            color: 'hsl(220 9% 46%)',
+            usePointStyle: true,
+            padding: 12
+          },
+          position: 'bottom',
+          align: 'center'
+        },
         title: { display: false },
         datalabels: { display: false }
       },
-      scales: {
-        x: { ticks: { color: 'hsl(220 9% 46%)' }, grid: { color: 'hsl(220 13% 91%)' } },
-        y: { ticks: { color: 'hsl(220 9% 46%)' }, grid: { color: 'hsl(220 13% 91%)' } }
+      scales: chart.type !== 'Doughnut' ? {
+        x: { 
+          ticks: { color: 'hsl(220 9% 46%)' }, 
+          grid: { color: 'hsl(220 13% 91%)' }
+        },
+        y: { 
+          ticks: { color: 'hsl(220 9% 46%)' }, 
+          grid: { color: 'hsl(220 13% 91%)' }
+        }
+      } : undefined,
+      layout: {
+        padding: {
+          top: 10,
+          bottom: 10,
+          left: 10,
+          right: 10
+        }
+      },
+      // Force consistent sizing
+      aspectRatio: undefined,
+      resizeDelay: 0,
+      // Additional responsive sizing controls
+      devicePixelRatio: 1,
+      elements: {
+        point: {
+          radius: 3
+        }
       }
     };
 
-    const mergedOptions = chart.options ? { ...commonOptions, ...chart.options } : commonOptions;
+    // Force exact dimensions through Chart.js options
+    const mergedOptions = chart.options ? { 
+      ...chart.options, 
+      ...commonOptions,
+      // CRITICAL: Disable responsive and set explicit size
+      responsive: false,
+      maintainAspectRatio: false,
+      aspectRatio: undefined,
+      devicePixelRatio: 1,
+      // Disable all resizing behavior
+      resizeDelay: 0,
+      onResize: null,
+      // Force exact pixel dimensions in Chart.js
+      layout: {
+        ...chart.options.layout,
+        ...commonOptions.layout
+      },
+      plugins: {
+        ...chart.options.plugins,
+        legend: {
+          ...chart.options.plugins?.legend,
+          ...commonOptions.plugins?.legend
+        }
+      }
+    } : {
+      ...commonOptions,
+      responsive: false,
+      maintainAspectRatio: false,
+      aspectRatio: undefined,
+      devicePixelRatio: 1,
+      resizeDelay: 0,
+      onResize: null
+    };
+
+    // Force exact dimensions via props when responsive is false
+    const chartKey = `${chart.type.toLowerCase()}-${activeTab}`;
+    const chartProps = {
+      data: chart.data,
+      options: mergedOptions,
+      width: 350,
+      height: 280,
+      redraw: true
+    };
 
     switch (chart.type) {
-      case 'Bar': return <Bar data={chart.data} options={mergedOptions} />;
-      case 'Line': return <Line data={chart.data} options={mergedOptions} />;
-      case 'Doughnut': return <Doughnut data={chart.data} options={mergedOptions} />;
+      case 'Bar': return <Bar key={chartKey} {...chartProps} />;
+      case 'Line': return <Line key={chartKey} {...chartProps} />;
+      case 'Doughnut': return <Doughnut key={chartKey} {...chartProps} />;
       default: return null;
     }
   };
 
   return (
-    <AnimatedSection id="problem" className="py-16">
+    <AnimatedSection id="problem" className="min-h-screen flex items-center py-16">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">The Problem Landscape</h2>
@@ -314,10 +421,11 @@ function ProblemSection() {
           </p>
         </div>
 
-        <div className="bg-secondary/50 border border-border rounded-lg p-6">
+        {/* Unified Card Container - Fixed Width */}
+        <div className="bg-secondary/50 border border-border rounded-lg overflow-hidden mx-auto" style={{ width: '900px' }}>
           {/* Tab Navigation */}
-          <div className="border-b border-border mb-6">
-            <div className="flex space-x-8 overflow-x-auto">
+          <div className="border-b border-border">
+            <div className="flex space-x-8 overflow-x-auto px-6 py-4">
               {tabs.map((tab, index) => (
                 <button
                   key={tab.name}
@@ -335,21 +443,30 @@ function ProblemSection() {
             </div>
           </div>
 
-          {/* Content */}
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="h-64 p-4 bg-background border border-border rounded-lg">
-              {renderChart(chartData[activeTab])}
+          {/* Horizontal Layout - Chart on Left, Text on Right */}
+          <div className="h-96 flex">
+            {/* Chart Section - Fixed Width */}
+            <div className="flex-shrink-0 bg-background border-r border-border flex items-center justify-center" style={{ width: '420px' }}>
+              <div ref={chartContainerRef} className="p-6" style={{ width: '350px', height: '280px', minWidth: '350px', minHeight: '280px', maxWidth: '350px', maxHeight: '280px' }}>
+                {renderChart(chartData[activeTab])}
+              </div>
             </div>
-            <div className="space-y-4">
-              <h4 className="font-semibold text-lg text-foreground">For {tabs[activeTab].name}</h4>
-              <ul className="space-y-3">
-                {painPoints[activeTab].map((point, index) => (
-                  <li key={index} className="flex items-start text-sm text-muted-foreground leading-relaxed">
-                    <span className="text-primary mr-2 mt-1 text-xs">•</span>
-                    {point}
-                  </li>
-                ))}
-              </ul>
+            
+            {/* Content Section - Takes Remaining Space */}
+            <div className="flex-1 p-6 flex flex-col justify-start overflow-y-auto">
+              <h4 className="font-semibold text-lg text-foreground mb-4 flex-shrink-0">
+                For {tabs[activeTab].name}
+              </h4>
+              <div className="flex-1 overflow-y-auto">
+                <ul className="space-y-3">
+                  {painPoints[activeTab].map((point, index) => (
+                    <li key={index} className="flex items-start text-sm text-muted-foreground leading-relaxed">
+                      <span className="text-primary mr-2 mt-1 text-xs flex-shrink-0">•</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -361,7 +478,7 @@ function ProblemSection() {
 // --- VISION SECTION ---
 function VisionSection() {
   return (
-    <AnimatedSection id="vision" className="py-16 bg-secondary/30">
+    <AnimatedSection id="vision" className="min-h-screen flex items-center py-16 bg-secondary/30">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <h2 className="text-3xl font-bold mb-6 font-heading text-foreground">Vision for a Sustainable Future</h2>
 
@@ -423,7 +540,7 @@ function ProductStackSection() {
   ];
 
   return (
-    <AnimatedSection id="products" className="py-16">
+    <AnimatedSection id="products" className="min-h-screen flex items-center py-16">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">The Fawkes Product Stack</h2>
@@ -464,7 +581,7 @@ function DifferentiatorsSection() {
   ];
 
   return (
-    <AnimatedSection id="differentiators" className="py-16 bg-secondary/30">
+    <AnimatedSection id="differentiators" className="min-h-screen flex items-center py-16 bg-secondary/30">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">Our Competitive Edge</h2>
@@ -499,7 +616,7 @@ function ValueDeliveredSection() {
   ];
 
   return (
-    <AnimatedSection id="value" className="py-16">
+    <AnimatedSection id="value" className="min-h-screen flex items-center py-16">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">Tangible Value, Delivered</h2>
@@ -527,7 +644,7 @@ function ValueDeliveredSection() {
 // --- ABOUT SECTION ---
 function AboutSection() {
   return (
-    <AnimatedSection id="about" className="py-16 bg-secondary/30">
+    <AnimatedSection id="about" className="min-h-screen flex items-center py-16 bg-secondary/30">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">We Are Battery People</h2>
@@ -579,7 +696,7 @@ function ContactSection() {
   };
 
   return (
-    <AnimatedSection id="contact" className="py-16">
+    <AnimatedSection id="contact" className="min-h-screen flex items-center py-16">
       <div className="max-w-2xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">Get in Touch</h2>
