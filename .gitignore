@@ -118,3 +118,10 @@ screenshots/
 test-results/
 playwright-report/
 playwright/.cache/
+
+# Large video files (keep only compressed versions)
+videos/
+!videos/.gitkeep
+
+# Temporary files
+serve.js

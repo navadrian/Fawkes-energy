@@ -158,23 +158,33 @@ function Header() {
 // --- HERO SECTION ---
 function HeroSection() {
   return (
-    <AnimatedSection id="hero" className="min-h-screen flex items-center justify-center pt-16">
-      <div className="w-full max-w-4xl px-6 text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading leading-tight text-foreground">
-          The Universal <span className="text-primary">Operating System</span> for Batteries
-        </h1>
-        <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
-          Unlocking safety, performance, and sustainability across the entire battery lifecycle through a unified intelligence layer.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="#products"
-             className="bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors duration-200">
-            Explore Platform
-          </a>
-          <a href="#contact"
-             className="border border-border text-foreground px-6 py-3 rounded-md font-medium hover:bg-accent hover:text-accent-foreground transition-colors duration-200">
-            Request Demo
-          </a>
+    <AnimatedSection id="hero" className="min-h-screen flex items-center justify-center pt-16 px-6">
+      <div className="relative w-full max-w-6xl h-[80vh] overflow-hidden rounded-lg shadow-2xl">
+        {/* Video Background */}
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/videos/battery-blueprint-3.webm" type="video/webm" />
+          <source src="/videos/battery-blueprint-3.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        
+        {/* Content */}
+        <div className="relative h-full flex items-end justify-start p-8 md:p-12">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading leading-tight text-white">
+              The Universal <span className="text-primary">Operating System</span> for Batteries
+            </h1>
+            <p className="text-lg text-white/90 leading-relaxed">
+              Unlocking safety, performance, and sustainability across the entire battery lifecycle through a unified intelligence layer.
+            </p>
+          </div>
         </div>
       </div>
     </AnimatedSection>
