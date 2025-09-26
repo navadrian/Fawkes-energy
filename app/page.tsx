@@ -5,7 +5,7 @@ import { motion, useScroll, useSpring } from 'framer-motion'
 import {
   Battery, Zap, Shield, TrendingUp, Recycle, Brain, BarChart3, Users, Mail,
   ChevronDown, ArrowRight, Cpu, Database, RefreshCw, CheckCircle,
-  Building, Phone, Menu, X
+  Building, Phone, Menu, X, AlertCircle
 } from 'lucide-react'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, Filler, ChartOptions, ChartData } from 'chart.js';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
@@ -238,7 +238,7 @@ function ProblemSection() {
         plugins: {
           title: {
             display: true,
-            text: 'CY2021 Vehicle Claim Share by Model Year',
+            text: 'EV vs Non-EV Claims by Model Year (CY2021)',
             font: { size: 14, weight: 'normal' }
           },
           legend: { display: true, position: 'top' },
@@ -260,21 +260,108 @@ function ProblemSection() {
         datasets: [{
           label: 'Downtime Events',
           data: [25, 32, 45, 40],
-          borderColor: 'hsl(43 87% 50%)',
-          backgroundColor: 'hsl(43 87% 50% / 0.1)',
+          borderColor: 'hsl(37 100% 48%)',
+          backgroundColor: 'hsl(37 100% 48% / 0.1)',
           tension: 0.3,
           fill: true
         }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Fleet Downtime Events (Quarterly)',
+            font: { size: 14, weight: 'normal' }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
       }
     },
     {
       type: 'Doughnut',
       data: {
-        labels: ['High-Risk', 'Medium-Risk', 'Low-Risk'],
+        labels: ['High-Risk Assets', 'Medium-Risk', 'Low-Risk'],
         datasets: [{
           data: [55, 30, 15],
-          backgroundColor: ['hsl(0 84% 60%)', 'hsl(43 87% 50%)', 'hsl(220 14% 96%)']
+          backgroundColor: ['hsl(0 84% 60%)', 'hsl(37 100% 48%)', 'hsl(142 76% 36%)']
         }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Asset Risk Distribution',
+            font: { size: 14, weight: 'normal' }
+          }
+        }
+      }
+    },
+    {
+      type: 'Bar',
+      data: {
+        labels: ['Formal Recycling', 'Informal Processing', 'Reuse/Repurpose'],
+        datasets: [{
+          label: 'Value ($B)',
+          data: [1.2, 0.8, 1.5],
+          backgroundColor: ['hsl(142 76% 36%)', 'hsl(0 84% 60%)', 'hsl(37 100% 48%)'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Circular Economy Value Streams',
+            font: { size: 14, weight: 'normal' }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    },
+    {
+      type: 'Line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Maintenance Cost ($k)',
+          data: [45, 52, 38, 41, 33, 29],
+          borderColor: 'hsl(37 100% 48%)',
+          backgroundColor: 'hsl(37 100% 48% / 0.1)',
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'BESS Maintenance Costs',
+            font: { size: 14, weight: 'normal' }
+          }
+        }
+      }
+    },
+    {
+      type: 'Doughnut',
+      data: {
+        labels: ['Fast Charging', 'Standard Charging', 'Smart Charging'],
+        datasets: [{
+          data: [40, 35, 25],
+          backgroundColor: ['hsl(0 84% 60%)', 'hsl(37 100% 48%)', 'hsl(142 76% 36%)']
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Charging Method Distribution',
+            font: { size: 14, weight: 'normal' }
+          }
+        }
       }
     }
   ];
@@ -283,25 +370,87 @@ function ProblemSection() {
     { name: 'EV OEMs', icon: <Shield className="w-4 h-4" /> },
     { name: 'Fleet Operators', icon: <Users className="w-4 h-4" /> },
     { name: 'Financiers', icon: <BarChart3 className="w-4 h-4" /> },
+    { name: 'Recyclers', icon: <Recycle className="w-4 h-4" /> },
+    { name: 'BESS Operators', icon: <Battery className="w-4 h-4" /> },
+    { name: 'CPOs', icon: <Zap className="w-4 h-4" /> },
   ];
 
-  const painPoints = [
-    [
-      'High warranty and recall costs due to unpredictable battery failures',
-      'Slow R&D cycles from a lack of real-world performance data',
-      'Reputational damage from battery-related safety incidents'
-    ],
-    [
-      'Unexpected vehicle downtime impacting operations and revenue',
-      'Suboptimal charging strategies leading to accelerated battery degradation',
-      'Uncertainty in vehicle residual values due to unknown battery health'
-    ],
-    [
-      'Limited credit histories and high upfront EV costs',
-      'Outdated ICE-style templates and limited performance data',
-      'No traceability of battery health for asset recovery'
-    ]
+  const painPointsData = [
+    {
+      title: 'EV OEMs',
+      subtitle: 'Insurance Claims & Warranty Risk',
+      keyInsight: 'Recent U.S. data shows a sharp rise in EV insurance claims, driven largely by the vulnerability of batteries to damage. Without deeper visibility into battery health and intelligence, managing this risk remains a significant challenge.',
+      dataPoint: 'Insurance premiums are 26% higher for EVs than ICE vehicles',
+      source: 'Euromonitor, CCC Report',
+      painPoints: [
+        'High warranty and recall costs due to unpredictable battery failures',
+        'Slow R&D cycles from a lack of real-world performance data', 
+        'Reputational damage from battery-related safety incidents'
+      ]
+    },
+    {
+      title: 'Fleet Operators',
+      subtitle: 'Capacity Cliffs & Downtime Risk',
+      keyInsight: 'Lithium-ion batteries don\'t always degrade gradually—sometimes they face abrupt "capacity cliffs," with losses of up to 20% in just a few charge cycles. This sudden drop can cause unexpected range loss or vehicle downtime, creating major risks for EV fleets.',
+      dataPoint: 'Up to 20% capacity loss in just a few charge cycles',
+      source: 'Battery degradation studies',
+      painPoints: [
+        'Unexpected vehicle downtime impacting operations and revenue',
+        'Suboptimal charging strategies leading to accelerated battery degradation',
+        'Uncertainty in vehicle residual values due to unknown battery health'
+      ]
+    },
+    {
+      title: 'Financiers',
+      subtitle: 'Secondary Market Barriers',
+      keyInsight: 'The secondary market for EV lithium-ion batteries is still at a very early stage. A key barrier is the inability to accurately assess the remaining usable life of a battery. With limited visibility into battery health, diagnostics, and technology, there is little assurance of quality or performance.',
+      dataPoint: 'India could build a $3.5 billion circular battery economy by 2030',
+      source: 'ICEA–Accenture Report',
+      painPoints: [
+        'Limited credit histories and high upfront EV costs',
+        'Outdated ICE-style templates and limited performance data',
+        'No traceability of battery health for asset recovery'
+      ]
+    },
+    {
+      title: 'Recyclers',
+      subtitle: 'Circular Economy Potential',
+      keyInsight: 'According to a recent ICEA–Accenture report, India could build a $3.5 billion domestic circular battery economy by 2030, driven by EVs and energy storage. Achieving this potential depends on reliable battery diagnostics. Without accurate data, batteries risk being diverted into informal, low-value processing instead of powering high-value reuse and recycling.',
+      dataPoint: '$3.5 billion circular battery economy potential by 2030',
+      source: 'ICEA–Accenture Report',
+      painPoints: [
+        'Lack of standardized battery health assessment protocols',
+        'Risk of batteries entering informal, low-value processing chains',
+        'Inability to optimize recycling processes without battery intelligence'
+      ]
+    },
+    {
+      title: 'BESS Operators',
+      subtitle: 'Predictive Maintenance Challenges',
+      keyInsight: 'For BESS operators, predictive maintenance enables early fault detection, reducing downtime, lowering costs, and improving ROI over time. But this is only possible with advanced battery intelligence. Without it, operators are stuck with reactive maintenance—driving up costs and operational risks.',
+      dataPoint: 'Predictive maintenance can reduce costs by 20-30%',
+      source: 'Energy storage studies',
+      painPoints: [
+        'Reactive maintenance leading to unexpected downtime',
+        'Inability to optimize energy storage performance',
+        'Higher operational costs due to lack of predictive insights'
+      ]
+    },
+    {
+      title: 'CPOs',
+      subtitle: 'Charging Infrastructure Optimization',
+      keyInsight: 'Charge Point Operators face challenges in optimizing charging infrastructure without visibility into battery health patterns. Understanding battery degradation and charging behavior is crucial for network planning and customer experience.',
+      dataPoint: 'Optimized charging can extend battery life by 15-25%',
+      source: 'Charging infrastructure studies',
+      painPoints: [
+        'Suboptimal charging strategies affecting customer satisfaction',
+        'Inability to predict and prevent charging infrastructure failures',
+        'Limited insights into customer battery health and charging patterns'
+      ]
+    }
   ];
+
+  const painPoints = painPointsData.map(data => data.painPoints);
 
   const renderChart = (chart: ChartConfig) => {
     const commonOptions: ChartOptions<any> = {
@@ -454,10 +603,34 @@ function ProblemSection() {
             
             {/* Content Section - Takes Remaining Space */}
             <div className="flex-1 p-6 flex flex-col justify-start overflow-y-auto">
-              <h4 className="font-semibold text-lg text-foreground mb-4 flex-shrink-0">
-                For {tabs[activeTab].name}
-              </h4>
+              <div className="flex-shrink-0 mb-6">
+                <h4 className="text-xl font-semibold text-foreground mb-2">
+                  {painPointsData[activeTab].title}
+                </h4>
+                <p className="text-sm font-medium text-primary mb-3">
+                  {painPointsData[activeTab].subtitle}
+                </p>
+                
+                {/* Key Insight */}
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-4">
+                  <p className="text-sm text-foreground/80 leading-relaxed mb-3">
+                    {painPointsData[activeTab].keyInsight}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="bg-primary/10 px-3 py-1 rounded-full">
+                      <p className="text-xs font-semibold text-primary">
+                        {painPointsData[activeTab].dataPoint}
+                      </p>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Source: {painPointsData[activeTab].source}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
               <div className="flex-1 overflow-y-auto">
+                <h5 className="text-sm font-semibold text-foreground mb-3">Key Challenges</h5>
                 <ul className="space-y-3">
                   {painPoints[activeTab].map((point, index) => (
                     <li key={index} className="flex items-start text-sm text-muted-foreground leading-relaxed">
