@@ -1,113 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-@import './design-tokens.css';
-/* stylelint-disable tailwindcss/at-rule-no-unknown */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Dark mode always - Yellow theme */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 47.9 95.8% 53.1%;
+    --primary-foreground: 26 83.3% 14.1%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 47.9 95.8% 53.1%;
+    --chart-1: 47.9 95.8% 53.1%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
   html {
     scroll-behavior: smooth;
   }
-  
-      body {
-    @apply bg-light-bg text-text-secondary-dark font-body antialiased;
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
     overflow-x: hidden;
   }
 
-  .snap-container {
-    @apply h-screen overflow-y-scroll snap-y snap-mandatory;
-  }
-
-    h1, h2, h3, h4, h5, h6 {
-    @apply font-heading text-text-primary-dark;
-  }
-}
-
-@layer components {
-  .section-padding {
-    @apply py-16 px-4 sm:py-24 sm:px-6 lg:px-8;
-  }
-
-  .snap-section {
-    @apply h-screen w-screen snap-start flex items-center justify-center p-4 sm:p-6 md:p-8;
-  }
-
-    .content-box {
-    @apply bg-dark-surface text-text-secondary-light rounded-2xl w-full h-full max-w-7xl max-h-[90vh] p-6 md:p-8 overflow-y-auto scrollbar-hide;
-  }
-
-  .container-max {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-  
-  .gradient-text {
-    @apply bg-gradient-to-r from-ochre to-ochre-dark bg-clip-text text-transparent;
-  }
-  
-  .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-custom-lg font-semibold transition-all duration-300;
-  }
-
-  .btn-primary {
-    @apply btn bg-ochre text-text-primary-dark font-bold hover:bg-ochre-dark hover:scale-105;
-  }
-
-  .btn-secondary {
-    @apply btn bg-light-bg-alt text-text-primary-dark border border-light-border hover:bg-gray-200;
-  }
-  
-  .card {
-    @apply bg-light-bg-alt border border-light-border rounded-custom-lg p-6 transition-all duration-300 hover:border-ochre/30 hover:-translate-y-1;
-  }
-  
-  .form-input {
-    @apply w-full bg-light-bg-alt border border-light-border rounded-custom px-4 py-3 text-text-primary-dark placeholder-text-muted-dark focus:ring-2 focus:ring-ochre focus:border-ochre transition-all duration-300 focus:outline-none;
-  }
-
-  .tab {
-    @apply px-4 py-2 font-semibold text-text-muted-dark hover:text-text-primary-dark transition-colors duration-300 relative;
-  }
-
-  .tab.active {
-    @apply text-ochre-dark;
-  }
-
-  .tab.active::after {
-    content: '';
-    @apply absolute bottom-0 left-0 right-0 h-0.5 bg-ochre-dark;
-  }
-
-  .tab-button {
-    @apply py-4 px-6 cursor-pointer bg-transparent border-none text-text-muted-dark font-medium relative whitespace-nowrap transition-colors duration-300;
-  }
-
-  .tab-button.active {
-    @apply text-ochre-dark;
-  }
-
-  .tab-button::after {
-    content: '';
-    @apply absolute bottom-[-1px] left-0 w-full h-[2px] bg-ochre scale-x-0 transition-transform duration-300;
-  }
-
-  .tab-button.active::after {
-    @apply scale-x-100;
-  }
-
-  .tab-content {
-      @apply hidden;
-  }
-
-  .tab-content.active {
-      @apply block;
-      animation: fadeIn 0.5s ease-in-out;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-foreground;
   }
 }
 
 @layer utilities {
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  .scrollbar-hide {
+    /* IE and Edge */
+    -ms-overflow-style: none;
+
+    /* Firefox */
+    scrollbar-width: none;
+
+    /* Safari and Chrome */
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }

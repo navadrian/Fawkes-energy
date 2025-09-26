@@ -1,0 +1,46 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website\\app/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website\\app/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website\\app/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website\\app/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website\\app/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website/**)",
+      "Bash(npm run dev:*)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website\\.claude/**)",
+      "Read(/C:\\Users\\navad\\CascadeProjects\\personal-website\\.claude/**)",
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "WebFetch(domain:ui.shadcn.com)",
+      "Bash(npx:*)",
+      "Bash(pkill:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "allowedTools": [
+      "Task",
+      "Bash",
+      "Bash(git log:*)",
+      "Glob",
+      "Grep",
+      "Read",
+      "Edit",
+      "MultiEdit",
+      "Write",
+      "WebFetch",
+      "WebSearch"
+    ]
+  }
+}

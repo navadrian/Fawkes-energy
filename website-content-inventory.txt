@@ -1,0 +1,238 @@
+FAWKES ENERGY WEBSITE - CONTENT INVENTORY
+==========================================
+
+COMPANY BRANDING
+================
+Company Name: Fawkes Energy
+Tagline: "Powering the future, intelligently."
+Copyright: Fawkes Energy Inc. All rights reserved.
+
+NAVIGATION STRUCTURE
+===================
+Main Navigation Links:
+- Problem
+- Vision
+- Products
+- About
+- Contact
+
+Call-to-Action Buttons:
+- "Book a Meeting" (header)
+- "Explore Platform" (hero)
+- "Request Demo" (hero)
+- "Send Message" (contact form)
+
+SECTION 1: HERO
+===============
+Headline: "The Universal Operating System for Batteries"
+Subheading: "Unlocking safety, performance, and sustainability across the entire battery lifecycle through a unified intelligence layer."
+
+SECTION 2: PROBLEM LANDSCAPE
+============================
+Main Heading: "The Problem Landscape"
+Description: "The battery ecosystem is fragmented and opaque. Different stakeholders operate in silos, leading to massive inefficiencies and risks."
+
+Stakeholder Categories (6 tabs):
+1. EV OEMs
+2. Fleet Operators
+3. Financiers
+4. BESS Developers
+5. Recyclers
+6. Charge Point Operators
+
+STAKEHOLDER PAIN POINTS:
+
+EV OEMs:
+- High warranty and recall costs due to unpredictable battery failures
+- Slow R&D cycles from a lack of real-world performance data
+- Reputational damage from battery-related safety incidents
+
+Fleet Operators:
+- Unexpected vehicle downtime impacting operations and revenue
+- Suboptimal charging strategies leading to accelerated battery degradation
+- Uncertainty in vehicle residual values due to unknown battery health
+
+Financiers:
+EV Financing Funnel & Pain Points (4 stages):
+
+Stage 1 - Origination:
+- Many buyers lack credit histories
+- High upfront EV cost
+
+Stage 2 - Risk Assessment:
+- No secondary market
+- Outdated ICE-style templates
+- Limited performance data on EVs
+
+Stage 3 - Monitoring:
+- Reluctance to share IoT data
+- Limited technician/service network
+
+Stage 4 - Recovery:
+- No traceability of battery health
+- No centralized usage/battery database
+
+Overall Impact: These interconnected challenges create significant barriers to efficient EV financing, limiting market growth and increasing costs for all stakeholders in the battery ecosystem.
+
+BESS Developers:
+- Performance degradation faster than projected, affecting project ROI
+- Safety risks associated with thermal runaway events in large-scale systems
+- Inefficient grid augmentation strategies due to poor battery state awareness
+
+Recyclers:
+- Inaccurate State-of-Health (SOH) data leading to undervalued assets
+- Contamination risks from improperly handled high-voltage batteries
+- Inefficient sorting processes for second-life applications vs. raw material recovery
+
+Charge Point Operators:
+- Unpredictable charger downtime from hardware faults and software glitches
+- High operational costs from peak demand charges and grid instability
+- Lack of visibility into the health of batteries being charged, leading to inefficient charging cycles
+
+CHART DATA:
+
+Chart 1 - EV Claims Data (Bar Chart):
+Title: "CY2021 Vehicle Claim Share by Model Year and Fuel Type"
+X-axis: Model Years (MY2011 through MY2022)
+Y-axis: Claim Percentage (0-25%)
+
+EV Claims Data:
+MY2011: 0.2%, MY2012: 0.5%, MY2013: 2.2%, MY2014: 2.3%, MY2015: 3.7%, MY2016: 5.2%, MY2017: 6.8%, MY2018: 18.8%, MY2019: 15.7%, MY2020: 23.2%, MY2021: 21.1%, MY2022: 0.3%
+
+Non-EV Claims Data:
+MY2011: 3.6%, MY2012: 4.5%, MY2013: 5.5%, MY2014: 6.1%, MY2015: 7.2%, MY2016: 7.5%, MY2017: 8.2%, MY2018: 7.7%, MY2019: 7.9%, MY2020: 6.4%, MY2021: 3.9%, MY2022: 0.2%
+
+Chart 2 - Fleet Downtime (Line Chart):
+Title: "Downtime Events Per Quarter"
+Data Points: Q1: 25, Q2: 32, Q3: 45, Q4: 40
+
+Chart 3 - Current Risk Profile (Doughnut Chart):
+Title: "Current Asset Risk Profile (Without Fawkes)"
+Data: High-Risk: 55%, Medium-Risk: 30%, Low-Risk: 15%
+
+Chart 4 - SOH Prediction (Bar Chart):
+Title: "State-of-Health (SOH) Prediction vs. Reality"
+Year 1: Predicted SOH 98%, Actual SOH 97%
+Year 5: Predicted SOH 85%, Actual SOH 78%
+Year 10: Predicted SOH 65%, Actual SOH 52%
+
+Chart 5 - Battery End-of-Life (Doughnut Chart):
+Title: "End-of-Life Battery Fate"
+Data: Landfilled: 40%, Recycled (Low-Value): 50%, Remanufactured: 10%
+
+Chart 6 - CPO Revenue Loss (Bar Chart):
+Title: "CPO Revenue Loss Sources"
+Y-axis: Annual Lost Revenue (kUSD)
+Data: Charger Downtime: 250, Grid Fees: 150, Battery Degradation Impact: 100
+
+SECTION 3: VISION
+=================
+Heading: "Vision for a Sustainable Future"
+Quote: "We envision a world where every battery is safe, efficient, and circular, powering a truly sustainable electric future."
+
+Vision Elements (3 orbital concepts):
+- Circular
+- Efficient
+- Safe
+
+SECTION 4: PRODUCT STACK
+========================
+Heading: "The Fawkes Product Stack"
+Description: "A suite of interconnected products to monitor, manage, and monetize batteries at scale."
+
+Product 1: FawkesLink
+Description: "Our universal hardware interface plugs into any battery system, capturing high-fidelity data in real-time."
+
+Product 2: FawkesCore
+Description: "The AI-powered brain of our platform. It processes data to deliver predictive analytics, state-of-health monitoring, and optimization strategies."
+
+Product 3: FawkesLoop
+Description: "A data-driven marketplace connecting end-of-life batteries with second-life applications and certified recyclers, closing the loop."
+
+SECTION 5: COMPETITIVE DIFFERENTIATORS
+=====================================
+Heading: "Our Competitive Edge"
+Description: "We're not just another analytics platform. Our core differentiators create a defensible moat."
+
+Differentiator 1: Physics-Based AI
+Description: "Models grounded in electrochemical reality, not just correlation."
+
+Differentiator 2: Real-World Data
+Description: "Calibrated with empirical data from millions of battery cycles."
+
+Differentiator 3: Hardware Agnostic
+Description: "Universal compatibility across battery types, chemistries, and manufacturers."
+
+SECTION 6: VALUE DELIVERED
+==========================
+Heading: "Tangible Value, Delivered"
+Description: "Our intelligence translates into measurable improvements for your bottom line and operational efficiency."
+
+Value Metrics (4 key performance indicators):
+1. "20% Increase" in battery lifespan
+2. "30% Reduction" in operational costs
+3. "50% Faster" fault detection
+4. "15% Improvement" in asset utilization
+
+SECTION 7: ABOUT
+================
+Heading: "We Are Battery People"
+Description: "We are a team of scientists, engineers, and entrepreneurs obsessed with solving the hardest problems in energy storage."
+
+Company Genesis:
+"Our team combines decades of experience from organizations like Tesla, Google DeepMind, and MIT. We believe that intelligence is the key to unlocking the full potential of battery technology, and we're building the platform to make that a reality."
+
+Additional Context:
+"Fawkes Energy is born out of a deep understanding of the challenges in the battery value chain, from materials science to end-of-life management."
+
+Co-Founder Section:
+Heading: "Co-Founder"
+Placeholder: "Co-Founder Name"
+Bio: "A brief, impactful bio about the co-founder's vision and background."
+
+Partnerships:
+Heading: "Backed By & In Alliance With"
+Partners:
+- RUBAMIN
+- Battery 360 Alliance
+
+SECTION 8: CONTACT
+==================
+Heading: "Get in Touch"
+Description: "Let's talk about how Fawkes can unlock value in your battery assets."
+
+Contact Form Fields:
+- Your Name (required)
+- Your Email (required)
+- Subject (required)
+- Your Message (required, textarea, 5 rows)
+
+Form Success Message: "Thank you for your message! We'll be in touch soon."
+
+TECHNICAL CONTENT STRUCTURE
+===========================
+Total Sections: 9 (including header and footer)
+Navigation: Fixed header with mobile hamburger menu
+Scroll Behavior: Snap-to-section scrolling
+Interactive Elements: Tabbed interface for problem section, interactive funnel for financiers
+Form Handling: Basic client-side validation with alert confirmation
+
+CONTENT HIERARCHY
+=================
+1. Hero - Primary value proposition
+2. Problem - Stakeholder pain points with data visualization
+3. Vision - Company mission and future state
+4. Products - Technical solution overview
+5. Differentiators - Competitive advantages
+6. Value - Quantified benefits
+7. About - Team and company background
+8. Contact - Lead generation
+9. Footer - Legal and closing
+
+DATA VISUALIZATION REQUIREMENTS
+===============================
+- 6 different charts across multiple data types
+- Interactive tabbed interface for 6 stakeholder categories
+- Clickable funnel diagram with 4 stages
+- Animated SVG elements for vision and product infographics
+- Form validation and submission handling

@@ -41,7 +41,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} scroll-smooth`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} scroll-smooth dark`}>
       <head>
         {/* Google Analytics script can be added here later using next/script */}
       </head>
