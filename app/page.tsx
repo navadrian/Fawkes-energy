@@ -372,12 +372,12 @@ function ProblemSection() {
   ];
 
   const tabs = [
-    { name: 'EV OEMs', icon: <Shield className="w-4 h-4" /> },
-    { name: 'Fleet Operators', icon: <Users className="w-4 h-4" /> },
-    { name: 'Financiers', icon: <BarChart3 className="w-4 h-4" /> },
-    { name: 'Recyclers', icon: <Recycle className="w-4 h-4" /> },
-    { name: 'BESS Operators', icon: <Battery className="w-4 h-4" /> },
-    { name: 'CPOs', icon: <Zap className="w-4 h-4" /> },
+    { name: 'EV OEMs', icon: <Shield className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
+    { name: 'Fleet Operators', icon: <Users className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
+    { name: 'Financiers', icon: <BarChart3 className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
+    { name: 'Recyclers', icon: <Recycle className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
+    { name: 'BESS Operators', icon: <Battery className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
+    { name: 'CPOs', icon: <Zap className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
   ];
 
   const painPointsData = [
@@ -574,12 +574,12 @@ function ProblemSection() {
         <div className="bg-secondary/50 border border-border rounded-lg overflow-hidden mx-auto w-full max-w-6xl">
           {/* Tab Navigation */}
           <div className="border-b border-border">
-            <div className="flex space-x-8 overflow-x-auto px-6 py-4">
+            <div className="flex space-x-2 md:space-x-8 overflow-x-auto px-4 md:px-6 py-3 md:py-4 scrollbar-hide">
               {tabs.map((tab, index) => (
                 <button
                   key={tab.name}
                   onClick={() => setActiveTab(index)}
-                  className={`flex items-center space-x-2 whitespace-nowrap px-4 py-3 text-sm font-medium transition-colors duration-200 border-b-2 ${
+                  className={`flex items-center space-x-1.5 md:space-x-2 whitespace-nowrap px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium transition-colors duration-200 border-b-2 ${
                     activeTab === index
                       ? 'text-primary border-primary'
                       : 'text-muted-foreground border-transparent hover:text-foreground'
@@ -596,7 +596,7 @@ function ProblemSection() {
           <div className="flex flex-col md:flex-row min-h-[24rem]">
             {/* Chart Section - Responsive Width */}
             <div className="w-full md:w-2/5 lg:w-5/12 bg-background border-b md:border-b-0 md:border-r border-border flex items-center justify-center">
-              <div ref={chartContainerRef} className="p-4 md:p-6 w-full max-w-md aspect-[5/4] min-h-[280px] max-h-[350px]">
+              <div ref={chartContainerRef} className="p-4 md:p-6 w-full aspect-[5/4] min-h-[250px] md:min-h-[280px] max-h-[300px] md:max-h-[350px]">
                 {renderChart(chartData[activeTab])}
               </div>
             </div>
