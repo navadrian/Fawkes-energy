@@ -280,21 +280,26 @@ function ProblemSection() {
       }
     },
     {
-      type: 'Doughnut',
+      type: 'Bar',
       data: {
-        labels: ['High-Risk Assets', 'Medium-Risk', 'Low-Risk'],
+        labels: ['EV Financing Gap', 'ICE Traditional', 'EV Premium'],
         datasets: [{
-          data: [55, 30, 15],
-          backgroundColor: ['hsl(0 84% 60%)', 'hsl(37 100% 48%)', 'hsl(142 76% 36%)']
+          label: 'Interest Rate (%)',
+          data: [8.5, 6.2, 10.8],
+          backgroundColor: ['hsl(0 84% 60%)', 'hsl(142 76% 36%)', 'hsl(37 100% 48%)'],
+          borderWidth: 1
         }]
       },
       options: {
         plugins: {
           title: {
             display: true,
-            text: 'Asset Risk Distribution',
+            text: 'Financing Cost Comparison (India)',
             font: { size: 14, weight: 'normal' }
           }
+        },
+        scales: {
+          y: { beginAtZero: true, max: 12 }
         }
       }
     },
@@ -402,14 +407,15 @@ function ProblemSection() {
     },
     {
       title: 'Financiers',
-      subtitle: 'Secondary Market Barriers',
-      keyInsight: 'The secondary market for EV lithium-ion batteries is still at a very early stage. A key barrier is the inability to accurately assess the remaining usable life of a battery. With limited visibility into battery health, diagnostics, and technology, there is little assurance of quality or performance.',
-      dataPoint: 'India could build a $3.5 billion circular battery economy by 2030',
-      source: 'ICEA–Accenture Report',
+      subtitle: 'Financing Cost & Risk Premiums',
+      keyInsight: 'EV financing costs 26% more than ICE vehicles due to higher insurance premiums, uncertain residual values, and lack of battery health data. Traditional financing models fail to account for battery degradation patterns, leading to higher interest rates and limited credit availability.',
+      dataPoint: 'EV interest rates 26% higher than ICE vehicles in India',
+      source: 'ADB, BCG, Niti Aayog Report',
       painPoints: [
         'Limited credit histories and high upfront EV costs',
         'Outdated ICE-style templates and limited performance data',
-        'No traceability of battery health for asset recovery'
+        'No traceability of battery health for asset recovery',
+        'Higher insurance premiums due to battery vulnerability'
       ]
     },
     {
@@ -722,20 +728,100 @@ function ProductStackSection() {
           </p>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-16">
           {products.map((product, index) => (
-            <div key={index} className={`grid md:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
+            <div key={index} className={`grid md:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
               <div className={`${index % 2 === 1 ? 'md:col-start-2' : ''}`}>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    {React.cloneElement(product.icon, { className: 'w-5 h-5 text-primary' })}
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    {React.cloneElement(product.icon, { className: 'w-6 h-6 text-primary' })}
                   </div>
-                  <h3 className="text-xl font-semibold font-heading text-foreground">{product.name}</h3>
+                  <h3 className="text-2xl font-semibold font-heading text-foreground">{product.name}</h3>
                 </div>
-                <p className="text-muted-foreground leading-relaxed">{product.description}</p>
+                <p className="text-muted-foreground leading-relaxed mb-6 text-lg">{product.description}</p>
+                
+                {/* Product-specific metrics/features */}
+                <div className="grid grid-cols-2 gap-4">
+                  {index === 0 && (
+                    <>
+                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                        <div className="text-2xl font-bold text-primary mb-1">99.9%</div>
+                        <div className="text-xs text-muted-foreground">Uptime SLA</div>
+                      </div>
+                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                        <div className="text-2xl font-bold text-primary mb-1">10ms</div>
+                        <div className="text-xs text-muted-foreground">Latency</div>
+                      </div>
+                    </>
+                  )}
+                  {index === 1 && (
+                    <>
+                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                        <div className="text-2xl font-bold text-primary mb-1">95%</div>
+                        <div className="text-xs text-muted-foreground">Accuracy</div>
+                      </div>
+                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                        <div className="text-2xl font-bold text-primary mb-1">30s</div>
+                        <div className="text-xs text-muted-foreground">Prediction Time</div>
+                      </div>
+                    </>
+                  )}
+                  {index === 2 && (
+                    <>
+                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                        <div className="text-2xl font-bold text-primary mb-1">$3.5B</div>
+                        <div className="text-xs text-muted-foreground">Market Value</div>
+                      </div>
+                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                        <div className="text-2xl font-bold text-primary mb-1">500+</div>
+                        <div className="text-xs text-muted-foreground">Partners</div>
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
-              <div className={`h-40 bg-secondary/50 border border-border rounded-lg flex items-center justify-center ${index % 2 === 1 ? 'md:col-start-1' : ''}`}>
-                <div className="text-muted-foreground text-sm">Interactive Demo</div>
+              
+              {/* Enhanced visual representation */}
+              <div className={`h-80 bg-gradient-to-br from-secondary/30 to-secondary/10 border border-border rounded-xl flex items-center justify-center relative overflow-hidden ${index % 2 === 1 ? 'md:col-start-1' : ''}`}>
+                {index === 0 && (
+                  <div className="text-center">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                      <Zap className="w-12 h-12 text-primary" />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="w-32 h-2 bg-primary/20 rounded-full mx-auto"></div>
+                      <div className="w-24 h-2 bg-primary/30 rounded-full mx-auto"></div>
+                      <div className="w-28 h-2 bg-primary/40 rounded-full mx-auto"></div>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-4">Real-time Data Flow</p>
+                  </div>
+                )}
+                {index === 1 && (
+                  <div className="text-center">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                      <Brain className="w-12 h-12 text-primary" />
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 w-32 mx-auto">
+                      <div className="h-8 bg-primary/20 rounded"></div>
+                      <div className="h-12 bg-primary/40 rounded"></div>
+                      <div className="h-6 bg-primary/30 rounded"></div>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-4">AI Processing Pipeline</p>
+                  </div>
+                )}
+                {index === 2 && (
+                  <div className="text-center">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                      <RefreshCw className="w-12 h-12 text-primary" />
+                    </div>
+                    <div className="w-32 h-32 mx-auto relative">
+                      <div className="absolute inset-0 border-4 border-primary/20 rounded-full"></div>
+                      <div className="absolute inset-2 border-4 border-primary/40 rounded-full"></div>
+                      <div className="absolute inset-4 border-4 border-primary/60 rounded-full"></div>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-4">Circular Economy Loop</p>
+                  </div>
+                )}
               </div>
             </div>
           ))}
