@@ -562,7 +562,7 @@ function ProblemSection() {
 
   return (
     <AnimatedSection id="problem" className="min-h-screen flex items-center py-16">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">The Problem Landscape</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -571,7 +571,7 @@ function ProblemSection() {
         </div>
 
         {/* Unified Card Container - Responsive Width */}
-        <div className="bg-secondary/50 border border-border rounded-lg overflow-hidden mx-auto w-full max-w-6xl">
+        <div className="bg-secondary/50 border border-border rounded-lg overflow-hidden mx-auto w-full max-w-6xl overflow-x-hidden">
           {/* Tab Navigation */}
           <div className="border-b border-border">
             <div className="flex space-x-2 md:space-x-8 overflow-x-auto px-4 md:px-6 py-3 md:py-4 scrollbar-hide">
@@ -616,8 +616,8 @@ function ProblemSection() {
                   <p className="text-sm text-foreground/80 leading-relaxed mb-3">
                     {painPointsData[activeTab].keyInsight}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <div className="bg-primary/10 px-3 py-1 rounded-full">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+                    <div className="bg-primary/10 px-3 py-1 rounded-full inline-block w-fit">
                       <p className="text-xs font-semibold text-primary">
                         {painPointsData[activeTab].dataPoint}
                       </p>
