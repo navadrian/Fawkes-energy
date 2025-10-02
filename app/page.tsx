@@ -912,34 +912,129 @@ function AboutSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div className="md:col-span-2 space-y-4">
-            <h3 className="text-xl font-semibold font-heading text-foreground">Our Genesis</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Our team combines decades of experience from organizations like Tesla, Google DeepMind, and MIT. We believe that intelligence is the key to unlocking the full potential of battery technology, and we're building the platform to make that a reality.
+        {/* Our Story */}
+        <div className="mb-16 max-w-4xl mx-auto">
+          <h3 className="text-2xl font-semibold font-heading text-foreground mb-6">Our Story</h3>
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Fawkes Energy was born from a clear insight: <strong className="text-foreground">the EV ecosystem in India struggles because accurate battery data is hard to access.</strong>
             </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Fawkes Energy is born out of a deep understanding of the challenges in the battery value chain, from materials science to end-of-life management.
+            <p>
+              Without it, batteries are often recycled too early, used EVs lose resale value, and many end-of-first-life batteries never reach the second-life applications they're best suited for.
             </p>
-          </div>
-
-          <div className="text-center">
-            <h4 className="text-lg font-semibold font-heading text-foreground mb-4">Co-Founder</h4>
-            <div className="w-20 h-20 bg-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-xs text-muted-foreground">Photo</span>
-            </div>
-            <h5 className="font-medium text-foreground">Co-Founder Name</h5>
-            <p className="text-sm text-muted-foreground mt-2">
-              A brief, impactful bio about the co-founder's vision and background.
+            <p>
+              We set out to change that.
+            </p>
+            <p>
+              Our mission is to <strong className="text-foreground">unlock high-quality battery intelligence</strong>, improving insights on <strong className="text-foreground">safety, State-of-Health (SoH), and Remaining Useful Life (RUL)</strong> to help every battery reach its full potential.
+            </p>
+            <p>
+              By enabling smarter reuse, fairer resale, and more sustainable second-life applications, we're driving circularity across the battery value chain, and shaping a future where <strong className="text-foreground">every battery counts.</strong>
             </p>
           </div>
         </div>
 
-        <div className="text-center">
-          <h3 className="text-lg font-semibold font-heading text-foreground mb-6">Backed By & In Alliance With</h3>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-70">
-            <div className="text-xl font-bold text-muted-foreground tracking-wider">RUBAMIN</div>
-            <div className="text-lg font-semibold text-muted-foreground">Battery 360 Alliance</div>
+        {/* Co-Founders */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-semibold font-heading text-foreground mb-8 text-center">Co-Founders</h3>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-background/50 rounded-lg p-6 border border-border">
+              <div className="w-20 h-20 bg-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-xs text-muted-foreground">Photo</span>
+              </div>
+              <h4 className="text-lg font-semibold text-foreground mb-2 text-center">Karthik Ganesh</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed text-center">
+                Karthik brings 15+ years experience in powering clean tech with deep expertise in battery system design, thermal analysis, and real-world validation. From CFD to prototypes, he turns complex electrochemical systems into scalable energy solutions.
+              </p>
+            </div>
+
+            <div className="bg-background/50 rounded-lg p-6 border border-border">
+              <div className="w-20 h-20 bg-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-xs text-muted-foreground">Photo</span>
+              </div>
+              <h4 className="text-lg font-semibold text-foreground mb-2 text-center">Akshay Kumar</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed text-center">
+                Blending physics with data, Akshay helps companies fast-track product development through digital prototyping. A CFD expert, machine learning enthusiast, and open-source geek who knows tech and the psychology of sales.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Team */}
+        <div className="mb-16 max-w-4xl mx-auto">
+          <h3 className="text-2xl font-semibold font-heading text-foreground mb-6 text-center">Team</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="flex items-center gap-3 bg-background/30 rounded-lg p-4">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Users className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Medha Ajay</p>
+                <p className="text-xs text-muted-foreground">Brand and Venture Strategist</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-background/30 rounded-lg p-4">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Users className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Mohammed Suffiyan</p>
+                <p className="text-xs text-muted-foreground">Lead - Battery System Engineering</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-background/30 rounded-lg p-4">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Users className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Sunil Sheth</p>
+                <p className="text-xs text-muted-foreground">Technical Product Manager</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-background/30 rounded-lg p-4">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Users className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Kusumanjali D</p>
+                <p className="text-xs text-muted-foreground">Vendor & Compliance Manager</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-background/30 rounded-lg p-4">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Users className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Abhishek</p>
+                <p className="text-xs text-muted-foreground">Hardware Engineer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Partnerships */}
+        <div>
+          <h3 className="text-2xl font-semibold font-heading text-foreground mb-8 text-center">In Association With</h3>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Rubamin */}
+            <div className="bg-background/50 rounded-lg p-6 border border-border">
+              <div className="mb-4 text-center">
+                <div className="text-2xl font-bold text-muted-foreground tracking-wider">RUBAMIN</div>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Rubamin is powering green mobility by providing a circular lifecycle management solution by recycling Lithium-Ion Batteries (LIBs). Their Zero-Waste, Industry 4.0-enabled, state-of-the-art recycling facility is designed to efficiently recover critical elements from end-of-life LIBs and Giga-factory production scrap.
+              </p>
+            </div>
+
+            {/* Battery 360 Alliance */}
+            <div className="bg-background/50 rounded-lg p-6 border border-border">
+              <div className="mb-4 text-center">
+                <div className="text-xl font-semibold text-muted-foreground">Battery 360 Alliance</div>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                A collaborative network dedicated to advancing battery technology and sustainability across the entire lifecycle, from manufacturing to recycling and second-life applications.
+              </p>
+            </div>
           </div>
         </div>
       </div>
