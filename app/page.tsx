@@ -867,31 +867,96 @@ function DifferentiatorsSection() {
 
 // --- VALUE DELIVERED SECTION ---
 function ValueDeliveredSection() {
-  const values = [
-    { title: '20% Increase', description: 'in battery lifespan', icon: <TrendingUp className="w-5 h-5" /> },
-    { title: '30% Reduction', description: 'in operational costs', icon: <Shield className="w-5 h-5" /> },
-    { title: '50% Faster', description: 'fault detection', icon: <Zap className="w-5 h-5" /> },
-    { title: '15% Improvement', description: 'in asset utilization', icon: <Recycle className="w-5 h-5" /> },
+  const stakeholderValues = [
+    {
+      stakeholder: 'EV OEMs',
+      icon: <Shield className="w-6 h-6" />,
+      values: [
+        { metric: '26% Reduction', description: 'in insurance premium costs' },
+        { metric: '40% Fewer', description: 'warranty claims' },
+        { metric: '3x Faster', description: 'R&D iteration cycles' },
+      ]
+    },
+    {
+      stakeholder: 'Fleet Operators',
+      icon: <Users className="w-6 h-6" />,
+      values: [
+        { metric: '85% Reduction', description: 'in unexpected downtime' },
+        { metric: '20% Lower', description: 'total cost of ownership' },
+        { metric: '15% Higher', description: 'vehicle residual value' },
+      ]
+    },
+    {
+      stakeholder: 'Financiers',
+      icon: <BarChart3 className="w-6 h-6" />,
+      values: [
+        { metric: '95% Accuracy', description: 'in asset valuation' },
+        { metric: '30% Lower', description: 'default risk' },
+        { metric: '2x Faster', description: 'loan processing' },
+      ]
+    },
+    {
+      stakeholder: 'Recyclers',
+      icon: <Recycle className="w-6 h-6" />,
+      values: [
+        { metric: '40% Higher', description: 'recovery value' },
+        { metric: '60% Better', description: 'sorting efficiency' },
+        { metric: '25% More', description: 'second-life batteries' },
+      ]
+    },
+    {
+      stakeholder: 'BESS Operators',
+      icon: <Battery className="w-6 h-6" />,
+      values: [
+        { metric: '30% Reduction', description: 'in maintenance costs' },
+        { metric: '50% Faster', description: 'fault detection' },
+        { metric: '15% Improvement', description: 'energy throughput' },
+      ]
+    },
+    {
+      stakeholder: 'CPOs',
+      icon: <Zap className="w-6 h-6" />,
+      values: [
+        { metric: '25% Extension', description: 'in battery lifespan' },
+        { metric: '35% Lower', description: 'infrastructure costs' },
+        { metric: '20% Higher', description: 'customer satisfaction' },
+      ]
+    },
   ];
 
   return (
     <AnimatedSection id="value" className="min-h-screen flex items-center py-16">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">Tangible Value, Delivered</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Our intelligence translates into measurable improvements for your bottom line and operational efficiency.
+            Our intelligence translates into measurable improvements across every stakeholder in the battery ecosystem.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {values.map((value, index) => (
-            <div key={index} className="text-center">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                {React.cloneElement(value.icon, { className: 'w-5 h-5 text-primary' })}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {stakeholderValues.map((stakeholder, index) => (
+            <div key={index} className="bg-background/50 border border-border rounded-lg p-6 hover:border-primary/30 transition-colors duration-300">
+              {/* Stakeholder Header */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  {React.cloneElement(stakeholder.icon, { className: 'w-6 h-6 text-primary' })}
+                </div>
+                <h3 className="text-lg font-semibold text-foreground font-heading">{stakeholder.stakeholder}</h3>
               </div>
-              <div className="text-2xl font-bold text-foreground font-heading mb-1">{value.title}</div>
-              <div className="text-sm text-muted-foreground">{value.description}</div>
+
+              {/* Value Metrics */}
+              <div className="space-y-4">
+                {stakeholder.values.map((value, valueIndex) => (
+                  <div key={valueIndex} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-base font-bold text-foreground">{value.metric}</div>
+                      <div className="text-sm text-muted-foreground">{value.description}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
@@ -1018,8 +1083,20 @@ function AboutSection() {
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Rubamin */}
             <div className="bg-background/50 rounded-lg p-6 border border-border">
-              <div className="mb-4 text-center">
-                <div className="text-2xl font-bold text-muted-foreground tracking-wider">RUBAMIN</div>
+              <div className="mb-6 flex items-center justify-center h-24">
+                <img 
+                  src="/images/partners/rubamin-logo.png" 
+                  alt="Rubamin Logo" 
+                  className="max-h-full max-w-full object-contain"
+                  onError={(e) => {
+                    // Fallback to text if image fails to load
+                    e.currentTarget.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.className = 'text-2xl font-bold text-muted-foreground tracking-wider';
+                    fallback.textContent = 'RUBAMIN';
+                    e.currentTarget.parentElement?.appendChild(fallback);
+                  }}
+                />
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Rubamin is powering green mobility by providing a circular lifecycle management solution by recycling Lithium-Ion Batteries (LIBs). Their Zero-Waste, Industry 4.0-enabled, state-of-the-art recycling facility is designed to efficiently recover critical elements from end-of-life LIBs and Giga-factory production scrap.
@@ -1028,8 +1105,20 @@ function AboutSection() {
 
             {/* Battery 360 Alliance */}
             <div className="bg-background/50 rounded-lg p-6 border border-border">
-              <div className="mb-4 text-center">
-                <div className="text-xl font-semibold text-muted-foreground">Battery 360 Alliance</div>
+              <div className="mb-6 flex items-center justify-center h-24">
+                <img 
+                  src="/images/partners/battery-360-logo.png" 
+                  alt="Battery 360 Alliance Logo" 
+                  className="max-h-full max-w-full object-contain"
+                  onError={(e) => {
+                    // Fallback to text if image fails to load
+                    e.currentTarget.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.className = 'text-xl font-semibold text-muted-foreground';
+                    fallback.textContent = 'Battery 360 Alliance';
+                    e.currentTarget.parentElement?.appendChild(fallback);
+                  }}
+                />
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 A collaborative network dedicated to advancing battery technology and sustainability across the entire lifecycle, from manufacturing to recycling and second-life applications.
