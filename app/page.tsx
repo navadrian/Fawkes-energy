@@ -934,6 +934,49 @@ function ValueDeliveredSection() {
           </p>
         </div>
 
+        {/* Core Value Propositions */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-6xl mx-auto">
+          <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Shield className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Reliability First</h3>
+            <p className="text-sm text-muted-foreground">Longer battery life</p>
+          </div>
+
+          <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <TrendingUp className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Cost & ROI</h3>
+            <p className="text-sm text-muted-foreground">Lower O&M costs</p>
+          </div>
+
+          <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Database className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Data Transparency</h3>
+            <p className="text-sm text-muted-foreground">Verified battery history</p>
+          </div>
+
+          <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Zap className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Market Differentiation</h3>
+            <p className="text-sm text-muted-foreground">Predictive servicing advantage</p>
+          </div>
+        </div>
+
+        {/* Stakeholder-Specific Values */}
+        <div className="mb-8 text-center">
+          <h3 className="text-xl font-semibold text-foreground mb-2 font-heading">Value by Stakeholder</h3>
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+            See how our battery intelligence delivers specific benefits to each player in the ecosystem
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {stakeholderValues.map((stakeholder, index) => (
             <div key={index} className="bg-background/50 border border-border rounded-lg p-6 hover:border-primary/30 transition-colors duration-300">
