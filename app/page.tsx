@@ -596,7 +596,7 @@ function ProblemSection() {
           <div className="flex flex-col md:flex-row min-h-[24rem]">
             {/* Chart Section - Responsive Width */}
             <div className="w-full md:w-2/5 lg:w-5/12 bg-background border-b md:border-b-0 md:border-r border-border flex items-center justify-center">
-              <div ref={chartContainerRef} className="p-4 md:p-6 w-full aspect-[5/4] min-h-[250px] md:min-h-[280px] max-h-[300px] md:max-h-[350px]">
+              <div ref={chartContainerRef} className="p-4 md:p-6 w-full h-[280px] md:h-auto md:aspect-[5/4] md:min-h-[280px] md:max-h-[350px]">
                 {renderChart(chartData[activeTab])}
               </div>
             </div>
