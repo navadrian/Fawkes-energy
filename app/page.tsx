@@ -514,19 +514,17 @@ function ProblemSection() {
       }
     };
 
-    // Force exact dimensions through Chart.js options
+    // Responsive chart options with consistent aspect ratio
     const mergedOptions = chart.options ? { 
       ...chart.options, 
       ...commonOptions,
-      // CRITICAL: Disable responsive and set explicit size
-      responsive: false,
-      maintainAspectRatio: false,
-      aspectRatio: undefined,
-      devicePixelRatio: 1,
-      // Disable all resizing behavior
+      // Enable responsive behavior with aspect ratio
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: 5 / 4,
+      // Smooth resizing
       resizeDelay: 0,
-      onResize: null,
-      // Force exact pixel dimensions in Chart.js
+      // Maintain layout configuration
       layout: {
         ...chart.options.layout,
         ...commonOptions.layout
@@ -540,21 +538,17 @@ function ProblemSection() {
       }
     } : {
       ...commonOptions,
-      responsive: false,
-      maintainAspectRatio: false,
-      aspectRatio: undefined,
-      devicePixelRatio: 1,
-      resizeDelay: 0,
-      onResize: null
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: 5 / 4,
+      resizeDelay: 0
     };
 
-    // Force exact dimensions via props when responsive is false
+    // Responsive chart props without fixed dimensions
     const chartKey = `${chart.type.toLowerCase()}-${activeTab}`;
     const chartProps = {
       data: chart.data,
       options: mergedOptions,
-      width: 350,
-      height: 280,
       redraw: true
     };
 
@@ -576,8 +570,8 @@ function ProblemSection() {
           </p>
         </div>
 
-        {/* Unified Card Container - Fixed Width */}
-        <div className="bg-secondary/50 border border-border rounded-lg overflow-hidden mx-auto" style={{ width: '900px' }}>
+        {/* Unified Card Container - Responsive Width */}
+        <div className="bg-secondary/50 border border-border rounded-lg overflow-hidden mx-auto w-full max-w-6xl">
           {/* Tab Navigation */}
           <div className="border-b border-border">
             <div className="flex space-x-8 overflow-x-auto px-6 py-4">
@@ -599,16 +593,16 @@ function ProblemSection() {
           </div>
 
           {/* Horizontal Layout - Chart on Left, Text on Right */}
-          <div className="h-96 flex">
-            {/* Chart Section - Fixed Width */}
-            <div className="flex-shrink-0 bg-background border-r border-border flex items-center justify-center" style={{ width: '420px' }}>
-              <div ref={chartContainerRef} className="p-6" style={{ width: '350px', height: '280px', minWidth: '350px', minHeight: '280px', maxWidth: '350px', maxHeight: '280px' }}>
+          <div className="flex flex-col md:flex-row min-h-[24rem]">
+            {/* Chart Section - Responsive Width */}
+            <div className="w-full md:w-2/5 lg:w-5/12 bg-background border-b md:border-b-0 md:border-r border-border flex items-center justify-center">
+              <div ref={chartContainerRef} className="p-4 md:p-6 w-full max-w-md aspect-[5/4] min-h-[280px] max-h-[350px]">
                 {renderChart(chartData[activeTab])}
               </div>
             </div>
             
             {/* Content Section - Takes Remaining Space */}
-            <div className="flex-1 p-6 flex flex-col justify-start overflow-y-auto">
+            <div className="flex-1 p-4 md:p-6 flex flex-col justify-start overflow-y-auto">
               <div className="flex-shrink-0 mb-6">
                 <h4 className="text-xl font-semibold text-foreground mb-2">
                   {painPointsData[activeTab].title}
@@ -937,9 +931,9 @@ function ValueDeliveredSection() {
         {/* Core Value Propositions */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-6xl mx-auto">
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <Shield className="w-6 h-6 text-primary" />
-            </div>
+              </div>
             <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Reliability First</h3>
             <p className="text-sm text-muted-foreground">Longer battery life</p>
           </div>
@@ -995,7 +989,7 @@ function ValueDeliveredSection() {
                     <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
                       <div className="text-base font-bold text-foreground">{value.metric}</div>
-                      <div className="text-sm text-muted-foreground">{value.description}</div>
+              <div className="text-sm text-muted-foreground">{value.description}</div>
                     </div>
                   </div>
                 ))}
@@ -1040,16 +1034,16 @@ function AboutSection() {
               By enabling smarter reuse, fairer resale, and more sustainable second-life applications, we're driving circularity across the battery value chain, and shaping a future where <strong className="text-foreground">every battery counts.</strong>
             </p>
           </div>
-        </div>
+          </div>
 
         {/* Co-Founders */}
         <div className="mb-16">
           <h3 className="text-2xl font-semibold font-heading text-foreground mb-8 text-center">Co-Founders</h3>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-background/50 rounded-lg p-6 border border-border">
-              <div className="w-20 h-20 bg-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-xs text-muted-foreground">Photo</span>
-              </div>
+            <div className="w-20 h-20 bg-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
+              <span className="text-xs text-muted-foreground">Photo</span>
+            </div>
               <h4 className="text-lg font-semibold text-foreground mb-2 text-center">Karthik Ganesh</h4>
               <p className="text-sm text-muted-foreground leading-relaxed text-center">
                 Karthik brings 15+ years experience in powering clean tech with deep expertise in battery system design, thermal analysis, and real-world validation. From CFD to prototypes, he turns complex electrochemical systems into scalable energy solutions.
