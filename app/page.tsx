@@ -571,10 +571,10 @@ function ProblemSection() {
         </div>
 
         {/* Unified Card Container - Responsive Width */}
-        <div className="bg-secondary/50 border border-border rounded-lg overflow-hidden mx-auto w-full max-w-6xl overflow-x-hidden">
+        <div className="bg-secondary/50 border border-border rounded-lg overflow-x-hidden mx-auto w-full">
           {/* Tab Navigation */}
-          <div className="border-b border-border">
-            <div className="flex space-x-2 md:space-x-8 overflow-x-auto px-4 md:px-6 py-3 md:py-4 scrollbar-hide">
+          <div className="border-b border-border overflow-x-hidden">
+            <div className="flex space-x-2 md:space-x-6 overflow-x-auto px-3 md:px-6 py-3 md:py-4 scrollbar-hide">
               {tabs.map((tab, index) => (
                 <button
                   key={tab.name}
@@ -595,47 +595,47 @@ function ProblemSection() {
           {/* Horizontal Layout - Chart on Left, Text on Right */}
           <div className="flex flex-col md:flex-row min-h-[24rem]">
             {/* Chart Section - Responsive Width */}
-            <div className="w-full md:w-2/5 lg:w-5/12 bg-background border-b md:border-b-0 md:border-r border-border flex items-center justify-center">
-              <div ref={chartContainerRef} className="p-4 md:p-6 w-full h-[280px] md:h-auto md:aspect-[5/4] md:min-h-[280px] md:max-h-[350px]">
+            <div className="w-full md:w-2/5 lg:w-5/12 bg-background border-b md:border-b-0 md:border-r border-border flex items-center justify-center overflow-hidden">
+              <div ref={chartContainerRef} className="p-3 md:p-6 w-full max-w-full h-[250px] md:h-auto md:aspect-[5/4] md:min-h-[280px] md:max-h-[350px]">
                 {renderChart(chartData[activeTab])}
               </div>
             </div>
             
             {/* Content Section - Takes Remaining Space */}
-            <div className="flex-1 p-4 md:p-6 flex flex-col justify-start overflow-y-auto">
-              <div className="flex-shrink-0 mb-6">
-                <h4 className="text-xl font-semibold text-foreground mb-2">
+            <div className="flex-1 p-3 md:p-6 flex flex-col justify-start overflow-y-auto overflow-x-hidden min-w-0">
+              <div className="flex-shrink-0 mb-4 md:mb-6 w-full">
+                <h4 className="text-lg md:text-xl font-semibold text-foreground mb-2 break-words">
                   {painPointsData[activeTab].title}
                 </h4>
-                <p className="text-sm font-medium text-primary mb-3">
+                <p className="text-xs md:text-sm font-medium text-primary mb-3 break-words">
                   {painPointsData[activeTab].subtitle}
                 </p>
                 
                 {/* Key Insight */}
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-4">
-                  <p className="text-sm text-foreground/80 leading-relaxed mb-3">
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 md:p-4 mb-4 w-full overflow-hidden">
+                  <p className="text-xs md:text-sm text-foreground/80 leading-relaxed mb-3 break-words">
                     {painPointsData[activeTab].keyInsight}
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
-                    <div className="bg-primary/10 px-3 py-1 rounded-full inline-block w-fit">
-                      <p className="text-xs font-semibold text-primary">
+                  <div className="flex flex-col gap-2 w-full">
+                    <div className="bg-primary/10 px-3 py-1 rounded-full inline-block w-fit max-w-full">
+                      <p className="text-xs font-semibold text-primary break-words">
                         {painPointsData[activeTab].dataPoint}
                       </p>
                     </div>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-xs text-muted-foreground break-words">
                       Source: {painPointsData[activeTab].source}
                     </p>
                   </div>
                 </div>
               </div>
               
-              <div className="flex-1 overflow-y-auto">
-                <h5 className="text-sm font-semibold text-foreground mb-3">Key Challenges</h5>
-                <ul className="space-y-3">
+              <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
+                <h5 className="text-xs md:text-sm font-semibold text-foreground mb-3">Key Challenges</h5>
+                <ul className="space-y-2 md:space-y-3 w-full">
                   {painPoints[activeTab].map((point, index) => (
-                    <li key={index} className="flex items-start text-sm text-muted-foreground leading-relaxed">
+                    <li key={index} className="flex items-start text-xs md:text-sm text-muted-foreground leading-relaxed break-words w-full">
                       <span className="text-primary mr-2 mt-1 text-xs flex-shrink-0">•</span>
-                      <span>{point}</span>
+                      <span className="flex-1 min-w-0 break-words">{point}</span>
                     </li>
                   ))}
                 </ul>
