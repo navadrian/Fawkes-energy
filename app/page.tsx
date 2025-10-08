@@ -170,26 +170,238 @@ function Header() {
   );
 }
 
+// --- VIDEO OPTIMIZATION HOOK ---
+function useVideoOptimization() {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasSlowConnection, setHasSlowConnection] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [loadingTime, setLoadingTime] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const loadStartTime = performance.now();
+
+    // Detect mobile devices
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Check connection speed with more comprehensive detection
+    const checkConnection = () => {
+      if ('connection' in navigator) {
+        const connection = (navigator as any).connection;
+        const isSlowConnection =
+          connection &&
+          (connection.effectiveType === '2g' ||
+           connection.effectiveType === 'slow-2g' ||
+           (connection.downlink && connection.downlink < 1.5)); // Less than 1.5 Mbps
+        setHasSlowConnection(isSlowConnection);
+      }
+    };
+
+    // Intersection Observer for lazy loading
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            observer.disconnect(); // Load once
+          }
+        });
+      },
+      {
+        rootMargin: '50px', // Start loading 50px before entering viewport
+        threshold: 0.1
+      }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    checkMobile();
+    checkConnection();
+
+    const handleLoadComplete = () => {
+      const loadTime = performance.now() - loadStartTime;
+      setLoadingTime(loadTime);
+      setIsVideoLoaded(true);
+    };
+
+    window.addEventListener('resize', checkMobile);
+
+    // Monitor video loading performance
+    const video = videoRef.current;
+    if (video) {
+      video.addEventListener('loadeddata', handleLoadComplete);
+    }
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      observer.disconnect();
+      if (video) {
+        video.removeEventListener('loadeddata', handleLoadComplete);
+      }
+    };
+  }, []);
+
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
+  };
+
+  const handleVideoError = () => {
+    console.warn('Video failed to load, using fallback');
+    setIsVideoLoaded(false);
+  };
+
+  // Performance monitoring
+  useEffect(() => {
+    if (isVideoLoaded && loadingTime > 0) {
+      // Log performance metrics (could be sent to analytics)
+      console.log(`Video loading performance:`, {
+        loadTime: `${(loadingTime / 1000).toFixed(2)}s`,
+        isMobile,
+        hasSlowConnection,
+        connectionType: 'connection' in navigator ?
+          (navigator as any).connection?.effectiveType : 'unknown'
+      });
+    }
+  }, [isVideoLoaded, loadingTime, isMobile, hasSlowConnection]);
+
+  return {
+    videoRef,
+    containerRef,
+    isVideoLoaded,
+    isMobile,
+    hasSlowConnection,
+    isInView,
+    loadingTime,
+    handleVideoLoad,
+    handleVideoError
+  };
+}
+
 // --- HERO SECTION ---
 function HeroSection() {
-  return (
-    <AnimatedSection id="hero" className="min-h-screen flex items-center justify-center pt-16 px-6">
-      <div className="relative w-full max-w-6xl h-[80vh] overflow-hidden rounded-lg shadow-2xl">
-        {/* Video Background */}
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
+  const {
+    videoRef,
+    containerRef,
+    isVideoLoaded,
+    isMobile,
+    hasSlowConnection,
+    isInView,
+    handleVideoLoad,
+    handleVideoError
+  } = useVideoOptimization();
+
+  // Video optimization strategy based on device and connection
+  const getVideoSources = () => {
+    if (hasSlowConnection) {
+      // For slow connections, skip video entirely
+      return null;
+    }
+
+    if (isMobile) {
+      // Mobile-optimized sources - smaller file sizes, lower resolution
+      return (
+        <>
+          <source src="/videos/battery-blueprint-3-mobile.webm" type="video/webm" />
+          <source src="/videos/battery-blueprint-3-mobile.mp4" type="video/mp4" />
+          {/* Fallback to desktop versions if mobile versions aren't available */}
           <source src="/videos/battery-blueprint-3.webm" type="video/webm" />
           <source src="/videos/battery-blueprint-3.mp4" type="video/mp4" />
-        </video>
-        
+        </>
+      );
+    }
+
+    // Desktop sources - full quality
+    return (
+      <>
+        <source src="/videos/battery-blueprint-3.webm" type="video/webm" />
+        <source src="/videos/battery-blueprint-3.mp4" type="video/mp4" />
+      </>
+    );
+  };
+
+  // Determine if video should be loaded
+  const shouldLoadVideo = !hasSlowConnection && isInView;
+
+  return (
+    <AnimatedSection id="hero" className="min-h-screen flex items-center justify-center pt-16 px-6">
+      <div
+        ref={containerRef}
+        className="relative w-full max-w-6xl h-[80vh] overflow-hidden rounded-lg shadow-2xl"
+      >
+        {/* Video Background - Lazy loaded and optimized */}
+        {shouldLoadVideo && (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload={isMobile ? "metadata" : "auto"}
+            poster="/images/battery-blueprint-3-poster.jpg"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+              isVideoLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            onLoadedData={handleVideoLoad}
+            onError={handleVideoError}
+            // Mobile-specific optimizations
+            style={{
+              willChange: isVideoLoaded ? 'auto' : 'opacity',
+              transform: 'translateZ(0)', // Force hardware acceleration
+              backfaceVisibility: 'hidden', // Improve performance
+            }}
+            // Reduce memory usage on mobile
+            {...(isMobile && {
+              'x-webkit-airplay': 'deny',
+              'webkit-playsinline': true,
+              disablePictureInPicture: true,
+              controlsList: 'nodownload noplaybackrate',
+            })}
+          >
+            {getVideoSources()}
+          </video>
+        )}
+
+        {/* Fallback background - Always present for instant display */}
+        <div
+          className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-700 ${
+            shouldLoadVideo && isVideoLoaded ? 'opacity-0' : 'opacity-100'
+          }`}
+          style={{
+            backgroundImage: 'url(/images/battery-blueprint-3-poster.jpg)',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          }}
+        />
+
+        {/* Loading indicator */}
+        {shouldLoadVideo && !isVideoLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+              <p className="text-white/70 text-sm">Loading video...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Connection status indicator (for development/debugging) */}
+        {process.env.NODE_ENV === 'development' && (
+          <div className="absolute top-4 right-4 bg-black/50 text-white text-xs p-2 rounded">
+            <div>Mobile: {isMobile ? 'Yes' : 'No'}</div>
+            <div>Slow Connection: {hasSlowConnection ? 'Yes' : 'No'}</div>
+            <div>Video Loaded: {isVideoLoaded ? 'Yes' : 'No'}</div>
+            <div>In View: {isInView ? 'Yes' : 'No'}</div>
+          </div>
+        )}
+
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        
+
         {/* Content */}
         <div className="relative h-full flex items-end justify-start p-8 md:p-12">
           <div className="max-w-2xl">
@@ -219,14 +431,14 @@ function ProblemSection() {
         labels: ['MY2011', 'MY2012', 'MY2013', 'MY2014', 'MY2015', 'MY2016', 'MY2017', 'MY2018', 'MY2019', 'MY2020', 'MY2021', 'MY2022'],
         datasets: [
           {
-            label: 'EV Claims (%)',
+            label: 'EV Claims',
             data: [0.2, 0.5, 2.2, 2.3, 3.7, 5.2, 6.8, 18.8, 15.7, 23.2, 21.1, 0.3],
             backgroundColor: 'hsl(43 87% 50%)',
             borderColor: 'hsl(43 87% 45%)',
             borderWidth: 1
           },
           {
-            label: 'Non-EV Claims (%)',
+            label: 'Non-EV Claims',
             data: [3.6, 4.5, 5.5, 6.1, 7.2, 7.5, 8.2, 7.7, 7.9, 6.4, 3.9, 0.2],
             backgroundColor: 'hsl(220 14% 96%)',
             borderColor: 'hsl(220 13% 91%)',
@@ -238,8 +450,8 @@ function ProblemSection() {
         plugins: {
           title: {
             display: true,
-            text: 'EV vs Non-EV Claims by Model Year (CY2021)',
-            font: { size: 14, weight: 'normal' }
+            text: 'EV vs Non-EV Claims by Model Year',
+            font: { size: 12, weight: 'normal' }
           },
           legend: { display: true, position: 'top' },
           datalabels: { display: false }
@@ -270,8 +482,8 @@ function ProblemSection() {
         plugins: {
           title: {
             display: true,
-            text: 'Fleet Downtime Events (Quarterly)',
-            font: { size: 14, weight: 'normal' }
+            text: 'Fleet Downtime Events',
+            font: { size: 12, weight: 'normal' }
           }
         },
         scales: {
@@ -294,8 +506,8 @@ function ProblemSection() {
         plugins: {
           title: {
             display: true,
-            text: 'Financing Cost Comparison (India)',
-            font: { size: 14, weight: 'normal' }
+            text: 'Financing Cost Comparison',
+            font: { size: 12, weight: 'normal' }
           }
         },
         scales: {
@@ -318,8 +530,8 @@ function ProblemSection() {
         plugins: {
           title: {
             display: true,
-            text: 'Circular Economy Value Streams',
-            font: { size: 14, weight: 'normal' }
+            text: 'Circular Economy Value',
+            font: { size: 12, weight: 'normal' }
           }
         },
         scales: {
@@ -345,7 +557,7 @@ function ProblemSection() {
           title: {
             display: true,
             text: 'BESS Maintenance Costs',
-            font: { size: 14, weight: 'normal' }
+            font: { size: 12, weight: 'normal' }
           }
         }
       }
@@ -363,8 +575,8 @@ function ProblemSection() {
         plugins: {
           title: {
             display: true,
-            text: 'Charging Method Distribution',
-            font: { size: 14, weight: 'normal' }
+            text: 'Charging Methods',
+            font: { size: 12, weight: 'normal' }
           }
         }
       }
@@ -472,11 +684,15 @@ function ProblemSection() {
         intersect: false // Improve performance
       },
       plugins: {
-        legend: { 
-          labels: { 
+        legend: {
+          labels: {
             color: 'hsl(220 9% 46%)',
             usePointStyle: true,
-            padding: 12
+            padding: 8,
+            boxWidth: 12,
+            font: {
+              size: 11
+            }
           },
           position: 'bottom',
           align: 'center'
@@ -485,43 +701,58 @@ function ProblemSection() {
         datalabels: { display: false }
       },
       scales: chart.type !== 'Doughnut' ? {
-        x: { 
-          ticks: { color: 'hsl(220 9% 46%)' }, 
+        x: {
+          ticks: {
+            color: 'hsl(220 9% 46%)',
+            font: {
+              size: 10
+            },
+            maxTicksLimit: 8
+          },
           grid: { color: 'hsl(220 13% 91%)' }
         },
-        y: { 
-          ticks: { color: 'hsl(220 9% 46%)' }, 
+        y: {
+          ticks: {
+            color: 'hsl(220 9% 46%)',
+            font: {
+              size: 10
+            },
+            maxTicksLimit: 6
+          },
           grid: { color: 'hsl(220 13% 91%)' }
         }
       } : undefined,
       layout: {
         padding: {
-          top: 10,
-          bottom: 10,
-          left: 10,
-          right: 10
+          top: 5,
+          bottom: 20,
+          left: 5,
+          right: 5
         }
       },
-      // Force consistent sizing
-      aspectRatio: undefined,
+      // Optimized for mobile responsiveness
       resizeDelay: 0,
-      // Additional responsive sizing controls
       devicePixelRatio: 1,
       elements: {
         point: {
-          radius: 3
+          radius: 2
+        },
+        line: {
+          borderWidth: 1.5
+        },
+        bar: {
+          borderWidth: 0.5
         }
       }
     };
 
-    // Responsive chart options with consistent aspect ratio
-    const mergedOptions = chart.options ? { 
-      ...chart.options, 
+    // Responsive chart options optimized for containers
+    const mergedOptions = chart.options ? {
+      ...chart.options,
       ...commonOptions,
-      // Enable responsive behavior with aspect ratio
+      // Enable responsive behavior without aspect ratio constraints
       responsive: true,
-      maintainAspectRatio: true,
-      aspectRatio: 5 / 4,
+      maintainAspectRatio: false,
       // Smooth resizing
       resizeDelay: 0,
       // Maintain layout configuration
@@ -539,8 +770,7 @@ function ProblemSection() {
     } : {
       ...commonOptions,
       responsive: true,
-      maintainAspectRatio: true,
-      aspectRatio: 5 / 4,
+      maintainAspectRatio: false,
       resizeDelay: 0
     };
 
@@ -593,16 +823,16 @@ function ProblemSection() {
           </div>
 
           {/* Horizontal Layout - Chart on Left, Text on Right */}
-          <div className="flex flex-col md:flex-row min-h-[24rem]">
+          <div className="flex flex-col md:flex-row min-h-[500px] md:min-h-[480px]">
             {/* Chart Section - Responsive Width */}
-            <div className="w-full md:w-2/5 lg:w-5/12 bg-background border-b md:border-b-0 md:border-r border-border flex items-center justify-center overflow-hidden">
-              <div ref={chartContainerRef} className="p-3 md:p-6 w-full max-w-full h-[250px] md:h-auto md:aspect-[5/4] md:min-h-[280px] md:max-h-[350px]">
+            <div className="w-full md:w-2/5 lg:w-5/12 min-h-[300px] md:min-h-full bg-background border-b md:border-b-0 md:border-r border-border flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div ref={chartContainerRef} className="p-3 md:p-6 w-full max-w-full h-[280px] md:h-[420px]">
                 {renderChart(chartData[activeTab])}
               </div>
             </div>
             
             {/* Content Section - Takes Remaining Space */}
-            <div className="flex-1 p-3 md:p-6 flex flex-col justify-start overflow-y-auto overflow-x-hidden min-w-0">
+            <div className="flex-1 p-3 md:p-6 flex flex-col justify-start overflow-y-auto overflow-x-hidden min-w-0 min-h-[200px] md:min-h-full">
               <div className="flex-shrink-0 mb-4 md:mb-6 w-full">
                 <h4 className="text-lg md:text-xl font-semibold text-foreground mb-2 break-words">
                   {painPointsData[activeTab].title}

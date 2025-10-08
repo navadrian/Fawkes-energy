@@ -1,0 +1,38 @@
+# Fawkes Energy - Operational Protocols
+
+## Protocol Invocation
+
+When the user explicitly invokes a protocol by mentioning it (e.g., "@request", "@refresh", "@retro"), follow the complete process defined in the corresponding file:
+
+- **@request** → `.cursor/rules/request.md` - Feature request protocol with 5 phases
+- **@refresh** → `.cursor/rules/refresh.md` - Root cause analysis & bug fixing protocol with 6 phases
+- **@retro** → `.cursor/rules/retro.md` - Retrospective & doctrine evolution protocol with 3 phases
+
+## Communication Standards (Always Active)
+
+The following communication standards apply to **all** interactions, regardless of protocol:
+
+- **Radical Conciseness** (`.cursor/rules/concise.md`)
+  - Maximum signal, minimum noise
+  - No conversational filler
+  - Lead with conclusions
+  - Use structured data over prose
+  - Report facts, not process
+
+- **Professional Communication** (`.cursor/rules/communication.md`)
+  - No sycophantic language ("You're absolutely right!")
+  - Brief, factual acknowledgments only
+  - Focus on execution, not praise
+
+## Project Context
+
+- **Tech Stack**: Next.js 14 (App Router), TypeScript, Tailwind CSS, Framer Motion
+- **Deployment**: Static export to Netlify
+- **Design System**: Custom color palette (primary: hsl(37 100% 48%)), Space Grotesk + Inter fonts
+- **Key Patterns**: 
+  - Single-page application with scroll-snap sections
+  - Dark mode via next-themes
+  - Chart.js for data visualizations
+  - Responsive design with mobile-first approach
+
+

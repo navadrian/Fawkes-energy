@@ -25,7 +25,8 @@
       "Bash(npm:*)",
       "WebFetch(domain:ui.shadcn.com)",
       "Bash(npx:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": [],

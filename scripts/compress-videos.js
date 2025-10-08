@@ -13,28 +13,61 @@ const config = {
   inputDir: 'videos',
   outputDir: 'public/videos',
   formats: [
+    // Desktop versions
     {
       extension: 'webm',
       codec: 'libvpx-vp9',
+      suffix: '',
       options: {
         crf: 30,
         bitrate: '2M',
         preset: 'slow'
-      }
+      },
+      maxWidth: 1920,
+      maxHeight: 1080,
+      framerate: 30
     },
     {
       extension: 'mp4',
       codec: 'libx264',
+      suffix: '',
       options: {
         crf: 23,
         preset: 'medium',
         bitrate: '2M'
-      }
+      },
+      maxWidth: 1920,
+      maxHeight: 1080,
+      framerate: 30
+    },
+    // Mobile-optimized versions
+    {
+      extension: 'webm',
+      codec: 'libvpx-vp9',
+      suffix: '-mobile',
+      options: {
+        crf: 35,
+        bitrate: '800k',
+        preset: 'fast'
+      },
+      maxWidth: 720,
+      maxHeight: 480,
+      framerate: 24
+    },
+    {
+      extension: 'mp4',
+      codec: 'libx264',
+      suffix: '-mobile',
+      options: {
+        crf: 28,
+        preset: 'fast',
+        bitrate: '800k'
+      },
+      maxWidth: 720,
+      maxHeight: 480,
+      framerate: 24
     }
-  ],
-  maxWidth: 1920,
-  maxHeight: 1080,
-  framerate: 30
+  ]
 };
 
 /**
@@ -77,8 +110,46 @@ function getOptimizedFilename(originalFile, format) {
     .replace(/[^a-zA-Z0-9-]/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
-  
-  return `${shortName}.${format.extension}`;
+
+  return `${shortName}${format.suffix}.${format.extension}`;
+}
+
+/**
+ * Generate poster image from video
+ */
+function generatePosterImage(inputFile) {
+  return new Promise((resolve, reject) => {
+    const inputPath = path.join(config.inputDir, inputFile);
+    const basename = path.parse(inputFile).name;
+    const shortName = basename
+      .replace(/social_navadrian_detailed_blueprint_of_an_electric_vehicle_battery_s_.*?_/, 'battery-blueprint-')
+      .replace(/[^a-zA-Z0-9-]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+
+    const posterPath = path.join('public/images', `${shortName}-poster.jpg`);
+
+    console.log(`📸 Generating poster: ${inputFile} → ${shortName}-poster.jpg`);
+
+    ffmpeg(inputPath)
+      .seekInput(5) // Take frame at 5 seconds
+      .frames(1)
+      .size('1920x1080')
+      .format('image2')
+      .outputOptions([
+        '-q:v 2', // High quality JPEG
+        '-vf scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080'
+      ])
+      .on('end', () => {
+        console.log(`   ✅ Poster generated: ${shortName}-poster.jpg`);
+        resolve(posterPath);
+      })
+      .on('error', (err) => {
+        console.log(`   ❌ Error generating poster:`, err.message);
+        reject(err);
+      })
+      .save(posterPath);
+  });
 }
 
 /**
@@ -94,8 +165,8 @@ function compressVideo(inputFile, format) {
 
     let command = ffmpeg(inputPath)
       .videoCodec(format.codec)
-      .size(`${config.maxWidth}x${config.maxHeight}`)
-      .fps(config.framerate)
+      .size(`${format.maxWidth}x${format.maxHeight}`)
+      .fps(format.framerate)
       .autopad()
       .noAudio(); // Remove audio for background videos
 
@@ -167,7 +238,14 @@ async function compressAllVideos() {
 
   for (const videoFile of videoFiles) {
     console.log(`🎬 Processing: ${videoFile}`);
-    
+
+    // Generate poster image first
+    try {
+      await generatePosterImage(videoFile);
+    } catch (error) {
+      console.error(`❌ Failed to generate poster for ${videoFile}:`, error.message);
+    }
+
     for (const format of config.formats) {
       try {
         const result = await compressVideo(videoFile, format);
