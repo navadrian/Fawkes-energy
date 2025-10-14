@@ -39,7 +39,6 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className, 
     <motion.section
       id={id}
       className={className}
-      style={{ scrollSnapAlign: 'start' }}
       initial="visible"
       animate="visible"
       variants={fadeIn}
@@ -79,7 +78,7 @@ export default function Home() {
     <div className="min-h-screen bg-background font-body antialiased">
       <ScrollProgressIndicator container={mainRef} />
       <Header />
-      <main ref={mainRef} className="h-screen overflow-y-auto scroll-smooth" style={{ scrollSnapType: 'y mandatory' }}>
+      <main ref={mainRef} className="h-screen overflow-y-auto scroll-smooth">
         <HeroSection />
         <ProblemSection />
         <VisionSection />
@@ -392,16 +391,6 @@ function HeroSection() {
           </div>
         )}
 
-        {/* Connection status indicator (for development/debugging) */}
-        {process.env.NODE_ENV === 'development' && (
-          <div className="absolute top-4 right-4 bg-black/50 text-white text-xs p-2 rounded">
-            <div>Mobile: {isMobile ? 'Yes' : 'No'}</div>
-            <div>Slow Connection: {hasSlowConnection ? 'Yes' : 'No'}</div>
-            <div>Video Loaded: {isVideoLoaded ? 'Yes' : 'No'}</div>
-            <div>In View: {isInView ? 'Yes' : 'No'}</div>
-          </div>
-        )}
-
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
 
@@ -436,15 +425,15 @@ function ProblemSection() {
           {
             label: 'EV Claims',
             data: [0.2, 0.5, 2.2, 2.3, 3.7, 5.2, 6.8, 18.8, 15.7, 23.2, 21.1, 0.3],
-            backgroundColor: 'hsl(var(--primary))',
-            borderColor: 'hsl(var(--primary))',
+            backgroundColor: 'hsl(var(--chart-1))',
+            borderColor: 'hsl(var(--chart-1))',
             borderWidth: 1
           },
           {
             label: 'Non-EV Claims',
             data: [3.6, 4.5, 5.5, 6.1, 7.2, 7.5, 8.2, 7.7, 7.9, 6.4, 3.9, 0.2],
-            backgroundColor: 'hsl(var(--secondary))',
-            borderColor: 'hsl(var(--muted))',
+            backgroundColor: 'hsl(var(--chart-3))',
+            borderColor: 'hsl(var(--chart-3))',
             borderWidth: 1
           }
         ]
@@ -475,8 +464,8 @@ function ProblemSection() {
         datasets: [{
           label: 'Downtime Events',
           data: [25, 32, 45, 40],
-          borderColor: 'hsl(var(--primary))',
-          backgroundColor: 'hsl(var(--primary) / 0.1)',
+          borderColor: 'hsl(var(--chart-1))',
+          backgroundColor: 'hsl(var(--chart-1) / 0.2)',
           tension: 0.3,
           fill: true
         }]
@@ -500,7 +489,7 @@ function ProblemSection() {
         labels: ['High-Risk', 'Medium-Risk', 'Low-Risk'],
         datasets: [{
           data: [55, 30, 15],
-          backgroundColor: ['hsl(var(--destructive))', 'hsl(var(--chart-2))', 'hsl(var(--primary))']
+          backgroundColor: ['hsl(var(--chart-5))', 'hsl(var(--chart-4))', 'hsl(var(--chart-2))']
         }]
       },
       options: {
@@ -527,7 +516,7 @@ function ProblemSection() {
           {
             label: 'Actual SOH',
             data: [97, 78, 52],
-            backgroundColor: 'hsl(var(--destructive))',
+            backgroundColor: 'hsl(var(--chart-5))',
             borderWidth: 1
           }
         ]
@@ -551,7 +540,7 @@ function ProblemSection() {
         labels: ['Landfilled', 'Recycled (Low-Value)', 'Remanufactured'],
         datasets: [{
           data: [40, 50, 10],
-          backgroundColor: ['hsl(var(--destructive))', 'hsl(var(--chart-2))', 'hsl(var(--primary))']
+          backgroundColor: ['hsl(var(--chart-5))', 'hsl(var(--chart-4))', 'hsl(var(--chart-2))']
         }]
       },
       options: {
@@ -571,7 +560,7 @@ function ProblemSection() {
         datasets: [{
           label: 'Annual Lost Revenue ($K)',
           data: [250, 150, 100],
-          backgroundColor: ['hsl(var(--destructive))', 'hsl(var(--chart-2))', 'hsl(var(--primary))'],
+          backgroundColor: ['hsl(var(--chart-5))', 'hsl(var(--chart-4))', 'hsl(var(--chart-1))'],
           borderWidth: 1
         }]
       },

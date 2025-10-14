@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "compress-videos": "node scripts/compress-videos.js",
-    "compress-videos:only": "node scripts/compress-videos.js"
+    "compress-videos:only": "node scripts/compress-videos.js",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
