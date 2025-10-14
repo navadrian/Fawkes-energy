@@ -857,7 +857,7 @@ function ProblemSection() {
   };
 
   return (
-    <AnimatedSection id="problem" className="min-h-screen flex items-center py-16">
+    <AnimatedSection id="problem" className="min-h-screen flex items-center py-8 md:py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">The Problem Landscape</h2>
@@ -889,16 +889,16 @@ function ProblemSection() {
           </div>
 
           {/* Horizontal Layout - Chart on Left, Text on Right */}
-          <div className="flex flex-col md:flex-row min-h-[500px] md:min-h-[480px]">
+          <div className="flex flex-col md:flex-row min-h-[400px] md:min-h-[480px]">
             {/* Chart Section - Responsive Width */}
-            <div className="w-full md:w-2/5 lg:w-5/12 min-h-[300px] md:min-h-full bg-card border-b md:border-b-0 md:border-r border-border flex items-center justify-center overflow-hidden flex-shrink-0">
-              <div ref={chartContainerRef} className="p-6 md:p-8 w-full max-w-full h-[320px] md:h-[460px]">
+            <div className="w-full md:w-2/5 lg:w-5/12 min-h-[280px] md:min-h-full bg-card border-b md:border-b-0 md:border-r border-border flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div ref={chartContainerRef} className="p-4 md:p-8 w-full max-w-full h-[280px] md:h-[460px]">
                 {renderChart(chartData[activeTab])}
               </div>
             </div>
             
             {/* Content Section - Takes Remaining Space */}
-            <div className="flex-1 p-4 md:p-6 flex flex-col justify-start overflow-y-auto overflow-x-hidden min-w-0 min-h-[200px] md:min-h-full">
+            <div className="flex-1 p-4 md:p-6 flex flex-col justify-start overflow-x-hidden min-w-0 min-h-0 md:min-h-full">
               <div className="flex-shrink-0 mb-4 md:mb-6 w-full">
                 <h4 className="text-lg md:text-xl font-semibold text-foreground mb-2 break-words">
                   {painPointsData[activeTab].title}
