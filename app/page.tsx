@@ -10,6 +10,7 @@ import {
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, Filler, ChartOptions, ChartData } from 'chart.js';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Button } from '@/components/ui/button'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, Filler, ChartDataLabels);
 
@@ -110,7 +111,7 @@ function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between py-3">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between py-4">
         <div className="flex items-center">
           <Logo />
         </div>
@@ -125,15 +126,16 @@ function Header() {
           ))}
         </nav>
 
-        <a href="#contact"
-           className="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors duration-200 hidden md:inline-flex">
-          Book a Meeting
-        </a>
+        <Button asChild className="hidden md:inline-flex">
+          <a href="#contact">
+            Book a Meeting
+          </a>
+        </Button>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-foreground">
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
@@ -156,13 +158,14 @@ function Header() {
                 {link}
               </a>
             ))}
-            <a
-              href="#contact"
-              className="bg-primary text-primary-foreground px-6 py-2 rounded-md font-medium hover:bg-primary/90 transition-colors duration-200 mt-4"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Book a Meeting
-            </a>
+            <Button asChild className="mt-4">
+              <a
+                href="#contact"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Book a Meeting
+              </a>
+            </Button>
           </nav>
         </motion.div>
       )}
@@ -433,15 +436,15 @@ function ProblemSection() {
           {
             label: 'EV Claims',
             data: [0.2, 0.5, 2.2, 2.3, 3.7, 5.2, 6.8, 18.8, 15.7, 23.2, 21.1, 0.3],
-            backgroundColor: 'hsl(43 87% 50%)',
-            borderColor: 'hsl(43 87% 45%)',
+            backgroundColor: 'hsl(var(--primary))',
+            borderColor: 'hsl(var(--primary))',
             borderWidth: 1
           },
           {
             label: 'Non-EV Claims',
             data: [3.6, 4.5, 5.5, 6.1, 7.2, 7.5, 8.2, 7.7, 7.9, 6.4, 3.9, 0.2],
-            backgroundColor: 'hsl(220 14% 96%)',
-            borderColor: 'hsl(220 13% 91%)',
+            backgroundColor: 'hsl(var(--secondary))',
+            borderColor: 'hsl(var(--muted))',
             borderWidth: 1
           }
         ]
@@ -472,8 +475,8 @@ function ProblemSection() {
         datasets: [{
           label: 'Downtime Events',
           data: [25, 32, 45, 40],
-          borderColor: 'hsl(37 100% 48%)',
-          backgroundColor: 'hsl(37 100% 48% / 0.1)',
+          borderColor: 'hsl(var(--primary))',
+          backgroundColor: 'hsl(var(--primary) / 0.1)',
           tension: 0.3,
           fill: true
         }]
@@ -498,7 +501,7 @@ function ProblemSection() {
         datasets: [{
           label: 'Interest Rate (%)',
           data: [8.5, 6.2, 10.8],
-          backgroundColor: ['hsl(0 84% 60%)', 'hsl(142 76% 36%)', 'hsl(37 100% 48%)'],
+          backgroundColor: ['hsl(var(--destructive))', 'hsl(var(--chart-2))', 'hsl(var(--primary))'],
           borderWidth: 1
         }]
       },
@@ -522,7 +525,7 @@ function ProblemSection() {
         datasets: [{
           label: 'Value ($B)',
           data: [1.2, 0.8, 1.5],
-          backgroundColor: ['hsl(142 76% 36%)', 'hsl(0 84% 60%)', 'hsl(37 100% 48%)'],
+          backgroundColor: ['hsl(var(--chart-2))', 'hsl(var(--destructive))', 'hsl(var(--primary))'],
           borderWidth: 1
         }]
       },
@@ -546,8 +549,8 @@ function ProblemSection() {
         datasets: [{
           label: 'Maintenance Cost ($k)',
           data: [45, 52, 38, 41, 33, 29],
-          borderColor: 'hsl(37 100% 48%)',
-          backgroundColor: 'hsl(37 100% 48% / 0.1)',
+          borderColor: 'hsl(var(--primary))',
+          backgroundColor: 'hsl(var(--primary) / 0.1)',
           tension: 0.3,
           fill: true
         }]
@@ -568,7 +571,7 @@ function ProblemSection() {
         labels: ['Fast Charging', 'Standard Charging', 'Smart Charging'],
         datasets: [{
           data: [40, 35, 25],
-          backgroundColor: ['hsl(0 84% 60%)', 'hsl(37 100% 48%)', 'hsl(142 76% 36%)']
+          backgroundColor: ['hsl(var(--destructive))', 'hsl(var(--primary))', 'hsl(var(--chart-2))']
         }]
       },
       options: {
@@ -584,12 +587,12 @@ function ProblemSection() {
   ];
 
   const tabs = [
-    { name: 'EV OEMs', icon: <Shield className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
-    { name: 'Fleet Operators', icon: <Users className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
-    { name: 'Financiers', icon: <BarChart3 className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
-    { name: 'Recyclers', icon: <Recycle className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
-    { name: 'BESS Operators', icon: <Battery className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
-    { name: 'CPOs', icon: <Zap className="w-3.5 h-3.5 md:w-4 md:h-4" /> },
+    { name: 'EV OEMs', icon: <Shield className="w-4 h-4 md:w-5 md:h-5" /> },
+    { name: 'Fleet Operators', icon: <Users className="w-4 h-4 md:w-5 md:h-5" /> },
+    { name: 'Financiers', icon: <BarChart3 className="w-4 h-4 md:w-5 md:h-5" /> },
+    { name: 'Recyclers', icon: <Recycle className="w-4 h-4 md:w-5 md:h-5" /> },
+    { name: 'BESS Operators', icon: <Battery className="w-4 h-4 md:w-5 md:h-5" /> },
+    { name: 'CPOs', icon: <Zap className="w-4 h-4 md:w-5 md:h-5" /> },
   ];
 
   const painPointsData = [
@@ -686,7 +689,7 @@ function ProblemSection() {
       plugins: {
         legend: {
           labels: {
-            color: 'hsl(220 9% 46%)',
+            color: 'hsl(var(--muted-foreground))',
             usePointStyle: true,
             padding: 8,
             boxWidth: 12,
@@ -703,23 +706,23 @@ function ProblemSection() {
       scales: chart.type !== 'Doughnut' ? {
         x: {
           ticks: {
-            color: 'hsl(220 9% 46%)',
+            color: 'hsl(var(--muted-foreground))',
             font: {
               size: 10
             },
             maxTicksLimit: 8
           },
-          grid: { color: 'hsl(220 13% 91%)' }
+          grid: { color: 'hsl(var(--muted))' }
         },
         y: {
           ticks: {
-            color: 'hsl(220 9% 46%)',
+            color: 'hsl(var(--muted-foreground))',
             font: {
               size: 10
             },
             maxTicksLimit: 6
           },
-          grid: { color: 'hsl(220 13% 91%)' }
+          grid: { color: 'hsl(var(--muted))' }
         }
       } : undefined,
       layout: {
@@ -794,7 +797,7 @@ function ProblemSection() {
     <AnimatedSection id="problem" className="min-h-screen flex items-center py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">The Problem Landscape</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">The Problem Landscape</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             The battery ecosystem is fragmented and opaque. Different stakeholders operate in silos, leading to massive inefficiencies and risks.
           </p>
@@ -804,12 +807,12 @@ function ProblemSection() {
         <div className="bg-secondary/50 border border-border rounded-lg overflow-x-hidden mx-auto w-full">
           {/* Tab Navigation */}
           <div className="border-b border-border overflow-x-hidden">
-            <div className="flex space-x-2 md:space-x-6 overflow-x-auto px-3 md:px-6 py-3 md:py-4 scrollbar-hide">
+            <div className="flex space-x-2 md:space-x-6 overflow-x-auto px-4 md:px-6 py-4 scrollbar-hide">
               {tabs.map((tab, index) => (
                 <button
                   key={tab.name}
                   onClick={() => setActiveTab(index)}
-                  className={`flex items-center space-x-1.5 md:space-x-2 whitespace-nowrap px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium transition-colors duration-200 border-b-2 ${
+                  className={`flex items-center space-x-2 md:space-x-2 whitespace-nowrap px-2 md:px-4 py-2 text-xs md:text-sm font-medium transition-colors duration-200 border-b-2 ${
                     activeTab === index
                       ? 'text-primary border-primary'
                       : 'text-muted-foreground border-transparent hover:text-foreground'
@@ -826,28 +829,28 @@ function ProblemSection() {
           <div className="flex flex-col md:flex-row min-h-[500px] md:min-h-[480px]">
             {/* Chart Section - Responsive Width */}
             <div className="w-full md:w-2/5 lg:w-5/12 min-h-[300px] md:min-h-full bg-background border-b md:border-b-0 md:border-r border-border flex items-center justify-center overflow-hidden flex-shrink-0">
-              <div ref={chartContainerRef} className="p-3 md:p-6 w-full max-w-full h-[280px] md:h-[420px]">
+              <div ref={chartContainerRef} className="p-4 md:p-6 w-full max-w-full h-[280px] md:h-[420px]">
                 {renderChart(chartData[activeTab])}
               </div>
             </div>
             
             {/* Content Section - Takes Remaining Space */}
-            <div className="flex-1 p-3 md:p-6 flex flex-col justify-start overflow-y-auto overflow-x-hidden min-w-0 min-h-[200px] md:min-h-full">
+            <div className="flex-1 p-4 md:p-6 flex flex-col justify-start overflow-y-auto overflow-x-hidden min-w-0 min-h-[200px] md:min-h-full">
               <div className="flex-shrink-0 mb-4 md:mb-6 w-full">
                 <h4 className="text-lg md:text-xl font-semibold text-foreground mb-2 break-words">
                   {painPointsData[activeTab].title}
                 </h4>
-                <p className="text-xs md:text-sm font-medium text-primary mb-3 break-words">
+                <p className="text-xs md:text-sm font-medium text-primary mb-4 break-words">
                   {painPointsData[activeTab].subtitle}
                 </p>
-                
+
                 {/* Key Insight */}
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 md:p-4 mb-4 w-full overflow-hidden">
-                  <p className="text-xs md:text-sm text-foreground/80 leading-relaxed mb-3 break-words">
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-4 w-full overflow-hidden">
+                  <p className="text-xs md:text-sm text-foreground/80 leading-relaxed mb-4 break-words">
                     {painPointsData[activeTab].keyInsight}
                   </p>
                   <div className="flex flex-col gap-2 w-full">
-                    <div className="bg-primary/10 px-3 py-1 rounded-full inline-block w-fit max-w-full">
+                    <div className="bg-primary/10 px-4 py-1 rounded-full inline-block w-fit max-w-full">
                       <p className="text-xs font-semibold text-primary break-words">
                         {painPointsData[activeTab].dataPoint}
                       </p>
@@ -858,13 +861,13 @@ function ProblemSection() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
-                <h5 className="text-xs md:text-sm font-semibold text-foreground mb-3">Key Challenges</h5>
-                <ul className="space-y-2 md:space-y-3 w-full">
+                <h5 className="text-xs md:text-sm font-medium text-foreground mb-4">Key Challenges</h5>
+                <ul className="space-y-2 md:space-y-4 w-full">
                   {painPoints[activeTab].map((point, index) => (
                     <li key={index} className="flex items-start text-xs md:text-sm text-muted-foreground leading-relaxed break-words w-full">
-                      <span className="text-primary mr-2 mt-1 text-xs flex-shrink-0">•</span>
+                      <span className="text-primary mr-2 mt-2 text-xs flex-shrink-0">•</span>
                       <span className="flex-1 min-w-0 break-words">{point}</span>
                     </li>
                   ))}
@@ -883,35 +886,14 @@ function VisionSection() {
   return (
     <AnimatedSection id="vision" className="min-h-screen flex items-center py-16 bg-secondary/30">
       <div className="max-w-4xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold mb-6 font-heading text-foreground">Vision for a Sustainable Future</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 font-heading text-foreground">Vision for a Sustainable Future</h2>
 
-        <div className="relative max-w-sm mx-auto mb-8">
-          <svg viewBox="0 0 400 400" className="w-full h-full">
-            <defs>
-              <radialGradient id="core-gradient">
-                <stop offset="0%" stopColor="hsl(var(--primary))" />
-                <stop offset="100%" stopColor="hsl(var(--primary) / 0.8)" />
-              </radialGradient>
-            </defs>
-            <circle cx="200" cy="200" r="40" fill="url(#core-gradient)" />
-            <text x="200" y="205" textAnchor="middle" fill="white" fontSize="18" className="font-heading font-semibold">Vision</text>
-            <ellipse cx="200" cy="200" rx="160" ry="60" stroke="hsl(var(--primary))" strokeWidth="1" strokeOpacity="0.3" fill="none" transform="rotate(30 200 200)" />
-            <ellipse cx="200" cy="200" rx="160" ry="60" stroke="hsl(var(--primary))" strokeWidth="1" strokeOpacity="0.3" fill="none" transform="rotate(-30 200 200)" />
-            <ellipse cx="200" cy="200" rx="110" ry="140" stroke="hsl(var(--primary))" strokeWidth="1" strokeOpacity="0.3" fill="none" />
-
-            <g>
-              <circle cx="200" cy="60" r="6" fill="hsl(var(--primary))"/>
-              <text x="200" y="40" textAnchor="middle" fill="hsl(220 9% 46%)" fontSize="12" className="font-medium">Circular</text>
-            </g>
-            <g transform="rotate(120 200 200)">
-              <circle cx="200" cy="60" r="6" fill="hsl(var(--primary))"/>
-              <text x="200" y="40" textAnchor="middle" fill="hsl(220 9% 46%)" fontSize="12" className="font-medium">Efficient</text>
-            </g>
-            <g transform="rotate(240 200 200)">
-              <circle cx="200" cy="60" r="6" fill="hsl(var(--primary))"/>
-              <text x="200" y="40" textAnchor="middle" fill="hsl(220 9% 46%)" fontSize="12" className="font-medium">Safe</text>
-            </g>
-          </svg>
+        <div className="relative max-w-2xl mx-auto mb-8">
+          <img 
+            src="/images/circularity.jpg" 
+            alt="Circular Economy Vision" 
+            className="w-full h-auto rounded-lg shadow-lg"
+          />
         </div>
 
         <blockquote className="text-xl italic text-muted-foreground leading-relaxed">
@@ -946,7 +928,7 @@ function ProductStackSection() {
     <AnimatedSection id="products" className="min-h-screen flex items-center py-16">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">The Fawkes Product Stack</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">The Fawkes Product Stack</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             A suite of interconnected products to monitor, manage, and monetize batteries at scale.
           </p>
@@ -960,49 +942,9 @@ function ProductStackSection() {
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                     {React.cloneElement(product.icon, { className: 'w-6 h-6 text-primary' })}
                   </div>
-                  <h3 className="text-2xl font-semibold font-heading text-foreground">{product.name}</h3>
+                  <h3 className="text-xl md:text-2xl font-semibold font-heading text-foreground">{product.name}</h3>
                 </div>
-                <p className="text-muted-foreground leading-relaxed mb-6 text-lg">{product.description}</p>
-                
-                {/* Product-specific metrics/features */}
-                <div className="grid grid-cols-2 gap-4">
-                  {index === 0 && (
-                    <>
-                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                        <div className="text-2xl font-bold text-primary mb-1">99.9%</div>
-                        <div className="text-xs text-muted-foreground">Uptime SLA</div>
-                      </div>
-                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                        <div className="text-2xl font-bold text-primary mb-1">10ms</div>
-                        <div className="text-xs text-muted-foreground">Latency</div>
-                      </div>
-                    </>
-                  )}
-                  {index === 1 && (
-                    <>
-                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                        <div className="text-2xl font-bold text-primary mb-1">95%</div>
-                        <div className="text-xs text-muted-foreground">Accuracy</div>
-                      </div>
-                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                        <div className="text-2xl font-bold text-primary mb-1">30s</div>
-                        <div className="text-xs text-muted-foreground">Prediction Time</div>
-                      </div>
-                    </>
-                  )}
-                  {index === 2 && (
-                    <>
-                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                        <div className="text-2xl font-bold text-primary mb-1">$3.5B</div>
-                        <div className="text-xs text-muted-foreground">Market Value</div>
-                      </div>
-                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                        <div className="text-2xl font-bold text-primary mb-1">500+</div>
-                        <div className="text-xs text-muted-foreground">Partners</div>
-                      </div>
-                    </>
-                  )}
-                </div>
+                <p className="text-muted-foreground leading-relaxed text-lg">{product.description}</p>
               </div>
               
               {/* Enhanced visual representation */}
@@ -1067,7 +1009,7 @@ function DifferentiatorsSection() {
     <AnimatedSection id="differentiators" className="min-h-screen flex items-center py-16 bg-secondary/30">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">Our Competitive Edge</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">Our Competitive Edge</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             We're not just another analytics platform. Our core differentiators create a defensible moat.
           </p>
@@ -1091,75 +1033,18 @@ function DifferentiatorsSection() {
 
 // --- VALUE DELIVERED SECTION ---
 function ValueDeliveredSection() {
-  const stakeholderValues = [
-    {
-      stakeholder: 'EV OEMs',
-      icon: <Shield className="w-6 h-6" />,
-      values: [
-        { metric: '26% Reduction', description: 'in insurance premium costs' },
-        { metric: '40% Fewer', description: 'warranty claims' },
-        { metric: '3x Faster', description: 'R&D iteration cycles' },
-      ]
-    },
-    {
-      stakeholder: 'Fleet Operators',
-      icon: <Users className="w-6 h-6" />,
-      values: [
-        { metric: '85% Reduction', description: 'in unexpected downtime' },
-        { metric: '20% Lower', description: 'total cost of ownership' },
-        { metric: '15% Higher', description: 'vehicle residual value' },
-      ]
-    },
-    {
-      stakeholder: 'Financiers',
-      icon: <BarChart3 className="w-6 h-6" />,
-      values: [
-        { metric: '95% Accuracy', description: 'in asset valuation' },
-        { metric: '30% Lower', description: 'default risk' },
-        { metric: '2x Faster', description: 'loan processing' },
-      ]
-    },
-    {
-      stakeholder: 'Recyclers',
-      icon: <Recycle className="w-6 h-6" />,
-      values: [
-        { metric: '40% Higher', description: 'recovery value' },
-        { metric: '60% Better', description: 'sorting efficiency' },
-        { metric: '25% More', description: 'second-life batteries' },
-      ]
-    },
-    {
-      stakeholder: 'BESS Operators',
-      icon: <Battery className="w-6 h-6" />,
-      values: [
-        { metric: '30% Reduction', description: 'in maintenance costs' },
-        { metric: '50% Faster', description: 'fault detection' },
-        { metric: '15% Improvement', description: 'energy throughput' },
-      ]
-    },
-    {
-      stakeholder: 'CPOs',
-      icon: <Zap className="w-6 h-6" />,
-      values: [
-        { metric: '25% Extension', description: 'in battery lifespan' },
-        { metric: '35% Lower', description: 'infrastructure costs' },
-        { metric: '20% Higher', description: 'customer satisfaction' },
-      ]
-    },
-  ];
-
   return (
     <AnimatedSection id="value" className="min-h-screen flex items-center py-16">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">Tangible Value, Delivered</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">Tangible Value, Delivered</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Our intelligence translates into measurable improvements across every stakeholder in the battery ecosystem.
           </p>
         </div>
 
         {/* Core Value Propositions */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-7xl mx-auto">
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <Shield className="w-6 h-6 text-primary" />
@@ -1192,41 +1077,6 @@ function ValueDeliveredSection() {
             <p className="text-sm text-muted-foreground">Predictive servicing advantage</p>
           </div>
         </div>
-
-        {/* Stakeholder-Specific Values */}
-        <div className="mb-8 text-center">
-          <h3 className="text-xl font-semibold text-foreground mb-2 font-heading">Value by Stakeholder</h3>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-            See how our battery intelligence delivers specific benefits to each player in the ecosystem
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {stakeholderValues.map((stakeholder, index) => (
-            <div key={index} className="bg-background/50 border border-border rounded-lg p-6 hover:border-primary/30 transition-colors duration-300">
-              {/* Stakeholder Header */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  {React.cloneElement(stakeholder.icon, { className: 'w-6 h-6 text-primary' })}
-                </div>
-                <h3 className="text-lg font-semibold text-foreground font-heading">{stakeholder.stakeholder}</h3>
-              </div>
-
-              {/* Value Metrics */}
-              <div className="space-y-4">
-                {stakeholder.values.map((value, valueIndex) => (
-                  <div key={valueIndex} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-base font-bold text-foreground">{value.metric}</div>
-              <div className="text-sm text-muted-foreground">{value.description}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </AnimatedSection>
   );
@@ -1238,7 +1088,7 @@ function AboutSection() {
     <AnimatedSection id="about" className="min-h-screen flex items-center py-16 bg-secondary/30">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">We Are Battery People</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">We Are Battery People</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             We are a team of scientists, engineers, and entrepreneurs obsessed with solving the hardest problems in energy storage.
           </p>
@@ -1246,7 +1096,7 @@ function AboutSection() {
 
         {/* Our Story */}
         <div className="mb-16 max-w-4xl mx-auto">
-          <h3 className="text-2xl font-semibold font-heading text-foreground mb-6">Our Story</h3>
+          <h3 className="text-xl md:text-2xl font-semibold font-heading text-foreground mb-6">Our Story</h3>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Fawkes Energy was born from a clear insight: <strong className="text-foreground">the EV ecosystem in India struggles because accurate battery data is hard to access.</strong>
@@ -1268,7 +1118,7 @@ function AboutSection() {
 
         {/* Co-Founders */}
         <div className="mb-16">
-          <h3 className="text-2xl font-semibold font-heading text-foreground mb-8 text-center">Co-Founders</h3>
+          <h3 className="text-xl md:text-2xl font-semibold font-heading text-foreground mb-8 text-center">Co-Founders</h3>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-background/50 rounded-lg p-6 border border-border">
             <div className="w-20 h-20 bg-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
@@ -1294,7 +1144,7 @@ function AboutSection() {
 
         {/* Team */}
         <div className="mb-16 max-w-4xl mx-auto">
-          <h3 className="text-2xl font-semibold font-heading text-foreground mb-6 text-center">Team</h3>
+          <h3 className="text-xl md:text-2xl font-semibold font-heading text-foreground mb-6 text-center">Team</h3>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="flex items-center gap-3 bg-background/30 rounded-lg p-4">
               <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
@@ -1346,7 +1196,7 @@ function AboutSection() {
 
         {/* Partnerships */}
         <div>
-          <h3 className="text-2xl font-semibold font-heading text-foreground mb-8 text-center">In Association With</h3>
+          <h3 className="text-xl md:text-2xl font-semibold font-heading text-foreground mb-8 text-center">In Association With</h3>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Rubamin */}
             <div className="bg-background/50 rounded-lg p-6 border border-border">
@@ -1409,7 +1259,7 @@ function ContactSection() {
     <AnimatedSection id="contact" className="min-h-screen flex items-center py-16">
       <div className="max-w-2xl mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 font-heading text-foreground">Get in Touch</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">Get in Touch</h2>
           <p className="text-muted-foreground leading-relaxed">
             Let's talk about how Fawkes can unlock value in your battery assets.
           </p>
@@ -1420,13 +1270,13 @@ function ContactSection() {
             <input
               type="text"
               placeholder="Your Name"
-              className="bg-background border border-border rounded-md px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              className="bg-background border border-border rounded-md px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               required
             />
             <input
               type="email"
               placeholder="Your Email"
-              className="bg-background border border-border rounded-md px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              className="bg-background border border-border rounded-md px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               required
             />
           </div>
@@ -1442,12 +1292,9 @@ function ContactSection() {
             rows={5}
             required
           />
-          <button
-            type="submit"
-            className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors duration-200"
-          >
+          <Button type="submit" className="w-full">
             Send Message
-          </button>
+          </Button>
         </form>
       </div>
     </AnimatedSection>
