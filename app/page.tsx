@@ -495,12 +495,82 @@ function ProblemSection() {
       }
     },
     {
+      type: 'Doughnut',
+      data: {
+        labels: ['High-Risk', 'Medium-Risk', 'Low-Risk'],
+        datasets: [{
+          data: [55, 30, 15],
+          backgroundColor: ['hsl(var(--destructive))', 'hsl(var(--chart-2))', 'hsl(var(--primary))']
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Current Risk Profile (Without Fawkes)',
+            font: { size: 12, weight: 'normal' }
+          }
+        }
+      }
+    },
+    {
       type: 'Bar',
       data: {
-        labels: ['EV Financing Gap', 'ICE Traditional', 'EV Premium'],
+        labels: ['Year 1', 'Year 5', 'Year 10'],
+        datasets: [
+          {
+            label: 'Predicted SOH',
+            data: [98, 85, 65],
+            backgroundColor: 'hsl(var(--chart-2))',
+            borderWidth: 1
+          },
+          {
+            label: 'Actual SOH',
+            data: [97, 78, 52],
+            backgroundColor: 'hsl(var(--destructive))',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'State-of-Health (SOH) Prediction vs. Reality',
+            font: { size: 12, weight: 'normal' }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true, max: 100 }
+        }
+      }
+    },
+    {
+      type: 'Doughnut',
+      data: {
+        labels: ['Landfilled', 'Recycled (Low-Value)', 'Remanufactured'],
         datasets: [{
-          label: 'Interest Rate (%)',
-          data: [8.5, 6.2, 10.8],
+          data: [40, 50, 10],
+          backgroundColor: ['hsl(var(--destructive))', 'hsl(var(--chart-2))', 'hsl(var(--primary))']
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'End-of-Life Battery Fate',
+            font: { size: 12, weight: 'normal' }
+          }
+        }
+      }
+    },
+    {
+      type: 'Bar',
+      data: {
+        labels: ['Charger Downtime', 'Grid Fees', 'Battery Degradation Impact'],
+        datasets: [{
+          label: 'Annual Lost Revenue ($K)',
+          data: [250, 150, 100],
           backgroundColor: ['hsl(var(--destructive))', 'hsl(var(--chart-2))', 'hsl(var(--primary))'],
           borderWidth: 1
         }]
@@ -509,78 +579,12 @@ function ProblemSection() {
         plugins: {
           title: {
             display: true,
-            text: 'Financing Cost Comparison',
+            text: 'CPO Revenue Loss Sources',
             font: { size: 12, weight: 'normal' }
           }
         },
         scales: {
-          y: { beginAtZero: true, max: 12 }
-        }
-      }
-    },
-    {
-      type: 'Bar',
-      data: {
-        labels: ['Formal Recycling', 'Informal Processing', 'Reuse/Repurpose'],
-        datasets: [{
-          label: 'Value ($B)',
-          data: [1.2, 0.8, 1.5],
-          backgroundColor: ['hsl(var(--chart-2))', 'hsl(var(--destructive))', 'hsl(var(--primary))'],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Circular Economy Value',
-            font: { size: 12, weight: 'normal' }
-          }
-        },
-        scales: {
-          y: { beginAtZero: true }
-        }
-      }
-    },
-    {
-      type: 'Line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [{
-          label: 'Maintenance Cost ($k)',
-          data: [45, 52, 38, 41, 33, 29],
-          borderColor: 'hsl(var(--primary))',
-          backgroundColor: 'hsl(var(--primary) / 0.1)',
-          tension: 0.3,
-          fill: true
-        }]
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'BESS Maintenance Costs',
-            font: { size: 12, weight: 'normal' }
-          }
-        }
-      }
-    },
-    {
-      type: 'Doughnut',
-      data: {
-        labels: ['Fast Charging', 'Standard Charging', 'Smart Charging'],
-        datasets: [{
-          data: [40, 35, 25],
-          backgroundColor: ['hsl(var(--destructive))', 'hsl(var(--primary))', 'hsl(var(--chart-2))']
-        }]
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Charging Methods',
-            font: { size: 12, weight: 'normal' }
-          }
+          y: { beginAtZero: true, max: 300 }
         }
       }
     }
@@ -591,7 +595,7 @@ function ProblemSection() {
     { name: 'Fleet Operators', icon: <Users className="w-4 h-4 md:w-5 md:h-5" /> },
     { name: 'Financiers', icon: <BarChart3 className="w-4 h-4 md:w-5 md:h-5" /> },
     { name: 'Recyclers', icon: <Recycle className="w-4 h-4 md:w-5 md:h-5" /> },
-    { name: 'BESS Operators', icon: <Battery className="w-4 h-4 md:w-5 md:h-5" /> },
+    { name: 'BESS Developers', icon: <Battery className="w-4 h-4 md:w-5 md:h-5" /> },
     { name: 'CPOs', icon: <Zap className="w-4 h-4 md:w-5 md:h-5" /> },
   ];
 
@@ -605,7 +609,8 @@ function ProblemSection() {
       painPoints: [
         'High warranty and recall costs due to unpredictable battery failures',
         'Slow R&D cycles from a lack of real-world performance data', 
-        'Reputational damage from battery-related safety incidents'
+        'Reputational damage from battery-related safety incidents',
+        'Insufficient insight into battery health complicates assessing and managing risk'
       ]
     },
     {
@@ -617,7 +622,8 @@ function ProblemSection() {
       painPoints: [
         'Unexpected vehicle downtime impacting operations and revenue',
         'Suboptimal charging strategies leading to accelerated battery degradation',
-        'Uncertainty in vehicle residual values due to unknown battery health'
+        'Uncertainty in vehicle residual values due to unknown battery health',
+        'Abrupt capacity cliffs leading to significant loss in capacity in limited charging cycles'
       ]
     },
     {
@@ -642,11 +648,14 @@ function ProblemSection() {
       painPoints: [
         'Lack of standardized battery health assessment protocols',
         'Risk of batteries entering informal, low-value processing chains',
-        'Inability to optimize recycling processes without battery intelligence'
+        'Inability to optimize recycling processes without battery intelligence',
+        'Inaccurate State-of-Health (SOH) data leading to undervalued assets',
+        'Contamination risks from improperly handled high-voltage batteries',
+        'Inefficient sorting processes for second-life applications vs. raw material recovery'
       ]
     },
     {
-      title: 'BESS Operators',
+      title: 'BESS Developers',
       subtitle: 'Predictive Maintenance Challenges',
       keyInsight: 'For BESS operators, predictive maintenance enables early fault detection, reducing downtime, lowering costs, and improving ROI over time. But this is only possible with advanced battery intelligence. Without it, operators are stuck with reactive maintenance—driving up costs and operational risks.',
       dataPoint: 'Predictive maintenance can reduce costs by 20-30%',
@@ -654,7 +663,10 @@ function ProblemSection() {
       painPoints: [
         'Reactive maintenance leading to unexpected downtime',
         'Inability to optimize energy storage performance',
-        'Higher operational costs due to lack of predictive insights'
+        'Higher operational costs due to lack of predictive insights',
+        'Performance degradation faster than projected, affecting project ROI',
+        'Safety risks associated with thermal runaway events in large-scale systems',
+        'Inefficient grid augmentation strategies due to poor battery state awareness'
       ]
     },
     {
@@ -843,36 +855,70 @@ function ProblemSection() {
                 <p className="text-xs md:text-sm font-medium text-primary mb-4 break-words">
                   {painPointsData[activeTab].subtitle}
                 </p>
+              </div>
 
-                {/* Key Insight */}
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-4 w-full overflow-hidden">
-                  <p className="text-xs md:text-sm text-foreground/80 leading-relaxed mb-4 break-words">
-                    {painPointsData[activeTab].keyInsight}
-                  </p>
-                  <div className="flex flex-col gap-2 w-full">
-                    <div className="bg-primary/10 px-4 py-1 rounded-full inline-block w-fit max-w-full">
-                      <p className="text-xs font-semibold text-primary break-words">
-                        {painPointsData[activeTab].dataPoint}
+              {/* Financiers Funnel Visualization */}
+              {activeTab === 2 ? (
+                <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
+                  <div className="space-y-4">
+                    {/* Stage 1 */}
+                    <div className="border-l-4 border-primary pl-4 pb-4">
+                      <h5 className="text-sm font-semibold text-primary mb-2">Stage 1 - Origination</h5>
+                      <ul className="space-y-1 text-xs text-muted-foreground">
+                        <li>• Many buyers lack credit histories</li>
+                        <li>• High upfront EV cost</li>
+                      </ul>
+                    </div>
+
+                    {/* Stage 2 */}
+                    <div className="border-l-4 border-primary pl-4 pb-4">
+                      <h5 className="text-sm font-semibold text-primary mb-2">Stage 2 - Risk Assessment</h5>
+                      <ul className="space-y-1 text-xs text-muted-foreground">
+                        <li>• No secondary market</li>
+                        <li>• Outdated ICE-style templates</li>
+                        <li>• Limited performance data on EVs</li>
+                      </ul>
+                    </div>
+
+                    {/* Stage 3 */}
+                    <div className="border-l-4 border-primary pl-4 pb-4">
+                      <h5 className="text-sm font-semibold text-primary mb-2">Stage 3 - Monitoring</h5>
+                      <ul className="space-y-1 text-xs text-muted-foreground">
+                        <li>• Reluctance to share IoT data</li>
+                        <li>• Limited technician/service network</li>
+                      </ul>
+                    </div>
+
+                    {/* Stage 4 */}
+                    <div className="border-l-4 border-primary pl-4 pb-4">
+                      <h5 className="text-sm font-semibold text-primary mb-2">Stage 4 - Recovery</h5>
+                      <ul className="space-y-1 text-xs text-muted-foreground">
+                        <li>• No traceability of battery health</li>
+                        <li>• No centralized usage/battery database</li>
+                      </ul>
+                    </div>
+
+                    {/* Impact Statement */}
+                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mt-4">
+                      <p className="text-xs text-foreground leading-relaxed">
+                        <strong>Overall Impact:</strong> These interconnected challenges create significant barriers to efficient EV financing, limiting market growth and increasing costs for all stakeholders in the battery ecosystem.
                       </p>
                     </div>
-                    <p className="text-xs text-muted-foreground break-words">
-                      Source: {painPointsData[activeTab].source}
-                    </p>
                   </div>
                 </div>
-              </div>
-
-              <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
-                <h5 className="text-xs md:text-sm font-medium text-foreground mb-4">Key Challenges</h5>
-                <ul className="space-y-2 md:space-y-4 w-full">
-                  {painPoints[activeTab].map((point, index) => (
-                    <li key={index} className="flex items-start text-xs md:text-sm text-muted-foreground leading-relaxed break-words w-full">
-                      <span className="text-primary mr-2 mt-2 text-xs flex-shrink-0">•</span>
-                      <span className="flex-1 min-w-0 break-words">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              ) : (
+                <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
+                  <h5 className="text-xs md:text-sm font-medium text-foreground mb-4">Key Challenges</h5>
+                  <ul className="space-y-2 md:space-y-4 w-full">
+                    {painPoints[activeTab].map((point, index) => (
+                      <li key={index} className="flex items-start text-xs md:text-sm text-muted-foreground leading-relaxed break-words w-full">
+                        <span className="text-primary mr-2 mt-2 text-xs flex-shrink-0">•</span>
+                        <span className="flex-1 min-w-0 break-words">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
