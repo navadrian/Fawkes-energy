@@ -8,11 +8,12 @@ import {
   Building, Phone, Menu, X, AlertCircle
 } from 'lucide-react'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, Filler, ChartOptions, ChartData } from 'chart.js';
-import { Bar, Doughnut, Line } from 'react-chartjs-2';
+import { Bar, Doughnut, Line, Chart } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { FunnelController, TrapezoidElement } from 'chartjs-chart-funnel';
 import { Button } from '@/components/ui/button'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, Filler, ChartDataLabels);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, Filler, ChartDataLabels, FunnelController, TrapezoidElement);
 
 // --- TYPE DEFINITIONS ---
 interface AnimatedSectionProps {
@@ -22,7 +23,7 @@ interface AnimatedSectionProps {
 }
 
 interface ChartConfig {
-  type: 'Bar' | 'Line' | 'Doughnut';
+  type: 'Bar' | 'Line' | 'Doughnut' | 'Funnel';
   data: ChartData<any, any, any>;
   options?: ChartOptions<any>;
 }
@@ -425,15 +426,15 @@ function ProblemSection() {
           {
             label: 'EV Claims',
             data: [0.2, 0.5, 2.2, 2.3, 3.7, 5.2, 6.8, 18.8, 15.7, 23.2, 21.1, 0.3],
-            backgroundColor: 'hsl(var(--chart-1))',
-            borderColor: 'hsl(var(--chart-1))',
+            backgroundColor: 'hsl(37 100% 48%)',
+            borderColor: 'hsl(37 100% 48%)',
             borderWidth: 1
           },
           {
             label: 'Non-EV Claims',
             data: [3.6, 4.5, 5.5, 6.1, 7.2, 7.5, 8.2, 7.7, 7.9, 6.4, 3.9, 0.2],
-            backgroundColor: 'hsl(var(--chart-3))',
-            borderColor: 'hsl(var(--chart-3))',
+            backgroundColor: 'hsl(0 0% 100%)',
+            borderColor: 'hsl(0 0% 100%)',
             borderWidth: 1
           }
         ]
@@ -464,7 +465,7 @@ function ProblemSection() {
         datasets: [{
           label: 'Downtime Events',
           data: [25, 32, 45, 40],
-          borderColor: 'hsl(var(--chart-1))',
+          borderColor: 'hsl(37 100% 48%)',
           backgroundColor: 'hsl(var(--chart-1) / 0.2)',
           tension: 0.3,
           fill: true
@@ -484,20 +485,66 @@ function ProblemSection() {
       }
     },
     {
-      type: 'Doughnut',
+      type: 'Funnel',
       data: {
-        labels: ['High-Risk', 'Medium-Risk', 'Low-Risk'],
+        labels: ['Origination', 'Risk Assessment', 'Monitoring', 'Recovery'],
         datasets: [{
-          data: [55, 30, 15],
-          backgroundColor: ['hsl(var(--chart-5))', 'hsl(var(--chart-4))', 'hsl(var(--chart-2))']
+          data: [100, 80, 60, 40],
+          backgroundColor: ['hsl(37 100% 35%)', 'hsl(37 100% 48%)', 'hsl(37 100% 55%)', 'hsl(37 100% 65%)'],
+          borderColor: 'hsl(0 0% 20%)',
+          borderWidth: 2,
         }]
       },
       options: {
+        indexAxis: 'y',
         plugins: {
-          title: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            enabled: false
+          },
+          datalabels: {
             display: true,
-            text: 'Current Risk Profile (Without Fawkes)',
-            font: { size: 12, weight: 'normal' }
+            color: 'hsl(0 0% 100%)',
+            font: {
+              size: 14,
+              weight: 'bold'
+            },
+            formatter: function(value: any, context: any) {
+              return context.chart.data.labels[context.dataIndex];
+            }
+          }
+        },
+        maintainAspectRatio: false,
+        responsive: true,
+        layout: {
+          padding: {
+            left: 80,
+            right: 80,
+            top: 20,
+            bottom: 20
+          }
+        },
+        scales: {
+          x: {
+            display: false,
+            min: 0,
+            max: 100,
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            display: false,
+            grid: {
+              display: false
+            }
+          }
+        },
+        elements: {
+          funnel: {
+            alignment: 'center'
           }
         }
       }
@@ -510,13 +557,13 @@ function ProblemSection() {
           {
             label: 'Predicted SOH',
             data: [98, 85, 65],
-            backgroundColor: 'hsl(var(--chart-2))',
+            backgroundColor: 'hsl(37 100% 65%)',
             borderWidth: 1
           },
           {
             label: 'Actual SOH',
             data: [97, 78, 52],
-            backgroundColor: 'hsl(var(--chart-5))',
+            backgroundColor: 'hsl(37 100% 35%)',
             borderWidth: 1
           }
         ]
@@ -540,7 +587,7 @@ function ProblemSection() {
         labels: ['Landfilled', 'Recycled (Low-Value)', 'Remanufactured'],
         datasets: [{
           data: [40, 50, 10],
-          backgroundColor: ['hsl(var(--chart-5))', 'hsl(var(--chart-4))', 'hsl(var(--chart-2))']
+          backgroundColor: ['hsl(37 100% 35%)', 'hsl(37 60% 55%)', 'hsl(37 100% 65%)']
         }]
       },
       options: {
@@ -560,7 +607,7 @@ function ProblemSection() {
         datasets: [{
           label: 'Annual Lost Revenue ($K)',
           data: [250, 150, 100],
-          backgroundColor: ['hsl(var(--chart-5))', 'hsl(var(--chart-4))', 'hsl(var(--chart-1))'],
+          backgroundColor: ['hsl(37 100% 35%)', 'hsl(37 60% 55%)', 'hsl(37 100% 48%)'],
           borderWidth: 1
         }]
       },
@@ -617,15 +664,15 @@ function ProblemSection() {
     },
     {
       title: 'Financiers',
-      subtitle: 'Financing Cost & Risk Premiums',
+      subtitle: 'EV Financing Lifecycle Challenges',
       keyInsight: 'EV financing costs 26% more than ICE vehicles due to higher insurance premiums, uncertain residual values, and lack of battery health data. Traditional financing models fail to account for battery degradation patterns, leading to higher interest rates and limited credit availability.',
       dataPoint: 'EV interest rates 26% higher than ICE vehicles in India',
       source: 'ADB, BCG, Niti Aayog Report',
       painPoints: [
-        'Limited credit histories and high upfront EV costs',
-        'Outdated ICE-style templates and limited performance data',
-        'No traceability of battery health for asset recovery',
-        'Higher insurance premiums due to battery vulnerability'
+        'Stage 1 (Origination): Many buyers lack credit histories, high upfront EV cost',
+        'Stage 2 (Risk Assessment): No secondary market, outdated ICE-style templates, limited performance data on EVs',
+        'Stage 3 (Monitoring): Reluctance to share IoT data, limited technician/service network',
+        'Stage 4 (Recovery): No traceability of battery health, no centralized usage/battery database'
       ]
     },
     {
@@ -690,12 +737,13 @@ function ProblemSection() {
       plugins: {
         legend: {
           labels: {
-            color: 'hsl(var(--muted-foreground))',
+            color: 'hsl(0 0% 85%)',
             usePointStyle: true,
-            padding: 8,
-            boxWidth: 12,
+            padding: 12,
+            boxWidth: 14,
             font: {
-              size: 11
+              size: 13,
+              weight: '500'
             }
           },
           position: 'bottom',
@@ -704,34 +752,42 @@ function ProblemSection() {
         title: { display: false },
         datalabels: { display: false }
       },
-      scales: chart.type !== 'Doughnut' ? {
+      scales: chart.type !== 'Doughnut' && chart.type !== 'Funnel' ? {
         x: {
           ticks: {
-            color: 'hsl(var(--muted-foreground))',
+            color: 'hsl(0 0% 85%)',
             font: {
-              size: 10
+              size: 13,
+              weight: '500'
             },
             maxTicksLimit: 8
           },
-          grid: { color: 'hsl(var(--muted))' }
+          grid: { 
+            color: 'hsl(0 0% 25%)',
+            drawBorder: false
+          }
         },
         y: {
           ticks: {
-            color: 'hsl(var(--muted-foreground))',
+            color: 'hsl(0 0% 85%)',
             font: {
-              size: 10
+              size: 13,
+              weight: '500'
             },
             maxTicksLimit: 6
           },
-          grid: { color: 'hsl(var(--muted))' }
+          grid: { 
+            color: 'hsl(0 0% 25%)',
+            drawBorder: false
+          }
         }
       } : undefined,
       layout: {
         padding: {
-          top: 5,
-          bottom: 20,
-          left: 5,
-          right: 5
+          top: 10,
+          bottom: 30,
+          left: 10,
+          right: 10
         }
       },
       // Optimized for mobile responsiveness
@@ -739,13 +795,18 @@ function ProblemSection() {
       devicePixelRatio: 1,
       elements: {
         point: {
-          radius: 2
+          radius: 4,
+          hoverRadius: 6
         },
         line: {
-          borderWidth: 1.5
+          borderWidth: 3
         },
         bar: {
-          borderWidth: 0.5
+          borderWidth: 1,
+          borderRadius: 4
+        },
+        arc: {
+          borderWidth: 2
         }
       }
     };
@@ -790,6 +851,7 @@ function ProblemSection() {
       case 'Bar': return <Bar key={chartKey} {...chartProps} />;
       case 'Line': return <Line key={chartKey} {...chartProps} />;
       case 'Doughnut': return <Doughnut key={chartKey} {...chartProps} />;
+      case 'Funnel': return <Chart key={chartKey} type='funnel' {...chartProps} />;
       default: return null;
     }
   };
@@ -829,8 +891,8 @@ function ProblemSection() {
           {/* Horizontal Layout - Chart on Left, Text on Right */}
           <div className="flex flex-col md:flex-row min-h-[500px] md:min-h-[480px]">
             {/* Chart Section - Responsive Width */}
-            <div className="w-full md:w-2/5 lg:w-5/12 min-h-[300px] md:min-h-full bg-background border-b md:border-b-0 md:border-r border-border flex items-center justify-center overflow-hidden flex-shrink-0">
-              <div ref={chartContainerRef} className="p-4 md:p-6 w-full max-w-full h-[280px] md:h-[420px]">
+            <div className="w-full md:w-2/5 lg:w-5/12 min-h-[300px] md:min-h-full bg-card border-b md:border-b-0 md:border-r border-border flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div ref={chartContainerRef} className="p-6 md:p-8 w-full max-w-full h-[320px] md:h-[460px]">
                 {renderChart(chartData[activeTab])}
               </div>
             </div>
@@ -846,68 +908,18 @@ function ProblemSection() {
                 </p>
               </div>
 
-              {/* Financiers Funnel Visualization */}
-              {activeTab === 2 ? (
-                <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
-                  <div className="space-y-4">
-                    {/* Stage 1 */}
-                    <div className="border-l-4 border-primary pl-4 pb-4">
-                      <h5 className="text-sm font-semibold text-primary mb-2">Stage 1 - Origination</h5>
-                      <ul className="space-y-1 text-xs text-muted-foreground">
-                        <li>• Many buyers lack credit histories</li>
-                        <li>• High upfront EV cost</li>
-                      </ul>
-                    </div>
-
-                    {/* Stage 2 */}
-                    <div className="border-l-4 border-primary pl-4 pb-4">
-                      <h5 className="text-sm font-semibold text-primary mb-2">Stage 2 - Risk Assessment</h5>
-                      <ul className="space-y-1 text-xs text-muted-foreground">
-                        <li>• No secondary market</li>
-                        <li>• Outdated ICE-style templates</li>
-                        <li>• Limited performance data on EVs</li>
-                      </ul>
-                    </div>
-
-                    {/* Stage 3 */}
-                    <div className="border-l-4 border-primary pl-4 pb-4">
-                      <h5 className="text-sm font-semibold text-primary mb-2">Stage 3 - Monitoring</h5>
-                      <ul className="space-y-1 text-xs text-muted-foreground">
-                        <li>• Reluctance to share IoT data</li>
-                        <li>• Limited technician/service network</li>
-                      </ul>
-                    </div>
-
-                    {/* Stage 4 */}
-                    <div className="border-l-4 border-primary pl-4 pb-4">
-                      <h5 className="text-sm font-semibold text-primary mb-2">Stage 4 - Recovery</h5>
-                      <ul className="space-y-1 text-xs text-muted-foreground">
-                        <li>• No traceability of battery health</li>
-                        <li>• No centralized usage/battery database</li>
-                      </ul>
-                    </div>
-
-                    {/* Impact Statement */}
-                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mt-4">
-                      <p className="text-xs text-foreground leading-relaxed">
-                        <strong>Overall Impact:</strong> These interconnected challenges create significant barriers to efficient EV financing, limiting market growth and increasing costs for all stakeholders in the battery ecosystem.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
-                  <h5 className="text-xs md:text-sm font-medium text-foreground mb-4">Key Challenges</h5>
-                  <ul className="space-y-2 md:space-y-4 w-full">
-                    {painPoints[activeTab].map((point, index) => (
-                      <li key={index} className="flex items-start text-xs md:text-sm text-muted-foreground leading-relaxed break-words w-full">
-                        <span className="text-primary mr-2 mt-2 text-xs flex-shrink-0">•</span>
-                        <span className="flex-1 min-w-0 break-words">{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              {/* Standard Layout for All Tabs */}
+              <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
+                <h5 className="text-xs md:text-sm font-medium text-foreground mb-4">Key Challenges</h5>
+                <ul className="space-y-2 md:space-y-4 w-full">
+                  {painPoints[activeTab].map((point, index) => (
+                    <li key={index} className="flex items-start text-xs md:text-sm text-muted-foreground leading-relaxed break-words w-full">
+                      <span className="text-primary mr-2 mt-2 text-xs flex-shrink-0">•</span>
+                      <span className="flex-1 min-w-0 break-words">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
