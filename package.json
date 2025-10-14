@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.17.5",
+    "@playwright/test": "^1.56.0",
     "@types/fluent-ffmpeg": "^2.1.27",
     "@types/node": "20.19.17",
     "@types/react": "18.3.24",
