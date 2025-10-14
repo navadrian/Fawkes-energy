@@ -1085,42 +1085,42 @@ function ValueDeliveredSection() {
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">Tangible Value, Delivered</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Our intelligence translates into measurable improvements across every stakeholder in the battery ecosystem.
+            Our intelligence translates into measurable improvements for your bottom line and operational efficiency.
           </p>
         </div>
 
         {/* Core Value Propositions */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <Shield className="w-6 h-6 text-primary" />
               </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Reliability First</h3>
-            <p className="text-sm text-muted-foreground">Longer battery life</p>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">20% Increase</h3>
+            <p className="text-sm text-muted-foreground">in battery lifespan</p>
           </div>
 
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <TrendingUp className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Cost & ROI</h3>
-            <p className="text-sm text-muted-foreground">Lower O&M costs</p>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">30% Reduction</h3>
+            <p className="text-sm text-muted-foreground">in operational costs</p>
           </div>
 
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <Database className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Data Transparency</h3>
-            <p className="text-sm text-muted-foreground">Verified battery history</p>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">50% Faster</h3>
+            <p className="text-sm text-muted-foreground">fault detection</p>
           </div>
 
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <Zap className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Market Differentiation</h3>
-            <p className="text-sm text-muted-foreground">Predictive servicing advantage</p>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">15% Improvement</h3>
+            <p className="text-sm text-muted-foreground">in asset utilization</p>
           </div>
         </div>
       </div>
