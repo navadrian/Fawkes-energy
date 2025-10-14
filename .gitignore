@@ -115,6 +115,7 @@ Thumbs.db
 playwright-mcp.js
 screenshots/
 *.png
+!public/images/partners/*.png
 test-results/
 playwright-report/
 playwright/.cache/
