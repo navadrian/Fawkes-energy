@@ -1159,6 +1159,9 @@ function AboutSection() {
             <p>
               By enabling smarter reuse, fairer resale, and more sustainable second-life applications, we're driving circularity across the battery value chain, and shaping a future where <strong className="text-foreground">every battery counts.</strong>
             </p>
+            <p className="mt-4">
+              Fawkes Energy is born out of a deep understanding of the challenges in the battery value chain, from materials science to end-of-life management.
+            </p>
           </div>
           </div>
 
@@ -1233,8 +1236,17 @@ function AboutSection() {
                 <Users className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground">Abhishek</p>
+                <p className="text-sm font-medium text-foreground">Abhishek Sharma</p>
                 <p className="text-xs text-muted-foreground">Hardware Engineer</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-background/30 rounded-lg p-4">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Users className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Priyanka LK</p>
+                <p className="text-xs text-muted-foreground">Data Analyst</p>
               </div>
             </div>
           </div>
@@ -1284,7 +1296,19 @@ function AboutSection() {
                 />
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                A collaborative network dedicated to advancing battery technology and sustainability across the entire lifecycle, from manufacturing to recycling and second-life applications.
+                The Battery 360 Alliance is a multi-stakeholder platform launched to promote a sustainable and circular battery value chain in India. It aims to foster cross-sectoral collaborations and address challenges in the battery ecosystem, including localized manufacturing and battery reuse and recycling.
+              </p>
+            </div>
+
+            {/* Dezerv */}
+            <div className="bg-background/50 rounded-lg p-6 border border-border">
+              <div className="mb-6 flex items-center justify-center h-24">
+                <div className="text-2xl font-bold text-muted-foreground tracking-wider">
+                  DEZERV
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Dezerv is a Mumbai-based wealth tech startup that provides a suite of investment solutions tailored for India's affluent individuals, High Net Worth Individuals (HNIs), and family offices. The company's core offerings are built on an active portfolio monitoring philosophy, emphasizing data-driven decision-making to deliver superior investment outcomes through continuous market engagement and strategic adaptability.
               </p>
             </div>
           </div>
