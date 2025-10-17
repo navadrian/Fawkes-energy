@@ -105,6 +105,9 @@ Thumbs.db
 *.swo
 *~
 
+# MCP Configuration (contains API keys)
+.cursor/mcp.json
+
 # Netlify
 .netlify/
 

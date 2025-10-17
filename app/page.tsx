@@ -550,21 +550,53 @@ function ProblemSection() {
       }
     },
     {
-      type: 'Bar',
+      type: 'Doughnut',
       data: {
-        labels: ['Year 1', 'Year 5', 'Year 10'],
+        labels: ['Formally recycled', 'Informally processed'],
+        datasets: [{
+          data: [99, 1],
+          backgroundColor: ['hsl(37 100% 48%)', 'hsl(0 0% 80%)']
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'EV LiB Processing Split in India',
+            font: { size: 12, weight: 'normal' }
+          },
+          legend: { position: 'bottom' },
+          datalabels: { display: false }
+        },
+        cutout: '60%'
+      }
+    },
+    {
+      type: 'Line',
+      data: {
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
         datasets: [
           {
-            label: 'Predicted SOH',
-            data: [98, 85, 65],
-            backgroundColor: 'hsl(37 100% 65%)',
-            borderWidth: 1
+            label: 'Predictive',
+            data: [8, 12.5, 14, 16, 17.5, 19, 21, 21.5, 22, 24, 24.5, 25],
+            borderColor: 'hsl(37 100% 48%)',
+            backgroundColor: 'hsl(37 100% 48% / 0.2)',
+            tension: 0.3,
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 2,
+            pointHoverRadius: 4
           },
           {
-            label: 'Actual SOH',
-            data: [97, 78, 52],
-            backgroundColor: 'hsl(37 100% 35%)',
-            borderWidth: 1
+            label: 'Reactive',
+            data: [1.5, 2.2, 5.8, 5, 4.8, 6.2, 3.5, 4.5, 8.5, 7.5, 6.2, 9],
+            borderColor: 'hsl(0 0% 80%)',
+            backgroundColor: 'hsl(0 0% 80% / 0.2)',
+            tension: 0.3,
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 2,
+            pointHoverRadius: 4
           }
         ]
       },
@@ -572,30 +604,32 @@ function ProblemSection() {
         plugins: {
           title: {
             display: true,
-            text: 'State-of-Health (SOH) Prediction vs. Reality',
+            text: 'ROI: Predictive vs Reactive Maintenance Over Time',
             font: { size: 12, weight: 'normal' }
-          }
+          },
+          datalabels: { display: false }
         },
         scales: {
-          y: { beginAtZero: true, max: 100 }
-        }
-      }
-    },
-    {
-      type: 'Doughnut',
-      data: {
-        labels: ['Landfilled', 'Recycled (Low-Value)', 'Remanufactured'],
-        datasets: [{
-          data: [40, 50, 10],
-          backgroundColor: ['hsl(37 100% 35%)', 'hsl(37 60% 55%)', 'hsl(37 100% 65%)']
-        }]
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'End-of-Life Battery Fate',
-            font: { size: 12, weight: 'normal' }
+          x: {
+            title: {
+              display: true,
+              text: 'Months Since Deployment',
+              color: 'hsl(0 0% 85%)'
+            },
+            ticks: { color: 'hsl(0 0% 70%)' },
+            grid: { color: 'hsl(0 0% 20% / 0.3)' }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 26,
+            title: {
+              display: true,
+              text: 'ROI Index',
+              color: 'hsl(0 0% 85%)'
+            },
+            ticks: { color: 'hsl(0 0% 70%)' },
+            grid: { color: 'hsl(0 0% 20% / 0.3)' }
           }
         }
       }
@@ -693,16 +727,16 @@ function ProblemSection() {
     {
       title: 'BESS Developers',
       subtitle: 'Predictive Maintenance Challenges',
-      keyInsight: 'For BESS operators, predictive maintenance enables early fault detection, reducing downtime, lowering costs, and improving ROI over time. But this is only possible with advanced battery intelligence. Without it, operators are stuck with reactive maintenance—driving up costs and operational risks.',
+      keyInsight: 'For BESS developers, predictive maintenance enables early fault detection, reducing downtime, lowering costs, and improving ROI over time. But this is only possible with advanced battery intelligence. Without it, operators are stuck with reactive maintenance—driving up costs and operational risks.',
       dataPoint: 'Predictive maintenance can reduce costs by 20-30%',
       source: 'Energy storage studies',
       painPoints: [
-        'Reactive maintenance leading to unexpected downtime',
-        'Inability to optimize energy storage performance',
-        'Higher operational costs due to lack of predictive insights',
-        'Performance degradation faster than projected, affecting project ROI',
-        'Safety risks associated with thermal runaway events in large-scale systems',
-        'Inefficient grid augmentation strategies due to poor battery state awareness'
+        'Predictive insights enable early fault detection before failures occur',
+        'Reduced system downtime through proactive maintenance scheduling',
+        'Lower maintenance costs by preventing unplanned reactive repairs',
+        'Improved ROI over time via optimized maintenance and uptime',
+        'Requires advanced battery intelligence to realize these benefits',
+        'Reactive maintenance drives higher costs and operational risks'
       ]
     },
     {
@@ -727,9 +761,7 @@ function ProblemSection() {
       maintainAspectRatio: false,
       animation: {
         duration: 0, // Disable animations to prevent size jumping
-        resize: {
-          duration: 0 // Also disable resize animations
-        }
+        resize: { duration: 0 }
       },
       interaction: {
         intersect: false // Improve performance
@@ -750,6 +782,7 @@ function ProblemSection() {
           align: 'center'
         },
         title: { display: false },
+        // Hide numbers on nodes/slices globally
         datalabels: { display: false }
       },
       scales: chart.type !== 'Doughnut' && chart.type !== 'Funnel' ? {
@@ -794,13 +827,8 @@ function ProblemSection() {
       resizeDelay: 0,
       devicePixelRatio: 1,
       elements: {
-        point: {
-          radius: 4,
-          hoverRadius: 6
-        },
-        line: {
-          borderWidth: 3
-        },
+        point: { radius: 0, hoverRadius: 3 },
+        line: { borderWidth: 2, tension: 0.3 },
         bar: {
           borderWidth: 1,
           borderRadius: 4
@@ -813,25 +841,23 @@ function ProblemSection() {
 
     // Responsive chart options optimized for containers
     const mergedOptions = chart.options ? {
-      ...chart.options,
+      // Common defaults first, chart-specific overrides after
       ...commonOptions,
-      // Enable responsive behavior without aspect ratio constraints
+      ...chart.options,
       responsive: true,
       maintainAspectRatio: false,
-      // Smooth resizing
       resizeDelay: 0,
-      // Maintain layout configuration
-      layout: {
-        ...chart.options.layout,
-        ...commonOptions.layout
-      },
+      layout: { ...commonOptions.layout, ...chart.options.layout },
       plugins: {
+        ...commonOptions.plugins,
         ...chart.options.plugins,
-        legend: {
-          ...chart.options.plugins?.legend,
-          ...commonOptions.plugins?.legend
-        }
-      }
+        legend: { ...((commonOptions.plugins as any)?.legend || {}), ...((chart.options.plugins as any)?.legend || {}) }
+      },
+      // Merge scales so chart-specific axes (e.g., titles) are preserved
+      scales: chart.type !== 'Doughnut' && chart.type !== 'Funnel' ? {
+        x: { ...((commonOptions.scales as any)?.x || {}), ...(((chart.options as any)?.scales?.x) || {}) },
+        y: { ...((commonOptions.scales as any)?.y || {}), ...(((chart.options as any)?.scales?.y) || {}) }
+      } : (chart.options as any)?.scales
     } : {
       ...commonOptions,
       responsive: true,
@@ -906,6 +932,11 @@ function ProblemSection() {
                 <p className="text-xs md:text-sm font-medium text-primary mb-4 break-words">
                   {painPointsData[activeTab].subtitle}
                 </p>
+                {painPointsData[activeTab].keyInsight && (
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed mb-4 break-words">
+                    {painPointsData[activeTab].keyInsight}
+                  </p>
+                )}
               </div>
 
               {/* Standard Layout for All Tabs */}
@@ -913,8 +944,8 @@ function ProblemSection() {
                 <h5 className="text-xs md:text-sm font-medium text-foreground mb-4">Key Challenges</h5>
                 <ul className="space-y-2 md:space-y-4 w-full">
                   {painPoints[activeTab].map((point, index) => (
-                    <li key={index} className="flex items-start text-xs md:text-sm text-muted-foreground leading-relaxed break-words w-full">
-                      <span className="text-primary mr-2 mt-2 text-xs flex-shrink-0">•</span>
+                    <li key={index} className="flex items-center text-xs md:text-sm text-muted-foreground leading-relaxed break-words w-full">
+                      <span className="text-primary mr-2 text-xs flex-shrink-0">•</span>
                       <span className="flex-1 min-w-0 break-words">{point}</span>
                     </li>
                   ))}
