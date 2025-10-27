@@ -13,6 +13,13 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+[[forms]]
+  name = "contact"
+
+[[forms.notifications]]
+  for = "contact"
+  email = "medha@fawkes.energy"
+
 [context.production]
   command = "npm run build"
 
