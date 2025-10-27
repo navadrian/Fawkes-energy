@@ -518,16 +518,14 @@ function ProblemSection() {
       }
     },
     {
-      type: 'Bar',
+      type: 'Funnel',
       data: {
         labels: ['Origination', 'Risk Assessment', 'Monitoring', 'Recovery'],
         datasets: [{
-          label: 'Value (%)',
           data: [100, 80, 60, 40],
           backgroundColor: ['hsl(37 100% 35%)', 'hsl(37 100% 42%)', 'hsl(37 100% 48%)', 'hsl(37 100% 55%)'],
           borderColor: 'hsl(0 0% 20%)',
-          borderWidth: 1,
-          borderRadius: 4
+          borderWidth: 2
         }]
       },
       options: {
@@ -548,6 +546,9 @@ function ProblemSection() {
           legend: {
             display: false
           },
+          tooltip: {
+            enabled: false
+          },
           datalabels: {
             display: true,
             color: 'hsl(0 0% 100%)',
@@ -555,15 +556,26 @@ function ProblemSection() {
               size: 13,
               weight: 'bold'
             },
-            anchor: 'end',
-            align: 'right'
+            formatter: function(value: any, context: any) {
+              return context.chart.data.labels[context.dataIndex];
+            }
+          }
+        },
+        maintainAspectRatio: false,
+        responsive: true,
+        layout: {
+          padding: {
+            left: 60,
+            right: 60,
+            top: 20,
+            bottom: 20
           }
         },
         scales: {
           x: {
             display: false,
             min: 0,
-            max: 110,
+            max: 100,
             grid: {
               display: false
             }
@@ -575,12 +587,9 @@ function ProblemSection() {
             }
           }
         },
-        layout: {
-          padding: {
-            left: 100,
-            right: 30,
-            top: 10,
-            bottom: 10
+        elements: {
+          funnel: {
+            alignment: 'center'
           }
         }
       }
@@ -591,7 +600,8 @@ function ProblemSection() {
         labels: ['Informally processed', 'Formally recycled'],
         datasets: [{
           data: [99, 1],
-          backgroundColor: ['hsl(0 0% 80%)', 'hsl(37 100% 48%)']
+          backgroundColor: ['hsl(37 100% 48%)', 'hsl(37 60% 35%)'],
+          borderWidth: 0
         }]
       },
       options: {
@@ -618,7 +628,18 @@ function ProblemSection() {
             },
             formatter: (value: number, context: any) => {
               return `${value}%`;
-            }
+            },
+            anchor: (context: any) => {
+              // Show 1% outside with leader line, 99% inside
+              return context.dataIndex === 1 ? 'end' : 'center';
+            },
+            align: (context: any) => {
+              return context.dataIndex === 1 ? 'end' : 'center';
+            },
+            offset: (context: any) => {
+              return context.dataIndex === 1 ? 10 : 0;
+            },
+            clamp: false
           }
         },
         cutout: '60%'
