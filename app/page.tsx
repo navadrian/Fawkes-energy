@@ -335,7 +335,7 @@ function HeroSection() {
     <AnimatedSection id="hero" className="min-h-screen flex items-center justify-center pt-16 px-6">
       <div
         ref={containerRef}
-        className="relative w-full max-w-6xl h-[80vh] overflow-hidden rounded-lg shadow-2xl"
+        className="relative w-full max-w-6xl h-[70vh] md:h-[80vh] overflow-hidden rounded-lg shadow-2xl"
       >
         {/* Video Background - Lazy loaded and optimized */}
         {shouldLoadVideo && (
@@ -393,10 +393,10 @@ function HeroSection() {
         )}
 
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" />
 
         {/* Content */}
-        <div className="relative h-full flex items-end justify-start p-8 md:p-12">
+        <div className="relative h-full flex items-end justify-start p-6 md:p-12">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading leading-tight text-white">
               Deep Tech Battery Intelligence
@@ -446,6 +446,13 @@ function ProblemSection() {
             text: 'EV vs Non-EV Claims by Model Year',
             font: { size: 12, weight: 'normal' }
           },
+          subtitle: {
+            display: true,
+            text: 'Source: CCC Intelligent Insights, (2022), Electric vs ICE Vehicles: Unpacking Repair Cost Impacts',
+            font: { size: 10, style: 'italic', weight: 'normal' },
+            color: 'hsl(0 0% 60%)',
+            padding: { top: 4 }
+          },
           legend: { display: true, position: 'top' },
           datalabels: { display: false }
         },
@@ -461,76 +468,102 @@ function ProblemSection() {
     {
       type: 'Line',
       data: {
-        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+        labels: [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
         datasets: [{
-          label: 'Downtime Events',
-          data: [25, 32, 45, 40],
+          label: 'Battery Capacity (%)',
+          data: [100, 97, 96, 94.8, 93, 91, 89, 87, 86, 75, 70],
           borderColor: 'hsl(37 100% 48%)',
-          backgroundColor: 'hsl(var(--chart-1) / 0.2)',
+          backgroundColor: 'hsl(37 100% 48% / 0.2)',
           tension: 0.3,
-          fill: true
+          fill: true,
+          borderWidth: 2,
+          pointRadius: 3,
+          pointHoverRadius: 5
         }]
       },
       options: {
         plugins: {
           title: {
             display: true,
-            text: 'Fleet Downtime Events',
+            text: 'Battery Capacity vs. Cycles Showing Capacity Cliff',
             font: { size: 12, weight: 'normal' }
           }
         },
         scales: {
-          y: { beginAtZero: true }
+          x: {
+            title: {
+              display: true,
+              text: 'Charge Cycles',
+              color: 'hsl(0 0% 85%)'
+            },
+            ticks: {
+              color: 'hsl(0 0% 70%)',
+              maxTicksLimit: 6
+            }
+          },
+          y: {
+            beginAtZero: false,
+            min: 60,
+            max: 105,
+            title: {
+              display: true,
+              text: 'Battery Capacity (%)',
+              color: 'hsl(0 0% 85%)'
+            },
+            ticks: {
+              color: 'hsl(0 0% 70%)'
+            }
+          }
         }
       }
     },
     {
-      type: 'Funnel',
+      type: 'Bar',
       data: {
         labels: ['Origination', 'Risk Assessment', 'Monitoring', 'Recovery'],
         datasets: [{
+          label: 'Value (%)',
           data: [100, 80, 60, 40],
-          backgroundColor: ['hsl(37 100% 35%)', 'hsl(37 100% 48%)', 'hsl(37 100% 55%)', 'hsl(37 100% 65%)'],
+          backgroundColor: ['hsl(37 100% 35%)', 'hsl(37 100% 42%)', 'hsl(37 100% 48%)', 'hsl(37 100% 55%)'],
           borderColor: 'hsl(0 0% 20%)',
-          borderWidth: 2,
+          borderWidth: 1,
+          borderRadius: 4
         }]
       },
       options: {
         indexAxis: 'y',
         plugins: {
+          title: {
+            display: true,
+            text: 'EV Financing Lifecycle Value Flow',
+            font: { size: 12, weight: 'normal' }
+          },
+          subtitle: {
+            display: true,
+            text: 'Source: Fawkes Energy internal analysis, 2025',
+            font: { size: 10, style: 'italic', weight: 'normal' },
+            color: 'hsl(0 0% 60%)',
+            padding: { top: 4 }
+          },
           legend: {
             display: false
-          },
-          tooltip: {
-            enabled: false
           },
           datalabels: {
             display: true,
             color: 'hsl(0 0% 100%)',
             font: {
-              size: 14,
+              size: 13,
               weight: 'bold'
             },
-            formatter: function(value: any, context: any) {
-              return context.chart.data.labels[context.dataIndex];
-            }
-          }
-        },
-        maintainAspectRatio: false,
-        responsive: true,
-        layout: {
-          padding: {
-            left: 80,
-            right: 80,
-            top: 20,
-            bottom: 20
+            anchor: 'end',
+            align: 'right'
           }
         },
         scales: {
           x: {
             display: false,
             min: 0,
-            max: 100,
+            max: 110,
             grid: {
               display: false
             }
@@ -542,9 +575,12 @@ function ProblemSection() {
             }
           }
         },
-        elements: {
-          funnel: {
-            alignment: 'center'
+        layout: {
+          padding: {
+            left: 100,
+            right: 30,
+            top: 10,
+            bottom: 10
           }
         }
       }
@@ -552,10 +588,10 @@ function ProblemSection() {
     {
       type: 'Doughnut',
       data: {
-        labels: ['Formally recycled', 'Informally processed'],
+        labels: ['Informally processed', 'Formally recycled'],
         datasets: [{
           data: [99, 1],
-          backgroundColor: ['hsl(37 100% 48%)', 'hsl(0 0% 80%)']
+          backgroundColor: ['hsl(0 0% 80%)', 'hsl(37 100% 48%)']
         }]
       },
       options: {
@@ -565,8 +601,25 @@ function ProblemSection() {
             text: 'EV LiB Processing Split in India',
             font: { size: 12, weight: 'normal' }
           },
+          subtitle: {
+            display: true,
+            text: 'Source: ICEA-Accenture, (2025); Pathways to Circular Economy in Indian Electronics Sector',
+            font: { size: 10, style: 'italic', weight: 'normal' },
+            color: 'hsl(0 0% 60%)',
+            padding: { top: 4 }
+          },
           legend: { position: 'bottom' },
-          datalabels: { display: false }
+          datalabels: { 
+            display: true,
+            color: 'hsl(0 0% 100%)',
+            font: {
+              size: 12,
+              weight: 'bold'
+            },
+            formatter: (value: number, context: any) => {
+              return `${value}%`;
+            }
+          }
         },
         cutout: '60%'
       }
@@ -686,7 +739,7 @@ function ProblemSection() {
     {
       title: 'Fleet Operators',
       subtitle: 'Capacity Cliffs & Downtime Risk',
-      keyInsight: 'Lithium-ion batteries don\'t always degrade gradually—sometimes they face abrupt "capacity cliffs," with losses of up to 20% in just a few charge cycles. This sudden drop can cause unexpected range loss or vehicle downtime, creating major risks for EV fleets.',
+      keyInsight: 'Lithium-ion batteries don\'t always degrade gradually; sometimes they face abrupt "capacity cliffs," with losses of up to 20% in just a few charge cycles. This sudden drop can cause unexpected range loss or vehicle downtime, creating major risks for EV fleets.',
       dataPoint: 'Up to 20% capacity loss in just a few charge cycles',
       source: 'Battery degradation studies',
       painPoints: [
@@ -727,7 +780,7 @@ function ProblemSection() {
     {
       title: 'BESS Developers',
       subtitle: 'Predictive Maintenance Challenges',
-      keyInsight: 'For BESS developers, predictive maintenance enables early fault detection, reducing downtime, lowering costs, and improving ROI over time. But this is only possible with advanced battery intelligence. Without it, operators are stuck with reactive maintenance—driving up costs and operational risks.',
+      keyInsight: 'For BESS developers, predictive maintenance enables early fault detection, reducing downtime, lowering costs, and improving ROI over time. But this is only possible with advanced battery intelligence. Without it, operators are stuck with reactive maintenance, driving up costs and operational risks.',
       dataPoint: 'Predictive maintenance can reduce costs by 20-30%',
       source: 'Energy storage studies',
       painPoints: [
@@ -742,7 +795,7 @@ function ProblemSection() {
     {
       title: 'CPOs',
       subtitle: 'Charging Infrastructure Optimization',
-      keyInsight: 'Charge Point Operators face challenges in optimizing charging infrastructure without visibility into battery health patterns. Understanding battery degradation and charging behavior is crucial for network planning and customer experience.',
+      keyInsight: 'In a cost-heavy ecosystem, CPOs can create new revenue streams by offering data-driven services like downloadable Battery State of Health (SoH) reports after each charge. This transforms routine charging into a premium, insight-driven experience, boosting customer trust, loyalty, and retention while improving charger utilization, offsetting operational costs, and driving long-term profitability.',
       dataPoint: 'Optimized charging can extend battery life by 15-25%',
       source: 'Charging infrastructure studies',
       painPoints: [
@@ -883,9 +936,9 @@ function ProblemSection() {
   };
 
   return (
-    <AnimatedSection id="problem" className="min-h-screen flex items-center py-8 md:py-16">
+    <AnimatedSection id="problem" className="min-h-screen flex items-center py-6 md:py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">The Problem Landscape</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             The battery ecosystem is fragmented and opaque. Different stakeholders operate in silos, leading to massive inefficiencies and risks.
@@ -962,9 +1015,9 @@ function ProblemSection() {
 // --- VISION SECTION ---
 function VisionSection() {
   return (
-    <AnimatedSection id="vision" className="min-h-screen flex items-center py-16 bg-secondary/30">
+    <AnimatedSection id="vision" className="min-h-screen flex items-center py-6 md:py-12 bg-secondary/30">
       <div className="max-w-4xl mx-auto px-6 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6 font-heading text-foreground">Vision for a Sustainable Future</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 font-heading text-foreground">Vision for a Sustainable Future</h2>
 
         <div className="relative max-w-2xl mx-auto mb-8">
           <img 
@@ -1003,9 +1056,9 @@ function ProductStackSection() {
   ];
 
   return (
-    <AnimatedSection id="products" className="min-h-screen flex items-center py-16">
+    <AnimatedSection id="products" className="min-h-screen flex items-center py-6 md:py-12">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">The Fawkes Product Stack</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             A suite of interconnected products to monitor, manage, and monetize batteries at scale.
@@ -1084,9 +1137,9 @@ function DifferentiatorsSection() {
   ];
 
   return (
-    <AnimatedSection id="differentiators" className="min-h-screen flex items-center py-16 bg-secondary/30">
+    <AnimatedSection id="differentiators" className="flex items-center justify-center py-6 md:py-12 bg-secondary/30">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">Our Competitive Edge</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             We're not just another analytics platform. Our core differentiators create a defensible moat.
@@ -1112,9 +1165,9 @@ function DifferentiatorsSection() {
 // --- VALUE DELIVERED SECTION ---
 function ValueDeliveredSection() {
   return (
-    <AnimatedSection id="value" className="min-h-screen flex items-center py-16">
+    <AnimatedSection id="value" className="flex items-center justify-center py-6 md:py-12">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">Tangible Value, Delivered</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Our intelligence translates into measurable improvements for your bottom line and operational efficiency.
@@ -1163,9 +1216,9 @@ function ValueDeliveredSection() {
 // --- ABOUT SECTION ---
 function AboutSection() {
   return (
-    <AnimatedSection id="about" className="min-h-screen flex items-center py-16 bg-secondary/30">
+    <AnimatedSection id="about" className="min-h-screen flex items-center py-6 md:py-12 bg-secondary/30">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">We Are Battery People</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             We are a team of scientists, engineers, and entrepreneurs obsessed with solving the hardest problems in energy storage.
@@ -1352,31 +1405,74 @@ function AboutSection() {
 
 // --- CONTACT SECTION ---
 function ContactSection() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Thank you for your message! We'll be in touch soon.");
+    setSubmitStatus('idle');
+    
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        form.reset();
+        setTimeout(() => setSubmitStatus('idle'), 3000);
+      } else {
+        setSubmitStatus('error');
+        setTimeout(() => setSubmitStatus('idle'), 3000);
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus('idle'), 3000);
+    }
   };
 
   return (
-    <AnimatedSection id="contact" className="min-h-screen flex items-center py-16">
+    <AnimatedSection id="contact" className="min-h-screen flex items-center py-6 md:py-12">
       <div className="max-w-2xl mx-auto px-6">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">Get in Touch</h2>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className="text-muted-foreground leading-relaxed mb-4">
             Let's talk about how Fawkes can unlock value in your battery assets.
           </p>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-muted-foreground">
+            <a href="mailto:medha@fawkes.energy" className="hover:text-foreground transition-colors">
+              medha@fawkes.energy
+            </a>
+            <span className="hidden md:inline">•</span>
+            <a href="mailto:akshay@fawkes.energy" className="hover:text-foreground transition-colors">
+              akshay@fawkes.energy
+            </a>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit} className="space-y-6">
+          <input type="hidden" name="form-name" value="contact" />
+          <p className="hidden">
+            <label>
+              Don't fill this out if you're human: <input name="bot-field" />
+            </label>
+          </p>
+          
           <div className="grid md:grid-cols-2 gap-6">
             <input
               type="text"
+              name="name"
               placeholder="Your Name"
               className="bg-background border border-border rounded-md px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               required
             />
             <input
               type="email"
+              name="email"
               placeholder="Your Email"
               className="bg-background border border-border rounded-md px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               required
@@ -1384,17 +1480,32 @@ function ContactSection() {
           </div>
           <input
             type="text"
+            name="subject"
             placeholder="Subject"
             className="w-full bg-background border border-border rounded-md px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             required
           />
           <textarea
+            name="message"
             placeholder="Your Message"
             className="w-full bg-background border border-border rounded-md px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             rows={5}
             required
           />
-          <Button type="submit" className="w-full">
+          
+          {submitStatus === 'success' && (
+            <div className="bg-green-500/10 border border-green-500/20 text-green-500 rounded-md px-4 py-2 text-sm text-center">
+              Thank you! We'll be in touch soon.
+            </div>
+          )}
+          
+          {submitStatus === 'error' && (
+            <div className="bg-red-500/10 border border-red-500/20 text-red-500 rounded-md px-4 py-2 text-sm text-center">
+              Something went wrong. Please try again.
+            </div>
+          )}
+          
+          <Button type="submit" className="w-full" disabled={submitStatus === 'success'}>
             Send Message
           </Button>
         </form>
