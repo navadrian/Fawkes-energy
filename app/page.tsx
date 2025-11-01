@@ -128,7 +128,7 @@ function Header() {
 
         <Button asChild className="hidden md:inline-flex">
           <a href="#contact">
-            Book a Meeting
+            Get in Touch
           </a>
         </Button>
 
@@ -163,7 +163,7 @@ function Header() {
                 href="#contact"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Book a Meeting
+                Get in Touch
               </a>
             </Button>
           </nav>
@@ -600,7 +600,7 @@ function ProblemSection() {
         labels: ['Informally processed', 'Formally recycled'],
         datasets: [{
           data: [99, 1],
-          backgroundColor: ['hsl(37 100% 48%)', 'hsl(37 60% 35%)'],
+          backgroundColor: ['hsl(37 100% 48%)', 'hsl(150 70% 45%)'],
           borderWidth: 0
         }]
       },
@@ -609,7 +609,8 @@ function ProblemSection() {
           title: {
             display: true,
             text: 'EV LiB Processing Split in India',
-            font: { size: 12, weight: 'normal' }
+            font: { size: 12, weight: 'normal' },
+            padding: { top: 0, bottom: 20 }
           },
           subtitle: {
             display: true,
@@ -637,7 +638,7 @@ function ProblemSection() {
               return context.dataIndex === 1 ? 'end' : 'center';
             },
             offset: (context: any) => {
-              return context.dataIndex === 1 ? 10 : 0;
+              return context.dataIndex === 1 ? 15 : 0;
             },
             clamp: false
           }
@@ -1043,7 +1044,7 @@ function VisionSection() {
         <div className="relative max-w-2xl mx-auto mb-8">
           <img 
             src="/images/circularity.jpg" 
-            alt="Circular Economy Vision" 
+            alt="Circular Economy Vision - F43i Battery Lifecycle" 
             className="w-full h-auto rounded-lg shadow-lg"
           />
         </div>
@@ -1199,34 +1200,34 @@ function ValueDeliveredSection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Shield className="w-6 h-6 text-primary" />
+              <CheckCircle className="w-6 h-6 text-primary" />
               </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">20% Increase</h3>
-            <p className="text-sm text-muted-foreground">in battery lifespan</p>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Reliable SOH Report in &lt;1 hour</h3>
+            <p className="text-sm text-muted-foreground">Cutting testing time by 70%</p>
+          </div>
+
+          <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <BarChart3 className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">±3% accuracy</h3>
+            <p className="text-sm text-muted-foreground">in SOH &amp; RUL forecasts</p>
           </div>
 
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <TrendingUp className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">30% Reduction</h3>
-            <p className="text-sm text-muted-foreground">in operational costs</p>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Lower TCO by up to 15%</h3>
+            <p className="text-sm text-muted-foreground">through predictive, optimized, value-driven maintenance tracking</p>
           </div>
 
           <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Database className="w-6 h-6 text-primary" />
+              <AlertCircle className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">50% Faster</h3>
-            <p className="text-sm text-muted-foreground">fault detection</p>
-          </div>
-
-          <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center">
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Zap className="w-6 h-6 text-primary" />
-            </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">15% Improvement</h3>
-            <p className="text-sm text-muted-foreground">in asset utilization</p>
+            <h3 className="text-lg font-semibold text-foreground mb-2 font-heading">Cut unplanned down time by &gt; 20%</h3>
+            <p className="text-sm text-muted-foreground">through anomaly alerts, reducing unexpected asset stoppages</p>
           </div>
         </div>
       </div>
@@ -1458,78 +1459,102 @@ function ContactSection() {
 
   return (
     <AnimatedSection id="contact" className="min-h-screen flex items-center py-6 md:py-12">
-      <div className="max-w-2xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6 w-full">
         <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 font-heading text-foreground">Get in Touch</h2>
           <p className="text-muted-foreground leading-relaxed mb-4">
             Let's talk about how Fawkes can unlock value in your battery assets.
           </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-muted-foreground">
-            <a href="mailto:medha@fawkes.energy" className="hover:text-foreground transition-colors">
-              medha@fawkes.energy
-            </a>
-            <span className="hidden md:inline">•</span>
-            <a href="mailto:akshay@fawkes.energy" className="hover:text-foreground transition-colors">
-              akshay@fawkes.energy
-            </a>
-          </div>
         </div>
 
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit} className="space-y-6">
-          <input type="hidden" name="form-name" value="contact" />
-          <p className="hidden">
-            <label>
-              Don't fill this out if you're human: <input name="bot-field" />
-            </label>
-          </p>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              className="bg-background border border-border rounded-md px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              className="bg-background border border-border rounded-md px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              required
-            />
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+          {/* Address Column */}
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-4 font-heading">Contact Information</h3>
+              <div className="space-y-4 text-muted-foreground">
+                <div className="flex items-start gap-3">
+                  <Building className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-foreground font-medium">Fawkes Energy</p>
+                    <p>2nd Floor, C 59, Garudachar Palya</p>
+                    <p>Mahadevpura, Bengaluru - 560048</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Mail className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                  <div className="flex flex-col gap-2">
+                    <a href="mailto:medha@fawkes.energy" className="hover:text-foreground transition-colors">
+                      medha@fawkes.energy
+                    </a>
+                    <a href="mailto:akshay@fawkes.energy" className="hover:text-foreground transition-colors">
+                      akshay@fawkes.energy
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <input
-            type="text"
-            name="subject"
-            placeholder="Subject"
-            className="w-full bg-background border border-border rounded-md px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            required
-          />
-          <textarea
-            name="message"
-            placeholder="Your Message"
-            className="w-full bg-background border border-border rounded-md px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            rows={5}
-            required
-          />
-          
-          {submitStatus === 'success' && (
-            <div className="bg-green-500/10 border border-green-500/20 text-green-500 rounded-md px-4 py-2 text-sm text-center">
-              Thank you! We'll be in touch soon.
-            </div>
-          )}
-          
-          {submitStatus === 'error' && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-500 rounded-md px-4 py-2 text-sm text-center">
-              Something went wrong. Please try again.
-            </div>
-          )}
-          
-          <Button type="submit" className="w-full" disabled={submitStatus === 'success'}>
-            Send Message
-          </Button>
-        </form>
+
+          {/* Form Column */}
+          <div>
+            <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit} className="space-y-6">
+              <input type="hidden" name="form-name" value="contact" />
+              <p className="hidden">
+                <label>
+                  Don't fill this out if you're human: <input name="bot-field" />
+                </label>
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  className="bg-background border border-border rounded-md px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  required
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  className="bg-background border border-border rounded-md px-4 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  required
+                />
+              </div>
+              <input
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                className="w-full bg-background border border-border rounded-md px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                required
+              />
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                className="w-full bg-background border border-border rounded-md px-3 py-2 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                rows={5}
+                required
+              />
+              
+              {submitStatus === 'success' && (
+                <div className="bg-green-500/10 border border-green-500/20 text-green-500 rounded-md px-4 py-2 text-sm text-center">
+                  Thank you! We'll be in touch soon.
+                </div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <div className="bg-red-500/10 border border-red-500/20 text-red-500 rounded-md px-4 py-2 text-sm text-center">
+                  Something went wrong. Please try again.
+                </div>
+              )}
+              
+              <Button type="submit" className="w-full" disabled={submitStatus === 'success'}>
+                Send Message
+              </Button>
+            </form>
+          </div>
+        </div>
       </div>
     </AnimatedSection>
   );
