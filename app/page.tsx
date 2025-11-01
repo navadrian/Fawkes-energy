@@ -744,6 +744,15 @@ function ProblemSection() {
     { name: 'CPOs', icon: <Zap className="w-4 h-4 md:w-5 md:h-5" /> },
   ];
 
+  const chartSources = [
+    'Source: CCC Intelligent Insights, (2022), Electric vs ICE Vehicles: Unpacking Repair Cost Impacts',
+    '', // Fleet Operators - source text needed
+    'Source: Fawkes Energy internal analysis, 2025',
+    'Source: ICEA-Accenture, (2025); Pathways to Circular Economy in Indian Electronics Sector',
+    '', // BESS Operators - source text needed
+    '' // CPOs - source text needed
+  ];
+
   const painPointsData = [
     {
       title: 'EV OEMs',
@@ -992,10 +1001,15 @@ function ProblemSection() {
           {/* Horizontal Layout - Chart on Left, Text on Right */}
           <div className="flex flex-col md:flex-row min-h-[400px] md:min-h-[480px]">
             {/* Chart Section - Responsive Width */}
-            <div className="w-full md:w-2/5 lg:w-5/12 min-h-[280px] md:min-h-full bg-card border-b md:border-b-0 md:border-r border-border flex items-center justify-center overflow-hidden flex-shrink-0">
+            <div className="w-full md:w-2/5 lg:w-5/12 min-h-[280px] md:min-h-full bg-card border-b md:border-b-0 md:border-r border-border flex flex-col justify-center overflow-hidden flex-shrink-0">
               <div ref={chartContainerRef} className="p-4 md:p-8 w-full max-w-full h-[280px] md:h-[460px]">
                 {renderChart(chartData[activeTab])}
               </div>
+              {chartSources[activeTab] && chartSources[activeTab].trim() !== '' && (
+                <p className="px-4 md:px-8 pb-4 md:pb-8 text-[10px] italic text-muted-foreground text-center">
+                  {chartSources[activeTab]}
+                </p>
+              )}
             </div>
             
             {/* Content Section - Takes Remaining Space */}
@@ -1043,7 +1057,7 @@ function VisionSection() {
 
         <div className="relative max-w-2xl mx-auto mb-8">
           <img 
-            src="/images/circularity.jpg" 
+            src="/images/fawkes.png" 
             alt="Circular Economy Vision - F43i Battery Lifecycle" 
             className="w-full h-auto rounded-lg shadow-lg"
           />
