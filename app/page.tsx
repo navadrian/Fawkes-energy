@@ -11,9 +11,10 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { Bar, Doughnut, Line, Chart } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { FunnelController, TrapezoidElement } from 'chartjs-chart-funnel';
+import annotationPlugin from 'chartjs-plugin-annotation';
 import { Button } from '@/components/ui/button'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, Filler, ChartDataLabels, FunnelController, TrapezoidElement);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, PointElement, LineElement, Filler, ChartDataLabels, FunnelController, TrapezoidElement, annotationPlugin);
 
 // --- TYPE DEFINITIONS ---
 interface AnimatedSectionProps {
@@ -733,21 +734,41 @@ function ProblemSection() {
       }
     },
     {
-      type: 'Bar',
+      type: 'Line',
       data: {
-        labels: ['Charger Downtime', 'Grid Fees', 'Battery Degradation Impact'],
-        datasets: [{
-          label: 'Annual Lost Revenue ($K)',
-          data: [250, 150, 100],
-          backgroundColor: ['hsl(37 100% 35%)', 'hsl(37 60% 55%)', 'hsl(37 100% 48%)'],
-          borderWidth: 1
-        }]
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [
+          {
+            label: 'Charging Commissions Revenue',
+            data: [45, 48, 52, 55, 58, 62, null, null, null, null, null, null],
+            borderColor: 'hsl(37 100% 48%)',
+            backgroundColor: 'hsl(37 100% 48% / 0.2)',
+            tension: 0.4,
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointStyle: 'circle'
+          },
+          {
+            label: 'Revenue with Battery Health Reports',
+            data: [null, null, null, null, null, 62, 68, 75, 82, 88, 95, 102],
+            borderColor: 'hsl(150 70% 45%)',
+            backgroundColor: 'hsl(150 70% 45% / 0.2)',
+            tension: 0.4,
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointStyle: 'circle'
+          }
+        ]
       },
       options: {
         plugins: {
           title: {
             display: true,
-            text: 'CPO Revenue Loss Sources',
+            text: 'Revenue Growth with Battery Health Reports Introduced Mid-Year',
             font: { size: 12, weight: 'normal' }
           },
           subtitle: {
@@ -756,10 +777,83 @@ function ProblemSection() {
             font: { size: 10, style: 'italic', weight: 'normal' },
             color: 'hsl(0 0% 60%)',
             padding: { top: 4 }
-          }
+          },
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              usePointStyle: true,
+              padding: 12,
+              font: {
+                size: 12
+              }
+            }
+          },
+          annotation: {
+            annotations: {
+              line1: {
+                type: 'line' as const,
+                xMin: 5,
+                xMax: 5,
+                borderColor: 'hsl(0 0% 60%)',
+                borderWidth: 2,
+                borderDash: [5, 5],
+                label: {
+                  display: true,
+                  content: 'Battery Reports Introduced',
+                  position: 'start' as const,
+                  backgroundColor: 'hsl(0 0% 20%)',
+                  color: 'hsl(0 0% 85%)',
+                  font: {
+                    size: 10
+                  },
+                  padding: {
+                    x: 8,
+                    y: 4
+                  }
+                }
+              }
+            }
+          },
+          datalabels: { display: false }
         },
         scales: {
-          y: { beginAtZero: true, max: 300 }
+          x: {
+            title: {
+              display: true,
+              text: 'Month',
+              color: 'hsl(0 0% 85%)'
+            },
+            ticks: {
+              color: 'hsl(0 0% 70%)',
+              font: {
+                family: 'Inter, sans-serif'
+              }
+            },
+            grid: {
+              color: 'hsl(0 0% 20% / 0.6)'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Revenue ($K)',
+              color: 'hsl(0 0% 85%)'
+            },
+            ticks: {
+              color: 'hsl(0 0% 70%)',
+              font: {
+                family: 'Inter, sans-serif'
+              },
+              callback: function(value: any) {
+                return '$' + value + 'K';
+              }
+            },
+            grid: {
+              color: 'hsl(0 0% 20% / 0.6)'
+            }
+          }
         }
       }
     }
