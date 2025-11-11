@@ -914,7 +914,8 @@ function ProblemSection() {
         'Lack of high-quality battery data and diagnostics',
         'Limited data transparency affecting risk assessment accuracy',
         'Inability to predict or quantify premature battery degradation',
-        'Inadequate ICE-based risk models for evaluating EV performance and value'
+        'Inadequate ICE-based risk models for evaluating EV performance and value',
+        'Difficulty in assessing resale/ residual value'
       ]
     },
     {
