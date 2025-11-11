@@ -740,7 +740,7 @@ function ProblemSection() {
         datasets: [
           {
             label: 'Charging Commissions Revenue',
-            data: [45, 48, 52, 55, 58, 62, null, null, null, null, null, null],
+            data: [45, 48, 52, 55, 58, 62, 65, 68, 71, 74, 77, 80],
             borderColor: 'hsl(37 100% 48%)',
             backgroundColor: 'hsl(37 100% 48% / 0.2)',
             tension: 0.4,
@@ -751,8 +751,8 @@ function ProblemSection() {
             pointStyle: 'circle'
           },
           {
-            label: 'Revenue with Battery Health Reports',
-            data: [null, null, null, null, null, 62, 68, 75, 82, 88, 95, 102],
+            label: 'Total Revenue with Battery Health Reports',
+            data: [null, null, null, null, null, 62, 72, 80, 89, 97, 106, 115],
             borderColor: 'hsl(150 70% 45%)',
             backgroundColor: 'hsl(150 70% 45% / 0.2)',
             tension: 0.4,
