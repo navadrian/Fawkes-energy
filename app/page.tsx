@@ -1416,9 +1416,13 @@ function AboutSection() {
           <h3 className="text-xl md:text-2xl font-semibold font-heading text-foreground mb-8 text-center">Co-Founders</h3>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div className="bg-background/50 rounded-lg p-6 border border-border">
-            <div className="w-20 h-20 bg-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-xs text-muted-foreground">Photo</span>
-            </div>
+              <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden bg-secondary">
+                <img 
+                  src="/images/karthik-ganesh.jpg" 
+                  alt="Karthik Ganesh" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <h4 className="text-lg font-semibold text-foreground mb-2 text-center">Karthik Ganesh</h4>
               <p className="text-sm text-muted-foreground leading-relaxed text-center">
                 Karthik brings 15+ years experience in powering clean tech with deep expertise in battery system design, thermal analysis, and real-world validation. From CFD to prototypes, he turns complex electrochemical systems into scalable energy solutions.
@@ -1426,8 +1430,12 @@ function AboutSection() {
             </div>
 
             <div className="bg-background/50 rounded-lg p-6 border border-border">
-              <div className="w-20 h-20 bg-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-xs text-muted-foreground">Photo</span>
+              <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden bg-secondary">
+                <img 
+                  src="/images/akshay-kumar.jpg" 
+                  alt="Akshay Kumar" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h4 className="text-lg font-semibold text-foreground mb-2 text-center">Akshay Kumar</h4>
               <p className="text-sm text-muted-foreground leading-relaxed text-center">
