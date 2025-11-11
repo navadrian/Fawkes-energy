@@ -487,6 +487,13 @@ function ProblemSection() {
             display: true,
             text: 'Battery Capacity vs. Cycles Showing Capacity Cliff',
             font: { size: 12, weight: 'normal' }
+          },
+          subtitle: {
+            display: true,
+            text: 'Source: Fawkes Energy internal analysis, 2025',
+            font: { size: 10, style: 'italic', weight: 'normal' },
+            color: 'hsl(0 0% 60%)',
+            padding: { top: 4 }
           }
         },
         scales: {
@@ -518,22 +525,39 @@ function ProblemSection() {
       }
     },
     {
-      type: 'Funnel',
+      type: 'Line',
       data: {
-        labels: ['Origination', 'Risk Assessment', 'Monitoring', 'Recovery'],
-        datasets: [{
-          data: [100, 80, 60, 40],
-          backgroundColor: ['hsl(37 100% 35%)', 'hsl(37 100% 42%)', 'hsl(37 100% 48%)', 'hsl(37 100% 55%)'],
-          borderColor: 'hsl(0 0% 20%)',
-          borderWidth: 2
-        }]
+        labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+        datasets: [
+          {
+            label: 'Without Battery Intelligence',
+            data: [60, 70, 80, 85, 90],
+            borderColor: 'hsl(0 60% 50%)',
+            backgroundColor: 'hsl(0 60% 50% / 0.2)',
+            tension: 0.4,
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 3,
+            pointHoverRadius: 5
+          },
+          {
+            label: 'With Battery Intelligence',
+            data: [40, 42, 45, 48, 50],
+            borderColor: 'hsl(150 70% 45%)',
+            backgroundColor: 'hsl(150 70% 45% / 0.2)',
+            tension: 0.4,
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 3,
+            pointHoverRadius: 5
+          }
+        ]
       },
       options: {
-        indexAxis: 'y',
         plugins: {
           title: {
             display: true,
-            text: 'EV Financing Lifecycle Value Flow',
+            text: 'Financing Risk Over Time: With vs Without Battery Data',
             font: { size: 12, weight: 'normal' }
           },
           subtitle: {
@@ -544,52 +568,44 @@ function ProblemSection() {
             padding: { top: 4 }
           },
           legend: {
-            display: false
-          },
-          tooltip: {
-            enabled: false
-          },
-          datalabels: {
             display: true,
-            color: 'hsl(0 0% 100%)',
-            font: {
-              size: 13,
-              weight: 'bold'
-            },
-            formatter: function(value: any, context: any) {
-              return context.chart.data.labels[context.dataIndex];
-            }
-          }
-        },
-        maintainAspectRatio: false,
-        responsive: true,
-        layout: {
-          padding: {
-            left: 60,
-            right: 60,
-            top: 20,
-            bottom: 20
-          }
+            position: 'top'
+          },
+          datalabels: { display: false }
         },
         scales: {
           x: {
-            display: false,
-            min: 0,
-            max: 100,
+            title: {
+              display: true,
+              text: 'Vehicle Age',
+              color: 'hsl(0 0% 85%)'
+            },
+            ticks: {
+              color: 'hsl(0 0% 70%)',
+              maxTicksLimit: 6
+            },
             grid: {
-              display: false
+              color: 'hsl(0 0% 20% / 0.3)'
             }
           },
           y: {
-            display: false,
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            title: {
+              display: true,
+              text: 'Risk Level (%)',
+              color: 'hsl(0 0% 85%)'
+            },
+            ticks: {
+              color: 'hsl(0 0% 70%)',
+              callback: function(value: any) {
+                return value + '%';
+              }
+            },
             grid: {
-              display: false
+              color: 'hsl(0 0% 20% / 0.3)'
             }
-          }
-        },
-        elements: {
-          funnel: {
-            alignment: 'center'
           }
         }
       }
@@ -682,6 +698,13 @@ function ProblemSection() {
             text: 'ROI: Predictive vs Reactive Maintenance Over Time',
             font: { size: 12, weight: 'normal' }
           },
+          subtitle: {
+            display: true,
+            text: 'Source: Fawkes Energy internal analysis, 2025',
+            font: { size: 10, style: 'italic', weight: 'normal' },
+            color: 'hsl(0 0% 60%)',
+            padding: { top: 4 }
+          },
           datalabels: { display: false }
         },
         scales: {
@@ -726,6 +749,13 @@ function ProblemSection() {
             display: true,
             text: 'CPO Revenue Loss Sources',
             font: { size: 12, weight: 'normal' }
+          },
+          subtitle: {
+            display: true,
+            text: 'Source: Fawkes Energy internal analysis, 2025',
+            font: { size: 10, style: 'italic', weight: 'normal' },
+            color: 'hsl(0 0% 60%)',
+            padding: { top: 4 }
           }
         },
         scales: {
@@ -746,11 +776,11 @@ function ProblemSection() {
 
   const chartSources = [
     'Source: CCC Intelligent Insights, (2022), Electric vs ICE Vehicles: Unpacking Repair Cost Impacts',
-    '', // Fleet Operators - source text needed
+    'Source: Fawkes Energy internal analysis, 2025',
     'Source: Fawkes Energy internal analysis, 2025',
     'Source: ICEA-Accenture, (2025); Pathways to Circular Economy in Indian Electronics Sector',
-    '', // BESS Operators - source text needed
-    '' // CPOs - source text needed
+    'Source: Fawkes Energy internal analysis, 2025',
+    'Source: Fawkes Energy internal analysis, 2025'
   ];
 
   const painPointsData = [
@@ -787,10 +817,10 @@ function ProblemSection() {
       dataPoint: 'EV interest rates 26% higher than ICE vehicles in India',
       source: 'ADB, BCG, Niti Aayog Report',
       painPoints: [
-        'Stage 1 (Origination): Many buyers lack credit histories, high upfront EV cost',
-        'Stage 2 (Risk Assessment): No secondary market, outdated ICE-style templates, limited performance data on EVs',
-        'Stage 3 (Monitoring): Reluctance to share IoT data, limited technician/service network',
-        'Stage 4 (Recovery): No traceability of battery health, no centralized usage/battery database'
+        'Lack of high-quality battery data and diagnostics',
+        'Limited data transparency affecting risk assessment accuracy',
+        'Inability to predict or quantify premature battery degradation',
+        'Inadequate ICE-based risk models for evaluating EV performance and value'
       ]
     },
     {
