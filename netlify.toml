@@ -1,20 +1,11 @@
 [build]
   command = "npm run build:no-compress"
   publish = "out"
-  # Force static site - ignore framework detection
-  ignore_install_scripts = false
 
 [build.environment]
   NODE_VERSION = "20"
   # Disable Next.js runtime - force pure static export
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
-
-# Redirects for SPA behavior (optional, but good for client-side routing)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  conditions = {Role = ["admin"]}
 
 # Headers for caching static assets
 [[headers]]
