@@ -129,3 +129,14 @@ videos/
 
 # Temporary files
 serve.js
+server.py
+
+# Build artifacts
+.ui-baseline-hash.txt
+build_error.log
+
+# External tool configs (not Netlify)
+windsurf_deployment.yaml
+
+# Data files
+*.csv
