@@ -49,6 +49,28 @@ export const post = defineType({
             title: 'Body',
             type: 'blockContent',
         }),
+        defineField({
+            name: 'postStyle',
+            title: 'Post Layout Style',
+            type: 'string',
+            description: 'Choose the visual layout style for this post',
+            options: {
+                list: [
+                    { title: 'Immersive Story', value: 'immersive' },
+                    { title: 'Magazine', value: 'magazine' },
+                    { title: 'Minimal', value: 'minimal' },
+                ],
+                layout: 'radio',
+            },
+            initialValue: 'immersive',
+        }),
+        defineField({
+            name: 'excerpt',
+            title: 'Excerpt',
+            type: 'text',
+            rows: 3,
+            description: 'Short summary for previews and SEO (150-200 characters recommended)',
+        }),
     ],
 
     preview: {
