@@ -50,6 +50,16 @@ export const post = defineType({
             type: 'blockContent',
         }),
         defineField({
+            name: 'heroVideo',
+            title: 'Header Hero Video',
+            type: 'file',
+            options: {
+                accept: 'video/*',
+            },
+            description:
+                'Optional header video for immersive layout. Uses main image as fallback/poster.',
+        }),
+        defineField({
             name: 'postStyle',
             title: 'Post Layout Style',
             type: 'string',

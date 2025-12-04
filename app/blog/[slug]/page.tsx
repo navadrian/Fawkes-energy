@@ -7,6 +7,7 @@ async function getPost(slug: string) {
         _id,
         title,
         mainImage,
+        "heroVideoUrl": heroVideo.asset->url,
         body,
         publishedAt,
         excerpt,

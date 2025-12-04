@@ -13,6 +13,7 @@ interface Post {
     _id: string
     title: string
     mainImage?: any
+    heroVideoUrl?: string
     body: any
     publishedAt: string
     excerpt?: string
@@ -56,14 +57,25 @@ export default function ImmersiveLayout({ post }: ImmersiveLayoutProps) {
 
             {/* Immersive Hero Section */}
             <section className="relative h-screen flex items-end overflow-hidden">
-                {/* Background Image with Parallax */}
-                {post.mainImage ? (
-                    <div 
-                        className="absolute inset-0 w-full h-[120%]"
-                        style={{ 
-                            transform: `translateY(${scrollY * 0.3}px)`,
-                        }}
-                    >
+                {/* Background Media with Parallax (video preferred, image fallback) */}
+                <div
+                    className="absolute inset-0 w-full h-[120%] overflow-hidden"
+                    style={{
+                        transform: `translateY(${scrollY * 0.3}px)`,
+                    }}
+                >
+                    {post.heroVideoUrl ? (
+                        <video
+                            className="w-full h-full object-cover"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            poster={post.mainImage ? urlForImage(post.mainImage).url() : undefined}
+                        >
+                            <source src={post.heroVideoUrl} />
+                        </video>
+                    ) : post.mainImage ? (
                         <Image
                             src={urlForImage(post.mainImage).url()}
                             alt={post.title}
@@ -71,10 +83,10 @@ export default function ImmersiveLayout({ post }: ImmersiveLayoutProps) {
                             className="object-cover"
                             priority
                         />
-                    </div>
-                ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-primary/10 to-background" />
-                )}
+                    ) : (
+                        <div className="h-full w-full bg-gradient-to-br from-primary/30 via-primary/10 to-background" />
+                    )}
+                </div>
 
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
