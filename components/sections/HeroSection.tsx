@@ -49,7 +49,7 @@ export default function HeroSection() {
     const shouldLoadVideo = !hasSlowConnection && isInView;
 
     return (
-        <AnimatedSection id="hero" className="min-h-screen flex items-center justify-center pt-16 px-6">
+        <AnimatedSection id="hero" className="min-h-screen flex items-start md:items-center justify-center pt-20 md:pt-16 px-6">
             <div
                 ref={containerRef}
                 className="relative w-full max-w-6xl h-[70vh] md:h-[80vh] overflow-hidden rounded-lg shadow-2xl"
