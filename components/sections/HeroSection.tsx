@@ -111,7 +111,7 @@ export default function HeroSection() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-transparent" />
 
                 {/* Content */}
-                <div className="relative h-full flex items-center justify-start p-6 md:p-12 min-h-[60vh]">
+                <div className="relative h-full flex items-end justify-start px-6 pb-10 pt-20 md:px-12 md:pb-16 md:pt-24 min-h-[60vh]">
                     <div className="max-w-2xl">
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading leading-tight text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
                             Deep Tech Battery Intelligence
