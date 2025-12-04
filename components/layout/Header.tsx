@@ -50,7 +50,13 @@ export default function Header() {
     );
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+        <header
+            className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-border ${
+                activeSection === 'hero'
+                    ? 'bg-background/40 md:bg-background/80'
+                    : 'bg-background/80'
+            }`}
+        >
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between py-4">
                 <div className="flex items-center">
                     <a href="#hero" aria-label="Fawkes Energy Home">
