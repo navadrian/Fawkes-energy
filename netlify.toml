@@ -1,27 +1,29 @@
 [build]
-  command = "npm run build"
+  command = "npm run build:no-compress"
   publish = "out"
-  
+
 [build.environment]
   NODE_VERSION = "18"
 
+# Redirects for SPA behavior (optional, but good for client-side routing)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  conditions = {Role = ["admin"]}
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+# Headers for caching static assets
+[[headers]]
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
-[[forms]]
-  name = "contact"
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
 
-[[forms.notifications]]
-  for = "contact"
-  email = "medha@fawkes.energy"
-
-[context.production]
-  command = "npm run build"
-
-[context.deploy-preview]
-  command = "npm run build"
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
