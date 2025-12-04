@@ -3,6 +3,7 @@
 import React from 'react'
 import AnimatedSection from '../ui/AnimatedSection'
 import { useVideoOptimization } from '@/hooks/useVideoOptimization'
+import HeroScrollIndicator from '../ui/HeroScrollIndicator'
 
 export default function HeroSection() {
     const {
@@ -120,6 +121,9 @@ export default function HeroSection() {
                             Unlocking safety, performance, and sustainability across the entire battery lifecycle through a unified intelligence layer.
                         </p>
                     </div>
+
+                    {/* Scroll indicator to next section */}
+                    <HeroScrollIndicator targetId="problem" />
                 </div>
             </div>
         </AnimatedSection>

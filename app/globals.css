@@ -119,6 +119,22 @@
     @apply text-base text-muted-foreground leading-relaxed;
   }
 
+  /* Soft staggered chevron animation for hero scroll indicator */
+  @keyframes chevron-soft {
+    0%, 100% {
+      opacity: 0.2;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translateY(4px);
+    }
+  }
+
+  .animate-chevron-soft {
+    animation: chevron-soft 1.6s ease-in-out infinite;
+  }
+
   /* Focus-visible styles for accessibility */
   *:focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
