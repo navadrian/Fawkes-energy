@@ -27,11 +27,11 @@ export default function HeroSection() {
             // Mobile-optimized sources - smaller file sizes, lower resolution
             return (
                 <>
-                    <source src="/videos/hero-video-mobile.webm" type="video/webm" />
-                    <source src="/videos/hero-video-mobile.mp4" type="video/mp4" />
+                    <source src="/videos/hero-mobile.webm" type="video/webm" />
+                    <source src="/videos/hero-mobile.mp4" type="video/mp4" />
                     {/* Fallback to desktop versions if mobile versions aren't available */}
-                    <source src="/videos/hero-video.webm" type="video/webm" />
-                    <source src="/videos/hero-video.mp4" type="video/mp4" />
+                    <source src="/videos/hero.webm" type="video/webm" />
+                    <source src="/videos/hero.mp4" type="video/mp4" />
                 </>
             );
         }
@@ -39,8 +39,8 @@ export default function HeroSection() {
         // Desktop sources - full quality
         return (
             <>
-                <source src="/videos/hero-video.webm" type="video/webm" />
-                <source src="/videos/hero-video.mp4" type="video/mp4" />
+                <source src="/videos/hero.webm" type="video/webm" />
+                <source src="/videos/hero.mp4" type="video/mp4" />
             </>
         );
     };
@@ -63,7 +63,7 @@ export default function HeroSection() {
                         loop
                         playsInline
                         preload={isMobile ? "metadata" : "auto"}
-                        poster="/images/hero-video-poster.jpg"
+                        poster="/images/hero-poster.jpg"
                         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${isVideoLoaded ? 'opacity-100' : 'opacity-0'
                             }`}
                         onLoadedData={handleVideoLoad}
@@ -91,7 +91,7 @@ export default function HeroSection() {
                     className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-700 ${shouldLoadVideo && isVideoLoaded ? 'opacity-0' : 'opacity-100'
                         }`}
                     style={{
-                        backgroundImage: 'url(/images/hero-video-poster.jpg)',
+                        backgroundImage: 'url(/images/hero-poster.jpg)',
                         backgroundPosition: 'center',
                         backgroundSize: 'cover'
                     }}
