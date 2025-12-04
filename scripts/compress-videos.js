@@ -132,13 +132,12 @@ function generatePosterImage(inputFile) {
     console.log(`📸 Generating poster: ${inputFile} → ${shortName}-poster.jpg`);
 
     ffmpeg(inputPath)
-      .seekInput(5) // Take frame at 5 seconds
+      .seekInput(1) // Take frame at 1 second (in case video is short)
       .frames(1)
-      .size('1920x1080')
       .format('image2')
       .outputOptions([
         '-q:v 2', // High quality JPEG
-        '-vf scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080'
+        `-vf scale=w='min(1920,iw)':h='min(1080,ih)':force_original_aspect_ratio=decrease`
       ])
       .on('end', () => {
         console.log(`   ✅ Poster generated: ${shortName}-poster.jpg`);
@@ -163,12 +162,15 @@ function compressVideo(inputFile, format) {
 
     console.log(`🎬 Processing: ${inputFile} → ${outputFilename}`);
 
+    // Scale filter that maintains aspect ratio without adding black bars
+    // Also ensures even dimensions (required for h264)
+    const scaleFilter = `scale=w='min(${format.maxWidth},iw)':h='min(${format.maxHeight},ih)':force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2`;
+
     let command = ffmpeg(inputPath)
       .videoCodec(format.codec)
-      .size(`${format.maxWidth}x${format.maxHeight}`)
       .fps(format.framerate)
-      .autopad()
-      .noAudio(); // Remove audio for background videos
+      .noAudio() // Remove audio for background videos
+      .outputOptions([`-vf`, scaleFilter]);
 
     // Apply format-specific options
     if (format.extension === 'webm') {

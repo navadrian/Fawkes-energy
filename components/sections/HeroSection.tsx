@@ -1,0 +1,127 @@
+'use client'
+
+import React from 'react'
+import AnimatedSection from '../ui/AnimatedSection'
+import { useVideoOptimization } from '@/hooks/useVideoOptimization'
+
+export default function HeroSection() {
+    const {
+        videoRef,
+        containerRef,
+        isVideoLoaded,
+        isMobile,
+        hasSlowConnection,
+        isInView,
+        handleVideoLoad,
+        handleVideoError
+    } = useVideoOptimization();
+
+    // Video optimization strategy based on device and connection
+    const getVideoSources = () => {
+        if (hasSlowConnection) {
+            // For slow connections, skip video entirely
+            return null;
+        }
+
+        if (isMobile) {
+            // Mobile-optimized sources - smaller file sizes, lower resolution
+            return (
+                <>
+                    <source src="/videos/hero-video-mobile.webm" type="video/webm" />
+                    <source src="/videos/hero-video-mobile.mp4" type="video/mp4" />
+                    {/* Fallback to desktop versions if mobile versions aren't available */}
+                    <source src="/videos/hero-video.webm" type="video/webm" />
+                    <source src="/videos/hero-video.mp4" type="video/mp4" />
+                </>
+            );
+        }
+
+        // Desktop sources - full quality
+        return (
+            <>
+                <source src="/videos/hero-video.webm" type="video/webm" />
+                <source src="/videos/hero-video.mp4" type="video/mp4" />
+            </>
+        );
+    };
+
+    // Determine if video should be loaded
+    const shouldLoadVideo = !hasSlowConnection && isInView;
+
+    return (
+        <AnimatedSection id="hero" className="min-h-screen flex items-center justify-center pt-16 px-6">
+            <div
+                ref={containerRef}
+                className="relative w-full max-w-6xl h-[70vh] md:h-[80vh] overflow-hidden rounded-lg shadow-2xl"
+            >
+                {/* Video Background - Lazy loaded and optimized */}
+                {shouldLoadVideo && (
+                    <video
+                        ref={videoRef}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload={isMobile ? "metadata" : "auto"}
+                        poster="/images/hero-video-poster.jpg"
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${isVideoLoaded ? 'opacity-100' : 'opacity-0'
+                            }`}
+                        onLoadedData={handleVideoLoad}
+                        onError={handleVideoError}
+                        // Mobile-specific optimizations
+                        style={{
+                            willChange: isVideoLoaded ? 'auto' : 'opacity',
+                            transform: 'translateZ(0)', // Force hardware acceleration
+                            backfaceVisibility: 'hidden', // Improve performance
+                        }}
+                        // Reduce memory usage on mobile
+                        {...(isMobile && {
+                            'x-webkit-airplay': 'deny',
+                            'webkit-playsinline': true,
+                            disablePictureInPicture: true,
+                            controlsList: 'nodownload noplaybackrate',
+                        })}
+                    >
+                        {getVideoSources()}
+                    </video>
+                )}
+
+                {/* Fallback background - Always present for instant display */}
+                <div
+                    className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-700 ${shouldLoadVideo && isVideoLoaded ? 'opacity-0' : 'opacity-100'
+                        }`}
+                    style={{
+                        backgroundImage: 'url(/images/hero-video-poster.jpg)',
+                        backgroundPosition: 'center',
+                        backgroundSize: 'cover'
+                    }}
+                />
+
+                {/* Loading indicator */}
+                {shouldLoadVideo && !isVideoLoaded && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50">
+                        <div className="flex flex-col items-center space-y-3">
+                            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                            <p className="text-white/70 text-sm">Loading video...</p>
+                        </div>
+                    </div>
+                )}
+
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-transparent" />
+
+                {/* Content */}
+                <div className="relative h-full flex items-center justify-start p-6 md:p-12 min-h-[60vh]">
+                    <div className="max-w-2xl">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading leading-tight text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+                            Deep Tech Battery Intelligence
+                        </h1>
+                        <p className="text-lg text-white/90 leading-relaxed" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                            Unlocking safety, performance, and sustainability across the entire battery lifecycle through a unified intelligence layer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </AnimatedSection>
+    );
+}

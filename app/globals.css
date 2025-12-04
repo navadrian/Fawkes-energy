@@ -47,7 +47,7 @@
     --secondary: 12 6.5% 15.1%;
     --secondary-foreground: 60 9.1% 97.8%;
     --muted: 12 6.5% 15.1%;
-    --muted-foreground: 24 5.4% 63.9%;
+    --muted-foreground: 24 5.4% 75%;
     --accent: 12 6.5% 15.1%;
     --accent-foreground: 60 9.1% 97.8%;
     --destructive: 0 62.8% 30.6%;
@@ -60,6 +60,10 @@
     --chart-3: 30 100% 65%;
     --chart-4: 270 100% 75%;
     --chart-5: 340 100% 70%;
+    /* Surface level tokens for better hierarchy */
+    --surface-1: 12 6.5% 15.1%;
+    --surface-2: 12 6.5% 18%;
+    --surface-3: 12 6.5% 20%;
   }
 
   * {
@@ -92,5 +96,31 @@
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+
+  /* Typography utility classes */
+  .text-heading-xl {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold font-heading;
+  }
+
+  .text-heading-lg {
+    @apply text-2xl md:text-3xl font-bold font-heading;
+  }
+
+  .text-heading-md {
+    @apply text-xl md:text-2xl font-semibold font-heading;
+  }
+
+  .text-body-lg {
+    @apply text-lg text-muted-foreground leading-relaxed;
+  }
+
+  .text-body-base {
+    @apply text-base text-muted-foreground leading-relaxed;
+  }
+
+  /* Focus-visible styles for accessibility */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
   }
 }
