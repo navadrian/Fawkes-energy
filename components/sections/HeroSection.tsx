@@ -98,15 +98,7 @@ export default function HeroSection() {
                     }}
                 />
 
-                {/* Loading indicator */}
-                {shouldLoadVideo && !isVideoLoaded && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50">
-                        <div className="flex flex-col items-center space-y-3">
-                            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                            <p className="text-white/70 text-sm">Loading video...</p>
-                        </div>
-                    </div>
-                )}
+                {/* Poster image shows until video loads - no loading spinner needed */}
 
                 {/* Dark Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-transparent" />

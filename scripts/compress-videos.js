@@ -13,59 +13,59 @@ const config = {
   inputDir: 'videos',
   outputDir: 'public/videos',
   formats: [
-    // Desktop versions
+    // Desktop versions - optimized for faster loading
     {
       extension: 'webm',
       codec: 'libvpx-vp9',
       suffix: '',
       options: {
-        crf: 30,
-        bitrate: '2M',
+        crf: 35,        // Higher CRF = smaller file (was 30)
+        bitrate: '1.2M', // Reduced from 2M
         preset: 'slow'
       },
       maxWidth: 1920,
       maxHeight: 1080,
-      framerate: 30
+      framerate: 24     // Reduced from 30fps - fine for background videos
     },
     {
       extension: 'mp4',
       codec: 'libx264',
       suffix: '',
       options: {
-        crf: 23,
+        crf: 28,        // Higher CRF = smaller file (was 23)
         preset: 'medium',
-        bitrate: '2M'
+        bitrate: '1.2M' // Reduced from 2M
       },
       maxWidth: 1920,
       maxHeight: 1080,
-      framerate: 30
+      framerate: 24     // Reduced from 30fps
     },
-    // Mobile-optimized versions
+    // Mobile-optimized versions - aggressive compression
     {
       extension: 'webm',
       codec: 'libvpx-vp9',
       suffix: '-mobile',
       options: {
-        crf: 35,
-        bitrate: '800k',
+        crf: 40,        // Higher CRF (was 35)
+        bitrate: '500k', // Reduced from 800k
         preset: 'fast'
       },
-      maxWidth: 720,
-      maxHeight: 480,
-      framerate: 24
+      maxWidth: 640,    // Reduced from 720
+      maxHeight: 360,   // Reduced from 480
+      framerate: 20     // Reduced from 24fps
     },
     {
       extension: 'mp4',
       codec: 'libx264',
       suffix: '-mobile',
       options: {
-        crf: 28,
+        crf: 32,        // Higher CRF (was 28)
         preset: 'fast',
-        bitrate: '800k'
+        bitrate: '500k' // Reduced from 800k
       },
-      maxWidth: 720,
-      maxHeight: 480,
-      framerate: 24
+      maxWidth: 640,    // Reduced from 720
+      maxHeight: 360,   // Reduced from 480
+      framerate: 20     // Reduced from 24fps
     }
   ]
 };
