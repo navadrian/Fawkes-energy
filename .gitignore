@@ -123,9 +123,10 @@ test-results/
 playwright-report/
 playwright/.cache/
 
-# Large video files (keep only compressed versions)
-videos/
-!videos/.gitkeep
+# Large video source files (uncompressed originals)
+/videos/
+!/videos/.gitkeep
+# Note: public/videos/ (compressed) IS tracked in git
 
 # Temporary files
 serve.js
